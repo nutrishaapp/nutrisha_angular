@@ -31,6 +31,7 @@ import { UserActions } from './core/store/auth';
 import { Observable, of } from 'rxjs';
 import { NoAccessComponent } from './core/shared/no-access/no-access.component';
 import { ConfirmDialogComponent } from './core/shared/confirm-dialog/confirm-dialog.component';
+import { DialogComponent } from './pages/mobile-user/mobile-user-details/sub/dialog/dialog.component';
 
 declare const languageFileVersion: string;
 function initializeAppFactory(store: Store): () => Observable<any> {
@@ -48,6 +49,7 @@ function initializeAppFactory(store: Store): () => Observable<any> {
     LoaderComponent,
     NoAccessComponent,
     ConfirmDialogComponent,
+    DialogComponent,
   ],
   imports: [
     BrowserModule,
@@ -96,4 +98,4 @@ function initializeAppFactory(store: Store): () => Observable<any> {
   ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

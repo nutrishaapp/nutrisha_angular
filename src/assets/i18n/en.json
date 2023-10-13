@@ -123,6 +123,8 @@
     "SIGN_UP_DATE": "Sign up date",
     "NAME": "Name",
     "EMAIL": "Email",
+    "NOTES_FOR_DOCTORS": "Notes for Doctors",
+    "TRACKERS": "Trackers",
     "FILTERS": {
       "NEW_USER": "New User",
       "FOLLOW_UP": "Followups"

@@ -123,6 +123,8 @@
     "SIGN_UP_DATE": "تاريخ تسجيل الدخول",
     "NAME": "الإسم",
     "EMAIL": "البريد الإلكترونى",
+    "NOTES_FOR_DOCTORS": "ملاحظات للأطباء",
+    "TRACKERS": "المتابعات",
     "FILTERS": {
       "NEW_USER": "مستخدم جديد",
       "FOLLOW_UP": "متابعة"

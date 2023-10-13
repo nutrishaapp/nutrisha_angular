@@ -45,6 +45,24 @@
               {{ userDetails?.name ?? ("SHARED.NOT_AVAILABLE" | translate) }}
             </p>
           </div>
+          <div *ngxPermissionsOnly="'canBanAppUsers'" class="m-3">
+            <button
+              mat-stroked-button color="warn"
+              *ngIf="!userDetails.isBanned"
+              class="mt-2"
+              (click)="banUser(userDetails.id)"
+            >
+              {{ "MOBILE_USERS.BAN_USER" | translate }}
+            </button>
+            <button
+              mat-stroked-button color="warn"
+              *ngIf="userDetails.isBanned"
+              class="mt-2"
+              (click)="unBanUser(userDetails.id)"
+            >
+              {{ "MOBILE_USERS.UNBAN_USER" | translate }}
+            </button>
+          </div>
         </div>
 
         <div
@@ -201,30 +219,9 @@
     <div class="w-100 d-flex flex-fill">
       <div class="user-meals" *ngIf="userDetails.isSubscribed">
         <div *ngxPermissionsOnly="'canViewAppUserContactInfo'" class="section">
-          <div class="p-3 d-flex justify-content-between align-items-center">
-            <p class="m-0">{{ "MEALS_PLAN.TITLE" | translate }}</p>
-
-            <div class="w-75" *ngIf="userDetails?.isSubscribed">
-              <button
-                *ngxPermissionsOnly="'canAssignMealPlanToAppUsers'"
-                mat-flat-button
-                color="primary"
-                class="w-100 radius-4"
-                (click)="
-                  router.navigateByUrl(
-                    '/plans/templates/user/' + userDetails?.id
-                  )
-                "
-              >
-                {{ "MEALS_PLAN.CHOOSE_FROM_TEMPLATE" | translate }}
-              </button>
-            </div>
-
-            <!--          {{ "MEALS_PLAN.ADD_NEW_PLAN" | translate }}-->
-          </div>
           <mat-tab-group class="w-100">
             <div>
-              <mat-tab label="{{ 'MEALS_PLAN.CURRENT_PLAN' | translate }}">
+              <mat-tab label="{{ 'MOBILE_USERS.NOTES_FOR_DOCTORS' | translate }}">
                 <div class="mt-2">
                   <app-day-of-week-tabs
                     [(selectedDay)]="currentPlanSelectedDay"
@@ -239,7 +236,7 @@
               </mat-tab>
             </div>
             <div>
-              <mat-tab label="{{ 'MEALS_PLAN.PREVIOUS_PLAN' | translate }}">
+              <mat-tab label="{{ 'MOBILE_USERS.TRACKERS' | translate }}">
                 <div class="mt-2">
                   <app-day-of-week-tabs
                     [(selectedDay)]="lastPlanSelectedDay"
@@ -298,6 +295,26 @@
             </button>
           </div>
         </div>
+        <div class="p-3 d-flex justify-content-between align-items-center">
+          <p class="m-0">{{ "MEALS_PLAN.TITLE" | translate }}</p>
+
+          <div *ngIf="userDetails?.isSubscribed">
+            <button
+              *ngxPermissionsOnly="'canAssignMealPlanToAppUsers'"
+              mat-flat-button
+              color="primary"
+              (click)="
+                router.navigateByUrl(
+                  '/plans/templates/user/' + userDetails?.id
+                )
+              "
+            >
+              {{ "MEALS_PLAN.CHOOSE_FROM_TEMPLATE" | translate }}
+            </button>
+          </div>
+
+          <!--          {{ "MEALS_PLAN.ADD_NEW_PLAN" | translate }}-->
+        </div>
         <div class="section user-health">
           <div class="user-health-header">
             {{ "MEALS_PLAN.LAST_USED_TEMPLATES" | translate }}
@@ -320,37 +337,8 @@
             </div>
           </div>
         </div>
-        <div class="section user-health">
-          <div class="user-health-header">
-            {{ "MOBILE_USERS.CURRENT_PLAN_NOTES" | translate }}
-          </div>
-          <div class="user-health-details">
-            {{
-              userDetails?.currentPlan?.notes ??
-                ("SHARED.NOT_AVAILABLE" | translate)
-            }}
-          </div>
-        </div>
       </div>
     </div>
-
-    <div *ngxPermissionsOnly="'canBanAppUsers'">
-      <button
-        *ngIf="!userDetails.isBanned"
-        class="mt-2 ban-user"
-        (click)="banUser(userDetails.id)"
-      >
-        {{ "MOBILE_USERS.BAN_USER" | translate }}
-      </button>
-      <button
-        *ngIf="userDetails.isBanned"
-        class="mt-2 ban-user"
-        (click)="unBanUser(userDetails.id)"
-      >
-        {{ "MOBILE_USERS.UNBAN_USER" | translate }}
-      </button>
-    </div>
-
     <a
       class="message-icon"
       href="https://dashboard.kommunicate.io/"
