@@ -125,6 +125,7 @@
     "EMAIL": "Email",
     "NOTES_FOR_DOCTORS": "Notes for Doctors",
     "TRACKERS": "Trackers",
+    "ADD_NOTES": "Add Notes",
     "FILTERS": {
       "NEW_USER": "New User",
       "FOLLOW_UP": "Followups"

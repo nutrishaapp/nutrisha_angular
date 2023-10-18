@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpRequest, HttpEventType } from "@angular/common/http";
 import { TranslationService, SplashScreenService } from './core/shared';
 import { Store } from '@ngxs/store';
 import { Subject, takeUntil } from 'rxjs';
@@ -10,12 +11,14 @@ import { Subject, takeUntil } from 'rxjs';
 })
 export class AppComponent implements OnInit, OnDestroy {
   private _unsubscribe = new Subject<void>();
+  title = 'frontend';
+
 
   constructor(
     private store: Store,
     public translationService: TranslationService,
-    private splashScreenService: SplashScreenService
-  ) {}
+    private splashScreenService: SplashScreenService,
+  ) { }
 
   ngOnInit(): void {
     setTimeout(() => {

@@ -18,7 +18,7 @@ import { NavHeaderTitleService, SplashScreenService } from './core/shared';
 import { HeaderTitleComponent } from './pages/shared/header-title/header-title.component';
 import { environment } from '../environments/environment';
 import { InterceptorService } from './core/interceptors/interceptor.service';
-
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from './pages/shared/material';
 import { LoaderComponent } from './core/loader/loader.component';
 import { SharedModule } from './pages/shared/shared.module';
@@ -32,6 +32,7 @@ import { Observable, of } from 'rxjs';
 import { NoAccessComponent } from './core/shared/no-access/no-access.component';
 import { ConfirmDialogComponent } from './core/shared/confirm-dialog/confirm-dialog.component';
 import { DialogComponent } from './pages/mobile-user/mobile-user-details/sub/dialog/dialog.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 declare const languageFileVersion: string;
 function initializeAppFactory(store: Store): () => Observable<any> {
@@ -52,6 +53,8 @@ function initializeAppFactory(store: Store): () => Observable<any> {
     DialogComponent,
   ],
   imports: [
+    ReactiveFormsModule,
+    FormsModule,
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,

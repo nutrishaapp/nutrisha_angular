@@ -1,1 +1,79 @@
-<p>dialog works!</p>
+
+<div>
+      <mat-dialog-content>
+        <form [formGroup]="noteForm">
+        <h1 mat-dialog-title>Add Notes Form</h1>
+          <mat-form-field class="w-100">
+            <mat-label>Title</mat-label>
+            <input
+              required
+              formControlName="title"
+              matInput
+              placeholder="Title"
+            />
+          </mat-form-field>
+          <mat-form-field class="w-100">
+            <mat-label>Notes</mat-label>
+            <textarea
+              required
+              formControlName="notes"
+              matInput
+            ></textarea>
+          </mat-form-field>
+          <div class="d-flex justify-content-end m-3" *ngxPermissionsOnly="'canAssignPremiumFeaturesToAppUsers'">
+            <button mat-raised-button
+            color="primary"><span class="text-white" (click)="addnote()">{{actionBtn}}</span></button>
+            <button mat-raised-button mat-dialog-close style="margin-left: 8px;">Close</button>
+          </div>
+        </form>
+        </mat-dialog-content>
+   
+    <!-- <div>
+        <mat-toolbar *ngIf="currentFile" class="progress-bar m-3" >
+          <mat-progress-bar color="accent" [value]="progress"></mat-progress-bar>
+          <span class="progress">{{ progress }}%</span>
+        </mat-toolbar>
+      
+        <mat-form-field>
+          <div>
+            <mat-toolbar>
+              <input matInput [value]="fileName" />
+      
+              <button
+                mat-flat-button
+                color="primary"
+                [disabled]="!currentFile"
+                (click)="upload()"
+              >
+                Upload
+              </button>
+            </mat-toolbar>
+      
+            <input
+              type="file"
+              id="fileInput"
+              (change)="selectFile($event)"
+              name="fileInput"
+            />
+          </div>
+        </mat-form-field>
+      </div>
+      
+      <div *ngIf="message" class="message" class="m-3">
+        {{ message }}
+      </div>
+      
+      <mat-card class="example-card">
+        <mat-card-header>
+          <mat-card-title>List of Files</mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+          <mat-list role="list">
+            <mat-list-item role="listitem" *ngFor="let file of fileInfos | async" class="m-3">
+              <a href="{{ file.url }}">{{ file.name }}</a>
+            </mat-list-item>
+          </mat-list>
+        </mat-card-content>
+      </mat-card> -->
+  </div>
+  

@@ -4,8 +4,8 @@ import { MealPlan } from './user-plan.day';
 
 export interface UserPlanTemplateModel {
   startDate: Date;
-    templateName: string;
-    mealPlanId: number;
+  templateName: string;
+  mealPlanId: number;
 }
 
 export class MobileUserDetailsViewModel extends MobileUserListModel {
@@ -21,6 +21,10 @@ export class MobileUserDetailsViewModel extends MobileUserListModel {
   userRisks: string[];
   currentPlan;
   previousPlan;
+  dropFiles;
+  selectedFiles;
+  dragOverHandler;
+  openDialog;
   lastUsedTemplates: UserPlanTemplateModel[];
 
   isBanned: boolean;
@@ -44,6 +48,10 @@ export class MobileUserDetailsModel extends MobileUserListModel {
   currentWeight: number;
   weightLoss: number;
   isBanned: boolean;
+  dropFiles;
+  selectedFiles;
+  dragOverHandler;
+  openDialog;
   userMealPlans: {
     lastPlan: MealPlan;
     previousPlan: MealPlan;

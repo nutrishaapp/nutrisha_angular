@@ -83,7 +83,7 @@
   padding: 10px;
   color: white;
 
-  & > * {
+  &>* {
     text-align: center;
   }
 }
@@ -153,4 +153,17 @@
 
 .manual-subscription-icon {
   font-size: 1.2rem;
+}
+
+table {
+  width: 100%;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+.mat-header-cell {
+  color: white
 }

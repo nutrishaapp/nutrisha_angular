@@ -125,6 +125,7 @@
     "EMAIL": "البريد الإلكترونى",
     "NOTES_FOR_DOCTORS": "ملاحظات للأطباء",
     "TRACKERS": "المتابعات",
+    "ADD_NOTES": "إضافة ملاحظات",
     "FILTERS": {
       "NEW_USER": "مستخدم جديد",
       "FOLLOW_UP": "متابعة"

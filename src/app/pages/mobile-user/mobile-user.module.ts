@@ -46,4 +46,4 @@ import { MakePremiumComponent } from './mobile-user-details/sub/make-premium/mak
   ],
   providers: [MobileUserService],
 })
-export class MobileUserModule {}
+export class MobileUserModule { }
