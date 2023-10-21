@@ -3,7 +3,7 @@ import { HttpClient, HttpEventType, HttpHeaders, HttpRequest } from '@angular/co
 import { Select, Store } from '@ngxs/store';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MobileUserActions } from '../../../core/store/mobile-users/mobile-user.actions';
-import { Observable, of, switchMap, takeUntil, tap } from 'rxjs';
+import { Observable, Subject, of, switchMap, takeUntil, tap } from 'rxjs';
 import {
   MobileUserDetailsModel,
   MobileUserDetailsViewModel,
@@ -22,6 +22,10 @@ import { DialogComponent } from './sub/dialog/dialog.component';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { UploadDocumentDialogComponent } from './sub/upload-document-dialog/upload-document-dialog.component';
+import { UserDocumentsDialogComponent } from './sub/user-documents-dialog/user-documents-dialog.component';
+import { userInfo } from 'os';
+import { MealPlanListModel } from 'src/app/core/meal-plan/models/meal-plan-list.model';
 
 
 @UntilDestroy()
@@ -93,7 +97,6 @@ export class MobileUserDetailsComponent implements OnInit {
         switchMap((response) => {
           if (response) {
             this.mobileUserService.ban(id).subscribe((result) => {
-              console.log(result);
               if (result.statusCode == 200) {
                 if (result.done == true) {
                   this.userDetails.isBanned = true;
@@ -117,7 +120,6 @@ export class MobileUserDetailsComponent implements OnInit {
         switchMap((response) => {
           if (response) {
             this.mobileUserService.unBan(id).subscribe((result) => {
-              console.log(result);
               if (result.statusCode == 200) {
                 if (result.done == true) {
                   this.userDetails.isBanned = false;
@@ -134,7 +136,6 @@ export class MobileUserDetailsComponent implements OnInit {
   }
 
   deleteMealPlan(mealPlanId: number, userId: string) {
-
     this.matDialog
       .open(ConfirmDialogComponent, {})
       .afterClosed()
@@ -145,16 +146,17 @@ export class MobileUserDetailsComponent implements OnInit {
               .delete(mealPlanId.toString())
               .pipe(
                 tap(async () => {
-                  await this.router.navigateByUrl(`/app/users`);
+                  await this.loadUserDetails(this.userId)
                 }));
           }
-
           return of(false);
         }),
         untilDestroyed(this)
       )
       .subscribe();
   }
+
+
   openMakePremiumDialog() {
     const makePremiumDialog = this.matDialog.open(MakePremiumComponent, {
       data: { userId: this.userId },
@@ -187,10 +189,20 @@ export class MobileUserDetailsComponent implements OnInit {
   getAllNotes() {
     this.mobileUserService.getUserNotes(this.userId).subscribe({
       next: (res) => {
-        console.log(res.data);
         this.dataSource = new MatTableDataSource(res.data);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
+      },
+      error: (err) => {
+        alert("Error while fetching the Records")
+      },
+    });
+  }
+
+  getUserDocuments() {
+    this.mobileUserService.getFiles(this.userId).subscribe({
+      next: (res) => {
+        console.log(res.data);
       },
       error: (err) => {
         alert("Error while fetching the Records")
@@ -208,16 +220,39 @@ export class MobileUserDetailsComponent implements OnInit {
       }
     });
   }
+
+  uploadDocument(row: any) {
+    this.dialog.open(UploadDocumentDialogComponent, {
+      width: '40%',
+      data: row
+    }).afterClosed().subscribe(val => {
+    });
+  }
+
+  userDocuments() {
+    this.dialog.open(UserDocumentsDialogComponent, {
+      width: '40%',
+    }).afterClosed().subscribe(val => { });
+  }
+
   deleteNote(id: number) {
-    this.mobileUserService.deleteNote(id).subscribe({
-      next: (res) => {
-        alert("Note Deleted successfully");
-        this.getAllNotes();
-      },
-      error: () => {
-        alert("Error while Deleted the note")
-      }
-    })
+    this.matDialog
+      .open(ConfirmDialogComponent, {})
+      .afterClosed()
+      .pipe(
+        switchMap((d) => {
+          if (d) {
+            return this.mobileUserService.deleteNote(id)
+              .pipe(
+                tap(async () => {
+                  await this.getAllNotes()
+                }));
+          }
+          return of(false);
+        }),
+        untilDestroyed(this)
+      )
+      .subscribe();
   }
 
   applyFilter(event: Event) {

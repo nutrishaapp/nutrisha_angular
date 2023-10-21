@@ -14,10 +14,11 @@ import { MobileUserDetailsModel } from './models/mobile-user-details.model';
 import { ActivatedRoute } from '@angular/router';
 
 const mobileUserBaseUrl = environment.baseAdminV1Url + 'MobileUser/';
+const BaseUrl = environment.baseAdminV1Url;
+
 
 @Injectable()
 export class MobileUserService implements OnInit {
-  private baseUrl = 'https://dev.api.nutrisha.app';
   userId: string;
   constructor(private httpClient: HttpClient, private activatedRoute: ActivatedRoute) { }
   ngOnInit(): void {
@@ -98,14 +99,15 @@ export class MobileUserService implements OnInit {
     );
   }
 
-  upload(file: File, userId: string, name: string): Observable<HttpEvent<any>> {
+  upload(file: File, userId: string, name: string, id: string): Observable<HttpEvent<any>> {
     const formData: FormData = new FormData();
 
     formData.append('url', file);
     formData.append('userId', userId);
     formData.append('name', name);
+    formData.append('userNoteId', id);
 
-    const req = new HttpRequest('POST', `${this.baseUrl}/Admin/api/v1/UserAttachment/Post`, formData, {
+    const req = new HttpRequest('POST', `${BaseUrl}UserAttachment/Post`, formData, {
       reportProgress: true,
       responseType: 'json'
     });
@@ -114,19 +116,19 @@ export class MobileUserService implements OnInit {
   }
 
   getFiles(userId: string): Observable<any> {
-    return this.httpClient.get(`${this.baseUrl}/Admin/api/v1/UserAttachment/GetPagedList`,
+    return this.httpClient.get(`${BaseUrl}UserAttachment/GetPagedList`,
       {
         params: { userId },
       });
   }
 
   postNote(data: any) {
-    return this.httpClient.post<any>(`${this.baseUrl}/Admin/api/v1/UserNotes/Post`, data,
+    return this.httpClient.post<any>(`${BaseUrl}UserNotes/Post`, data,
     );
   }
 
   getUserNotes(userId: string): Observable<any> {
-    return this.httpClient.get(`${this.baseUrl}/Admin/api/v1/UserNotes/GetPagedList`,
+    return this.httpClient.get(`${BaseUrl}UserNotes/GetPagedList`,
       {
         params: { userId },
       }
@@ -134,12 +136,12 @@ export class MobileUserService implements OnInit {
   }
 
   putNote(data: any) {
-    return this.httpClient.put<any>(`${this.baseUrl}/Admin/api/v1/UserNotes/Put`, data,
+    return this.httpClient.put<any>(`${BaseUrl}UserNotes/Put`, data,
     );
   }
 
   deleteNote(id: number) {
-    return this.httpClient.delete<any>(`${this.baseUrl}/Admin/api/v1/UserNotes/Delete?id=${id}`
+    return this.httpClient.delete<any>(`${BaseUrl}UserNotes/Delete?id=${id}`
     );
   }
 }

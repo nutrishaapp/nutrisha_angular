@@ -33,6 +33,10 @@ import { NoAccessComponent } from './core/shared/no-access/no-access.component';
 import { ConfirmDialogComponent } from './core/shared/confirm-dialog/confirm-dialog.component';
 import { DialogComponent } from './pages/mobile-user/mobile-user-details/sub/dialog/dialog.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { UploadDocumentDialogComponent } from './pages/mobile-user/mobile-user-details/sub/upload-document-dialog/upload-document-dialog.component';
+import { UserDocumentsDialogComponent } from './pages/mobile-user/mobile-user-details/sub/user-documents-dialog/user-documents-dialog.component';
+import { RichTextModule } from './pages/shared/rich-text/rich-text.module';
+
 
 declare const languageFileVersion: string;
 function initializeAppFactory(store: Store): () => Observable<any> {
@@ -51,6 +55,8 @@ function initializeAppFactory(store: Store): () => Observable<any> {
     NoAccessComponent,
     ConfirmDialogComponent,
     DialogComponent,
+    UploadDocumentDialogComponent,
+    UserDocumentsDialogComponent,
   ],
   imports: [
     ReactiveFormsModule,
@@ -81,6 +87,8 @@ function initializeAppFactory(store: Store): () => Observable<any> {
     NgxsReduxDevtoolsPluginModule.forRoot(),
     NgxPermissionsModule.forRoot(),
     UserModule,
+    RichTextModule
+
   ],
   providers: [
     AuthService,

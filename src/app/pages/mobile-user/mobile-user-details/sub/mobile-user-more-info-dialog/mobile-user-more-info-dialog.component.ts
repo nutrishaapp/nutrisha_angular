@@ -15,8 +15,7 @@ import { Subject, takeUntil, tap } from 'rxjs';
   styleUrls: ['./mobile-user-more-info-dialog.component.scss'],
 })
 export class MobileUserMoreInfoDialogComponent
-  implements OnInit, OnDestroy, AfterViewInit
-{
+  implements OnInit, OnDestroy, AfterViewInit {
   userPersonalData: {
     activityLevel;
     numberOfMealsPerDay;
@@ -35,9 +34,9 @@ export class MobileUserMoreInfoDialogComponent
     private matDialogRef: MatDialogRef<any>,
     @Inject(MAT_DIALOG_DATA) private data: { userId: string },
     private mobileUserService: MobileUserService
-  ) {}
+  ) { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
 
   ngAfterViewInit(): void {
     this.mobileUserService
@@ -46,7 +45,6 @@ export class MobileUserMoreInfoDialogComponent
         takeUntil(this._unsubscribe),
         tap((result) => {
           this.userPersonalData = result.data;
-          console.log(result);
         })
       )
       .subscribe();

@@ -22,6 +22,8 @@ export class DialogComponent implements OnInit {
 
   fileName = 'Select File';
   fileInfos?: Observable<any>;
+  selectedLang: 'en' | 'ar' = 'en';
+  viewOnly = false;
 
 
   constructor(
@@ -45,49 +47,8 @@ export class DialogComponent implements OnInit {
       this.noteForm.controls['title'].setValue(this.editData.title);
       this.noteForm.controls['notes'].setValue(this.editData.notes);
     }
-    console.log(this.editData);
   }
 
-  selectFile(event: any): void {
-    if (event.target.files && event.target.files[0]) {
-      const file: File = event.target.files[0];
-      this.currentFile = file;
-      this.fileName = this.currentFile.name;
-    } else {
-      this.fileName = 'Select File';
-    }
-  }
-
-  upload(): void {
-    this.progress = 0;
-    this.message = "";
-
-
-    if (this.currentFile) {
-      this.mobileUserService.upload(this.currentFile, this.data.userId, this.fileName).subscribe(
-        (event: any) => {
-          if (event.type === HttpEventType.UploadProgress) {
-            this.progress = Math.round(100 * event.loaded / event.total);
-          } else if (event instanceof HttpResponse) {
-            this.message = event.body.message;
-            this.fileInfos = this.mobileUserService.getFiles(this.data.userId);
-          }
-        },
-        (err: any) => {
-          console.log(err);
-          this.progress = 0;
-
-          if (err.error && err.error.message) {
-            this.message = err.error.message;
-          } else {
-            this.message = 'Could not upload the file!';
-          }
-
-          this.currentFile = undefined;
-        });
-    }
-
-  }
 
   addnote() {
     if (!this.editData.id) {

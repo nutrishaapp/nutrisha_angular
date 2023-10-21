@@ -15,11 +15,21 @@
           <mat-form-field class="w-100">
             <mat-label>Notes</mat-label>
             <textarea
+              rows="10"
+              cols="50"
               required
               formControlName="notes"
               matInput
             ></textarea>
           </mat-form-field>
+          <!-- <app-rich-text
+          #richText
+          class="my-1 w-100"
+          [currentLang]="selectedLang"
+          [readOnly]="viewOnly"
+          formControlName="notes"
+        >
+        </app-rich-text> -->
           <div class="d-flex justify-content-end m-3" *ngxPermissionsOnly="'canAssignPremiumFeaturesToAppUsers'">
             <button mat-raised-button
             color="primary"><span class="text-white" (click)="addnote()">{{actionBtn}}</span></button>
