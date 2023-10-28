@@ -139,7 +139,7 @@ export class DialogComponent implements OnInit {
   }
 
   openTab(url: string) {
-    if (url.endsWith('png' || 'jpg' || 'jpeg' || 'png' || 'gif')) {
+    if (url.includes('png') || url.includes('jpg') || url.includes('jpeg') || url.includes('gif')) {
       window.open(url, "_blank", "toolbar=yes,scrollbars=yes,resizable=yes,top=500,left=500,width=400,height=400").document.write(`<img style="display: block;
       margin-left: auto;
       margin-right: auto;" width="750" height="750" src=${url} alt="image" />`);
