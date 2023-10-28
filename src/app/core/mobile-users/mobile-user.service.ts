@@ -144,4 +144,17 @@ export class MobileUserService implements OnInit {
     return this.httpClient.delete<any>(`${BaseUrl}UserNotes/Delete?id=${id}`
     );
   }
+
+  getUserAttachment(userId: string, userNoteId: string): Observable<any> {
+    return this.httpClient.get(`${BaseUrl}UserAttachment/GetPagedList?userNoteId=${userNoteId ?? ''}`,
+      {
+        params: { userId },
+      }
+    );
+  }
+
+  deleteAttachment(id: number) {
+    return this.httpClient.delete<any>(`${BaseUrl}UserAttachment/Delete?id=${id}`
+    );
+  }
 }

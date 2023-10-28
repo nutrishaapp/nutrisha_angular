@@ -177,7 +177,7 @@ export class MobileUserDetailsComponent implements OnInit {
   }
   openDialog() {
     this.dialog.open(DialogComponent, {
-      width: "40%",
+      width: "50%",
       data: { userId: this.userId },
       direction: this.translateService.dir,
     }).afterClosed().subscribe(val => {
@@ -212,7 +212,7 @@ export class MobileUserDetailsComponent implements OnInit {
 
   editNote(row: any) {
     this.dialog.open(DialogComponent, {
-      width: '40%',
+      width: '50%',
       data: row
     }).afterClosed().subscribe(val => {
       if (val === 'update') {
@@ -223,7 +223,7 @@ export class MobileUserDetailsComponent implements OnInit {
 
   uploadDocument(row: any) {
     this.dialog.open(UploadDocumentDialogComponent, {
-      width: '40%',
+      width: '50%',
       data: row
     }).afterClosed().subscribe(val => {
     });
@@ -231,7 +231,7 @@ export class MobileUserDetailsComponent implements OnInit {
 
   userDocuments() {
     this.dialog.open(UserDocumentsDialogComponent, {
-      width: '40%',
+      width: '50%',
     }).afterClosed().subscribe(val => { });
   }
 

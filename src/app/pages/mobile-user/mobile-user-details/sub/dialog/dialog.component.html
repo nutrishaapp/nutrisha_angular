@@ -2,7 +2,7 @@
 <div>
       <mat-dialog-content>
         <form [formGroup]="noteForm">
-        <h1 mat-dialog-title>Add Notes Form</h1>
+        <h1 mat-dialog-title>Notes Form</h1>
           <mat-form-field class="w-100">
             <mat-label>Title</mat-label>
             <input
@@ -36,6 +36,23 @@
             <button mat-raised-button mat-dialog-close style="margin-left: 8px;">Close</button>
           </div>
         </form>
+        <div class="m-4">
+        <mat-list *ngIf="actionBtn != 'Save'">
+          <mat-divider></mat-divider>
+          <div mat-subheader>Attachments</div>
+          <mat-list-item *ngFor="let attachment of attachments">
+            <mat-icon mat-list-icon>note</mat-icon>
+            <div mat-line>{{attachment.name}}</div>
+            <div mat-line> {{attachment.date | date}} </div>
+            <button mat-icon-button color="warn" (click)="openTab(attachment.url)"><mat-icon>remove_red_eye</mat-icon></button>
+            <a href={{attachment.url}}><mat-icon color="warn">cloud_download</mat-icon></a>
+            <div mat-line> <a routerLink ={{attachment.url}}></a> </div>
+            <button mat-icon-button color="warn" (click)="deleteUserAttachment(attachment.id)">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </mat-list-item>
+        </mat-list>
+      </div>
         </mat-dialog-content>
    
     <!-- <div>
