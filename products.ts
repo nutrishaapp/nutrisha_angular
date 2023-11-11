@@ -1,3 +1,28 @@
+export var getWater = [
+  {
+    "name": "Wednesday",
+    "value": 2.5
+  }, {
+    "name": "Thursday",
+    "value": 1.5
+  }, {
+    "name": "Friday",
+    "value": 1.75
+  }, {
+    "name": "Saturday",
+    "value": 0.75
+  }, {
+    "name": "Sunday",
+    "value": 2.0
+  }, {
+    "name": "Monday",
+    "value": 0.5
+  }, {
+    "name": "Tuesday",
+    "value": 1.0
+  }
+];
+
 export var productSales = [
   {
     "name": "book",

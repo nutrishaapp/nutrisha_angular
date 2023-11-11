@@ -27,7 +27,7 @@ import { UserDocumentsDialogComponent } from './sub/user-documents-dialog/user-d
 import { userInfo } from 'os';
 import { MealPlanListModel } from 'src/app/core/meal-plan/models/meal-plan-list.model';
 import { Chart } from 'chart.js';
-import { productSales, productSalesMulti } from 'products';
+import { productSales, productSalesMulti, getWater } from 'products';
 
 
 
@@ -43,11 +43,12 @@ export class MobileUserDetailsComponent implements OnInit {
 
   productSales: any[]
   productSalesMulti: any[]
+  getWater: any[]
 
   view: [number, number] = [700, 450];
 
   // start-chart
-  legendTitle: string = 'Products';
+  legendTitle: string = 'Days';
   legendTitleMulti: string = 'Months';
   legendPosition: any = 'right'; // ['right', 'below']
   legend: boolean = true;
@@ -55,9 +56,9 @@ export class MobileUserDetailsComponent implements OnInit {
   xAxis: boolean = true;
   yAxis: boolean = true;
 
-  yAxisLabel: string = 'Sales';
-  xAxisLabel: string = 'Products';
-  showXAxisLabel: boolean = true;
+  yAxisLabel: string = 'Days';
+  xAxisLabel: string = 'Water in Litres';
+  showXAxisLabel: boolean = false;
   showYAxisLabel: boolean = true;
 
   maxXAxisTickLength: number = 30;
@@ -67,7 +68,7 @@ export class MobileUserDetailsComponent implements OnInit {
   rotateXAxisTicks: boolean = false;
 
   xAxisTicks: any[] = ['Genre 1', 'Genre 2', 'Genre 3', 'Genre 4', 'Genre 5', 'Genre 6', 'Genre 7']
-  yAxisTicks: any[] = [100, 1000, 2000, 5000, 7000, 10000]
+  yAxisTicks: any[] = [1, 2, 3]
 
   animations: boolean = true; // animations on load
 
@@ -77,7 +78,7 @@ export class MobileUserDetailsComponent implements OnInit {
 
   gradient: boolean = false;
   colorScheme: any = {
-    domain: ['#704FC4', '#4B852C', '#B67A3D', '#5B6FC8', '#25706F']
+    domain: ['#704FC4', '#4B852C', '#B67A3D', '#5B6FC8', '#25706F', '#ca3427', '#399967']
   };
   schemeType: any = 'ordinal'; // 'ordinal' or 'linear'
 
@@ -121,7 +122,7 @@ export class MobileUserDetailsComponent implements OnInit {
     private dialog: MatDialog,
     private http: HttpClient,
     private elementRef: ElementRef
-  ) { Object.assign(this, { productSales, productSalesMulti }); }
+  ) { Object.assign(this, { productSales, productSalesMulti, getWater }); }
 
 
 
