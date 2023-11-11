@@ -299,7 +299,48 @@
                   
                 </div>
               </mat-tab>
-              <mat-tab label="{{ 'MOBILE_USERS.TRACKERS' | translate }}"> Trackers</mat-tab>
+              <mat-tab label="{{ 'MOBILE_USERS.TRACKERS' | translate }}"> 
+                <div class="d-flex align-items-start mt-4">
+                  <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                    <button style="background-color: #ff725a;" class="nav-link active mb-3" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Water  <i class="fa-solid fa-droplet"></i></button>
+                    <button  style="background-color: #ff725a;" class="nav-link mb-3" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">Moods  <i class="fa fa-cubes" aria-hidden="true"></i></button>
+                    <button  style="background-color: #ff725a;" class="nav-link mb-3" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">Weight  <i class="fa-solid fa-weight-scale"></i></button>
+                    <button  style="background-color: #ff725a;"style="background-color: #ff725a;" class="nav-link mb-3" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">Measurement  <i class="fa-solid fa-ruler"></i></button>
+                  </div>
+                  <div class="tab-content" id="v-pills-tabContent">
+                    <div class="tab-pane fade show active pt-2" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">      
+                   <div style="margin-left: 20px;">
+                    <ngx-charts-bar-vertical [results]="productSales" [view]="view" [scheme]="colorScheme" [schemeType]="schemeType" [gradient]="gradient" [xAxis]="xAxis" [yAxis]="yAxis" [legend]="legend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
+                    [xAxisLabel]="xAxisLabel" [yAxisLabel]="xAxisLabel" [legendTitle]="legendTitle" [legendPosition]="legendPosition" [animations]="animations" [showGridLines]="showGridLines" [trimXAxisTicks]="trimXAxisTicks" [trimYAxisTicks]="trimYAxisTicks"
+                    [rotateXAxisTicks]="rotateXAxisTicks" [maxXAxisTickLength]="maxXAxisTickLength" [maxYAxisTickLength]="maxYAxisTickLength" [xAxisTickFormatting]="formatString" [yAxisTickFormatting]="formatNumber" [yAxisTicks]="yAxisTicks" [showDataLabel]="showDataLabel"
+                    [barPadding]="barPadding" [tooltipDisabled]="tooltipDisabled" [roundEdges]="roundEdges">
+                  </ngx-charts-bar-vertical>
+                   </div>
+                    </div>
+                    <div class="tab-pane fade pt-2" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">  
+                      <div style="margin-left: 20px;">
+                        <ngx-charts-line-chart [results]="productSalesMulti" [view]="view" [scheme]="colorScheme" [legend]="legend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel" [xAxis]="xAxis" [yAxis]="yAxis" [xAxisLabel]="xAxisLabel" [yAxisLabel]="yAxisLabel">
+                    </ngx-charts-line-chart>
+                       </div>
+                  </div>
+                    <div class="tab-pane fade pt-2" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
+                      <div style="margin-left: 20px;">
+                        <ngx-charts-pie-grid [results]="productSales" [view]="view" [scheme]="colorScheme" (select)="onSelect($event)" (activate)="onActivate($event)" (deactivate)="onDeactivate($event)">
+                        </ngx-charts-pie-grid>
+                       </div>
+                    </div>
+                    <div class="tab-pane fade pt-2" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
+                      <div style="margin-left: 20px;">
+                        <ngx-charts-bar-vertical [results]="productSales" [view]="view" [scheme]="colorScheme" [schemeType]="schemeType" [gradient]="gradient" [xAxis]="xAxis" [yAxis]="yAxis" [legend]="legend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
+                        [xAxisLabel]="xAxisLabel" [yAxisLabel]="xAxisLabel" [legendTitle]="legendTitle" [legendPosition]="legendPosition" [animations]="animations" [showGridLines]="showGridLines" [trimXAxisTicks]="trimXAxisTicks" [trimYAxisTicks]="trimYAxisTicks"
+                        [rotateXAxisTicks]="rotateXAxisTicks" [maxXAxisTickLength]="maxXAxisTickLength" [maxYAxisTickLength]="maxYAxisTickLength" [xAxisTickFormatting]="formatString" [yAxisTickFormatting]="formatNumber" [yAxisTicks]="yAxisTicks" [showDataLabel]="showDataLabel"
+                        [barPadding]="barPadding" [tooltipDisabled]="tooltipDisabled" [roundEdges]="roundEdges">
+                      </ngx-charts-bar-vertical>
+                       </div>
+                    </div>
+                  </div>
+                </div>
+              </mat-tab>
           </mat-tab-group>
         </div>
       </div>

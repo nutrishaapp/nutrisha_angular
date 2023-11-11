@@ -36,6 +36,13 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { UploadDocumentDialogComponent } from './pages/mobile-user/mobile-user-details/sub/upload-document-dialog/upload-document-dialog.component';
 import { UserDocumentsDialogComponent } from './pages/mobile-user/mobile-user-details/sub/user-documents-dialog/user-documents-dialog.component';
 import { RichTextModule } from './pages/shared/rich-text/rich-text.module';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+
+
+
+
+
+
 
 
 declare const languageFileVersion: string;
@@ -87,8 +94,8 @@ function initializeAppFactory(store: Store): () => Observable<any> {
     NgxsReduxDevtoolsPluginModule.forRoot(),
     NgxPermissionsModule.forRoot(),
     UserModule,
-    RichTextModule
-
+    RichTextModule,
+    NgxChartsModule
   ],
   providers: [
     AuthService,

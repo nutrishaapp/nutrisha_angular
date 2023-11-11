@@ -22,6 +22,8 @@ import { MealService } from '../../core/meals/meal.service';
 import { MealPlanService } from '../../core/meal-plan/meal-plan.service';
 import { MobileUserMoreInfoDialogComponent } from './mobile-user-details/sub/mobile-user-more-info-dialog/mobile-user-more-info-dialog.component';
 import { MakePremiumComponent } from './mobile-user-details/sub/make-premium/make-premium.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
+
 
 @NgModule({
   declarations: [
@@ -43,6 +45,7 @@ import { MakePremiumComponent } from './mobile-user-details/sub/make-premium/mak
     MealPlanModule,
     ReactiveFormsModule,
     NgxPermissionsRestrictStubModule,
+    NgxChartsModule,
   ],
   providers: [MobileUserService],
 })

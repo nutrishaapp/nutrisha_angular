@@ -4,6 +4,8 @@ import { TranslationService, SplashScreenService } from './core/shared';
 import { Store } from '@ngxs/store';
 import { Subject, takeUntil } from 'rxjs';
 
+
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',

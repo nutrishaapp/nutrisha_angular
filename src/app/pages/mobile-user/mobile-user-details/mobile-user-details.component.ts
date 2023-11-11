@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { HttpClient, HttpEventType, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { Select, Store } from '@ngxs/store';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -26,6 +26,11 @@ import { UploadDocumentDialogComponent } from './sub/upload-document-dialog/uplo
 import { UserDocumentsDialogComponent } from './sub/user-documents-dialog/user-documents-dialog.component';
 import { userInfo } from 'os';
 import { MealPlanListModel } from 'src/app/core/meal-plan/models/meal-plan-list.model';
+import { Chart } from 'chart.js';
+import { productSales, productSalesMulti } from 'products';
+
+
+
 
 
 @UntilDestroy()
@@ -35,9 +40,61 @@ import { MealPlanListModel } from 'src/app/core/meal-plan/models/meal-plan-list.
   styleUrls: ['./mobile-user-details.component.scss'],
 })
 export class MobileUserDetailsComponent implements OnInit {
+
+  productSales: any[]
+  productSalesMulti: any[]
+
+  view: [number, number] = [700, 450];
+
+  // start-chart
+  legendTitle: string = 'Products';
+  legendTitleMulti: string = 'Months';
+  legendPosition: any = 'right'; // ['right', 'below']
+  legend: boolean = true;
+
+  xAxis: boolean = true;
+  yAxis: boolean = true;
+
+  yAxisLabel: string = 'Sales';
+  xAxisLabel: string = 'Products';
+  showXAxisLabel: boolean = true;
+  showYAxisLabel: boolean = true;
+
+  maxXAxisTickLength: number = 30;
+  maxYAxisTickLength: number = 30;
+  trimXAxisTicks: boolean = false;
+  trimYAxisTicks: boolean = false;
+  rotateXAxisTicks: boolean = false;
+
+  xAxisTicks: any[] = ['Genre 1', 'Genre 2', 'Genre 3', 'Genre 4', 'Genre 5', 'Genre 6', 'Genre 7']
+  yAxisTicks: any[] = [100, 1000, 2000, 5000, 7000, 10000]
+
+  animations: boolean = true; // animations on load
+
+  showGridLines: boolean = false; // grid lines
+
+  showDataLabel: boolean = true; // numbers on bars
+
+  gradient: boolean = false;
+  colorScheme: any = {
+    domain: ['#704FC4', '#4B852C', '#B67A3D', '#5B6FC8', '#25706F']
+  };
+  schemeType: any = 'ordinal'; // 'ordinal' or 'linear'
+
+  activeEntries: any[] = ['book']
+  barPadding: number = 5
+  tooltipDisabled: boolean = false;
+
+  yScaleMax: number = 9000;
+
+  roundEdges: boolean = true;
+
+  //end-chart
+
   userDetails: MobileUserDetailsViewModel;
   mealTypes = MealType;
   selectedFiles = [];
+  myChart: any;
 
   userId: string;
   currentPlanSelectedDay = DayOfWeek.SATURDAY;
@@ -48,6 +105,8 @@ export class MobileUserDetailsComponent implements OnInit {
 
   displayedColumns: string[] = ['title', 'notes', 'date', 'action'];
   dataSource: MatTableDataSource<any>;
+
+
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -61,7 +120,30 @@ export class MobileUserDetailsComponent implements OnInit {
     private mealPlanService: MealPlanService,
     private dialog: MatDialog,
     private http: HttpClient,
-  ) { }
+    private elementRef: ElementRef
+  ) { Object.assign(this, { productSales, productSalesMulti }); }
+
+
+
+  onSelect(event: any) {
+    console.log(event);
+  }
+
+  onActivate(data: any): void {
+    console.log('Activate', JSON.parse(JSON.stringify(data)));
+  }
+
+  onDeactivate(data: any): void {
+    console.log('Deactivate', JSON.parse(JSON.stringify(data)));
+  }
+
+  formatString(input: string): string {
+    return input.toUpperCase()
+  }
+
+  formatNumber(input: number): number {
+    return input
+  }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params) => {
@@ -77,6 +159,7 @@ export class MobileUserDetailsComponent implements OnInit {
     //.subscribe((u) => (this.userDetails = u));
     this.getAllNotes();
   }
+
 
   loadUserDetails(id: string) {
     this.store.dispatch(new MobileUserActions.LoadUserDetails(id));
