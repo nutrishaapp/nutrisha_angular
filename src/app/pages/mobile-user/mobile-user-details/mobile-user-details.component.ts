@@ -41,9 +41,27 @@ import { productSales, productSalesMulti, getWater } from 'products';
 })
 export class MobileUserDetailsComponent implements OnInit {
 
-  productSales: any[]
-  productSalesMulti: any[]
-  getWater: any[]
+  getWatertype: string
+  getWaterlable: string
+  getWaterBare: any[]
+
+  getWeghitMonthlytype: string
+  getWeghitMonthlylable: string
+  getWeghitMonthlyBar: any[]
+
+  getBustMonthlytype: string
+  getBustMonthlylable: string
+  getBustMonthlyBar: any[]
+
+
+  getWaistMonthlytype: string
+  getWaistMonthlylable: string
+  getWaistMonthlyBar: any[]
+
+
+  getHipsMonthlytype: string
+  getHipsMonthlylable: string
+  getHipsMonthlyBar: any[]
 
   view: [number, number] = [700, 450];
 
@@ -51,7 +69,7 @@ export class MobileUserDetailsComponent implements OnInit {
   legendTitle: string = 'Days';
   legendTitleMulti: string = 'Months';
   legendPosition: any = 'right'; // ['right', 'below']
-  legend: boolean = true;
+  legend: boolean = false;
 
   xAxis: boolean = true;
   yAxis: boolean = true;
@@ -59,7 +77,7 @@ export class MobileUserDetailsComponent implements OnInit {
   yAxisLabel: string = 'Days';
   xAxisLabel: string = 'Water in Litres';
   showXAxisLabel: boolean = false;
-  showYAxisLabel: boolean = true;
+  showYAxisLabel: boolean = false;
 
   maxXAxisTickLength: number = 30;
   maxYAxisTickLength: number = 30;
@@ -120,8 +138,6 @@ export class MobileUserDetailsComponent implements OnInit {
     private mobileUserService: MobileUserService,
     private mealPlanService: MealPlanService,
     private dialog: MatDialog,
-    private http: HttpClient,
-    private elementRef: ElementRef
   ) { Object.assign(this, { productSales, productSalesMulti, getWater }); }
 
 
@@ -159,6 +175,8 @@ export class MobileUserDetailsComponent implements OnInit {
       });
     //.subscribe((u) => (this.userDetails = u));
     this.getAllNotes();
+    this.getWaterBar();
+    this.getWeghitMonthly();
   }
 
 
@@ -346,6 +364,47 @@ export class MobileUserDetailsComponent implements OnInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+
+  getWaterBar() {
+    this.mobileUserService.getWaterBar(this.userId).subscribe({
+      next: (res) => {
+        this.getWatertype = res.data.type;
+        this.getWaterlable = res.data.lable;
+        this.getWaterBare = res.data.data;
+      },
+      error: (err) => {
+        alert("Error while fetching the Records")
+      },
+    });
+  }
+
+  getWeghitMonthly() {
+    this.mobileUserService.getWeghitMonthlyBar(this.userId).subscribe({
+      next: (res) => {
+        console.log(res.data[0]);
+        this.getWeghitMonthlytype = res.data[0].type;
+        this.getWeghitMonthlylable = res.data[0].lable;
+        this.getWeghitMonthlyBar = res.data[0].data;
+
+        this.getBustMonthlytype = res.data[1].type
+        this.getBustMonthlylable = res.data[1].lable
+        this.getBustMonthlyBar = res.data[1].data;
+
+
+        this.getWaistMonthlytype = res.data[2].type
+        this.getWaistMonthlylable = res.data[2].lable
+        this.getWaistMonthlyBar = res.data[2].data;
+
+
+        this.getHipsMonthlytype = res.data[3].type
+        this.getHipsMonthlylable = res.data[3].lable
+        this.getHipsMonthlyBar = res.data[3].data;
+      },
+      error: (err) => {
+        alert("Error while fetching the Records")
+      },
+    });
   }
 
 }

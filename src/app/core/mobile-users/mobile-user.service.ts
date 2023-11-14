@@ -157,4 +157,21 @@ export class MobileUserService implements OnInit {
     return this.httpClient.delete<any>(`${BaseUrl}UserAttachment/Delete?id=${id}`
     );
   }
+
+
+  getWaterBar(userId: string): Observable<any> {
+    return this.httpClient.get(`${BaseUrl}MealPlan/GetWaterBar?day=11-7-2023&userId=2049&isSubscribed=true`,
+      {
+        params: { userId },
+      }
+    );
+  }
+
+  getWeghitMonthlyBar(userId: string): Observable<any> {
+    return this.httpClient.get(`${BaseUrl}MealPlan/GetWeghitAndMesurementMonthlyBar?day=11-7-2023&userId=2049`,
+      {
+        params: { userId },
+      }
+    );
+  }
 }
