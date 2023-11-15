@@ -20,6 +20,7 @@ const BaseUrl = environment.baseAdminV1Url;
 @Injectable()
 export class MobileUserService implements OnInit {
   userId: string;
+  todayDate: string = new Date().toISOString().slice(0, 10);
   constructor(private httpClient: HttpClient, private activatedRoute: ActivatedRoute) { }
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params) => {
@@ -160,7 +161,7 @@ export class MobileUserService implements OnInit {
 
 
   getWaterBar(userId: string): Observable<any> {
-    return this.httpClient.get(`${BaseUrl}MealPlan/GetWaterBar?day=11-7-2023&userId=2049&isSubscribed=true`,
+    return this.httpClient.get(`${BaseUrl}MealPlan/GetWaterBar?day=${this.todayDate}&userId=${userId}&isSubscribed=true`,
       {
         params: { userId },
       }
@@ -168,7 +169,15 @@ export class MobileUserService implements OnInit {
   }
 
   getWeghitMonthlyBar(userId: string): Observable<any> {
-    return this.httpClient.get(`${BaseUrl}MealPlan/GetWeghitAndMesurementMonthlyBar?day=11-7-2023&userId=2049`,
+    return this.httpClient.get(`${BaseUrl}MealPlan/GetWeghitAndMesurementMonthlyBar?day=${this.todayDate}&userId=${userId}`,
+      {
+        params: { userId },
+      }
+    );
+  }
+
+  getWeghitDailyBar(userId: string): Observable<any> {
+    return this.httpClient.get(`${BaseUrl}MealPlan/GetWeghitAndMesurementMonthlyBar?day=${this.todayDate}&userId=${userId}`,
       {
         params: { userId },
       }

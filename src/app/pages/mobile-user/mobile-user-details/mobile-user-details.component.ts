@@ -63,6 +63,24 @@ export class MobileUserDetailsComponent implements OnInit {
   getHipsMonthlylable: string
   getHipsMonthlyBar: any[]
 
+  getWeghitDailytype: string
+  getWeghitDailylable: string
+  getWeghitDailyBar: any[]
+
+  getBustDailytype: string
+  getBustDailylable: string
+  getBustDailyBar: any[]
+
+
+  getWaistDailytype: string
+  getWaistDailylable: string
+  getWaistDailyBar: any[]
+
+
+  getHipsDailytype: string
+  getHipsDailylable: string
+  getHipsDailyBar: any[]
+
   view: [number, number] = [700, 450];
 
   // start-chart
@@ -75,9 +93,9 @@ export class MobileUserDetailsComponent implements OnInit {
   yAxis: boolean = true;
 
   yAxisLabel: string = 'Days';
-  xAxisLabel: string = 'Water in Litres';
+  xAxisLabel: string;
   showXAxisLabel: boolean = false;
-  showYAxisLabel: boolean = false;
+  showYAxisLabel: boolean = true;
 
   maxXAxisTickLength: number = 30;
   maxYAxisTickLength: number = 30;
@@ -86,8 +104,8 @@ export class MobileUserDetailsComponent implements OnInit {
   rotateXAxisTicks: boolean = false;
 
   xAxisTicks: any[] = ['Genre 1', 'Genre 2', 'Genre 3', 'Genre 4', 'Genre 5', 'Genre 6', 'Genre 7']
-  yAxisTicks: any[] = [1, 2, 3]
-
+  yAxisTicks: any[] = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100]
+  yAxisTicks_2: any[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
   animations: boolean = true; // animations on load
 
   showGridLines: boolean = false; // grid lines
@@ -114,6 +132,7 @@ export class MobileUserDetailsComponent implements OnInit {
   mealTypes = MealType;
   selectedFiles = [];
   myChart: any;
+
 
   userId: string;
   currentPlanSelectedDay = DayOfWeek.SATURDAY;
@@ -146,6 +165,7 @@ export class MobileUserDetailsComponent implements OnInit {
     console.log(event);
   }
 
+
   onActivate(data: any): void {
     console.log('Activate', JSON.parse(JSON.stringify(data)));
   }
@@ -176,9 +196,9 @@ export class MobileUserDetailsComponent implements OnInit {
     //.subscribe((u) => (this.userDetails = u));
     this.getAllNotes();
     this.getWaterBar();
+    this.getWeghitDaily();
     this.getWeghitMonthly();
   }
-
 
   loadUserDetails(id: string) {
     this.store.dispatch(new MobileUserActions.LoadUserDetails(id));
@@ -382,7 +402,6 @@ export class MobileUserDetailsComponent implements OnInit {
   getWeghitMonthly() {
     this.mobileUserService.getWeghitMonthlyBar(this.userId).subscribe({
       next: (res) => {
-        console.log(res.data[0]);
         this.getWeghitMonthlytype = res.data[0].type;
         this.getWeghitMonthlylable = res.data[0].lable;
         this.getWeghitMonthlyBar = res.data[0].data;
@@ -400,6 +419,34 @@ export class MobileUserDetailsComponent implements OnInit {
         this.getHipsMonthlytype = res.data[3].type
         this.getHipsMonthlylable = res.data[3].lable
         this.getHipsMonthlyBar = res.data[3].data;
+      },
+      error: (err) => {
+        alert("Error while fetching the Records")
+      },
+    });
+  }
+
+  getWeghitDaily() {
+    this.mobileUserService.getWeghitDailyBar(this.userId).subscribe({
+      next: (res) => {
+        console.log(res.data[0]);
+        this.getWeghitDailytype = res.data[0].type;
+        this.getWeghitDailylable = res.data[0].lable;
+        this.getWeghitDailyBar = res.data[0].data;
+
+        this.getBustDailytype = res.data[1].type
+        this.getBustDailylable = res.data[1].lable
+        this.getBustDailyBar = res.data[1].data;
+
+
+        this.getWaistDailytype = res.data[2].type
+        this.getWaistDailylable = res.data[2].lable
+        this.getWaistDailyBar = res.data[2].data;
+
+
+        this.getHipsDailytype = res.data[3].type
+        this.getHipsDailylable = res.data[3].lable
+        this.getHipsDailyBar = res.data[3].data;
       },
       error: (err) => {
         alert("Error while fetching the Records")
