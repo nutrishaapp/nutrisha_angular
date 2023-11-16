@@ -27,7 +27,7 @@ import { UserDocumentsDialogComponent } from './sub/user-documents-dialog/user-d
 import { userInfo } from 'os';
 import { MealPlanListModel } from 'src/app/core/meal-plan/models/meal-plan-list.model';
 import { Chart } from 'chart.js';
-import { productSales, productSalesMulti, getWater } from 'products';
+import { productSales, productSalesMulti, emoji } from 'products';
 
 
 
@@ -40,7 +40,12 @@ import { productSales, productSalesMulti, getWater } from 'products';
   styleUrls: ['./mobile-user-details.component.scss'],
 })
 export class MobileUserDetailsComponent implements OnInit {
+  selectedType = 'Bar';
 
+  onChange(event) {
+    this.selectedType = event.target.value;
+  }
+  userMood: any[];
   getWatertype: string
   getWaterlable: string
   getWaterBare: any[]
@@ -157,7 +162,7 @@ export class MobileUserDetailsComponent implements OnInit {
     private mobileUserService: MobileUserService,
     private mealPlanService: MealPlanService,
     private dialog: MatDialog,
-  ) { Object.assign(this, { productSales, productSalesMulti, getWater }); }
+  ) { Object.assign(this, { productSales, productSalesMulti, emoji }); }
 
 
 
@@ -198,6 +203,7 @@ export class MobileUserDetailsComponent implements OnInit {
     this.getWaterBar();
     this.getWeghitDaily();
     this.getWeghitMonthly();
+    this.getUserMood();
   }
 
   loadUserDetails(id: string) {
@@ -429,7 +435,6 @@ export class MobileUserDetailsComponent implements OnInit {
   getWeghitDaily() {
     this.mobileUserService.getWeghitDailyBar(this.userId).subscribe({
       next: (res) => {
-        console.log(res.data[0]);
         this.getWeghitDailytype = res.data[0].type;
         this.getWeghitDailylable = res.data[0].lable;
         this.getWeghitDailyBar = res.data[0].data;
@@ -447,6 +452,18 @@ export class MobileUserDetailsComponent implements OnInit {
         this.getHipsDailytype = res.data[3].type
         this.getHipsDailylable = res.data[3].lable
         this.getHipsDailyBar = res.data[3].data;
+      },
+      error: (err) => {
+        alert("Error while fetching the Records")
+      },
+    });
+  }
+
+  getUserMood() {
+    this.mobileUserService.getUserMood(this.userId).subscribe({
+      next: (res) => {
+        console.log(res.data);
+        this.userMood = res.data;
       },
       error: (err) => {
         alert("Error while fetching the Records")

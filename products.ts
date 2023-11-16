@@ -1,25 +1,24 @@
-export var getWater = [
+export var emoji = [
   {
-    "name": "Wednesday",
-    "value": 2.5
-  }, {
-    "name": "Thursday",
-    "value": 1.5
-  }, {
-    "name": "Friday",
-    "value": 1.75
-  }, {
-    "name": "Saturday",
-    "value": 0.75
-  }, {
-    "name": "Sunday",
-    "value": 2.0
-  }, {
-    "name": "Monday",
-    "value": 0.5
-  }, {
-    "name": "Tuesday",
-    "value": 1.0
+    "id": 1,
+    "userId": 2049,
+    "emoji": "&#128512;",
+    "note": "im happy today",
+    "date": "2023-11-15T00:00:00Z"
+  },
+  {
+    "id": 2,
+    "userId": 2049,
+    "emoji": "&#128514;",
+    "note": "FACE WITH TEARS OF JOY",
+    "date": "2023-11-14T00:00:00Z"
+  },
+  {
+    "id": 3,
+    "userId": 2049,
+    "emoji": "&#128521;",
+    "note": "WINKING FACE",
+    "date": "2023-11-11T00:00:00Z"
   }
 ];
 

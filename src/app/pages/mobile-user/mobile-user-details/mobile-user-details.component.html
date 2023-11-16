@@ -308,18 +308,82 @@
                     <button  style="background-color: #ff725a;"style="background-color: #ff725a;" class="nav-link mb-3" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">Measurement  <i class="fa-solid fa-ruler"></i></button>
                   </div>
                   <div class="tab-content" id="v-pills-tabContent">
-                    <div class="tab-pane fade show active pt-2" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">      
-                   <div style="margin-left: 10px;">
+                    <div class="tab-pane fade show active pt-2" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                      <!-- <div class="col-md-3 no-padding">
+                        <label>Chart Type</label>
+                      
+                        <select (change)="onChange($event)" formControlName="replytype" class="form-control select2" type="text" style="width: 100%;">
+                          <option selected value="Bar">Bar</option>
+                          <option value="Line">Line</option>
+                        </select>
+                      </div>      -->
+                   <div *ngIf="selectedType == 'Bar'" style="margin-left: 10px;">
                     <ngx-charts-bar-vertical [results]="getWaterBare" [view]="view" [scheme]="colorScheme" [schemeType]="schemeType" [gradient]="gradient" [xAxis]="xAxis" [yAxis]="yAxis" [legend]="legend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
                     [xAxisLabel]="xAxisLabel" [yAxisLabel]="getWaterlable" [legendTitle]="legendTitle" [legendPosition]="legendPosition" [animations]="animations" [showGridLines]="showGridLines" [trimXAxisTicks]="trimXAxisTicks" [trimYAxisTicks]="trimYAxisTicks"
                     [rotateXAxisTicks]="rotateXAxisTicks" [maxXAxisTickLength]="maxXAxisTickLength" [maxYAxisTickLength]="maxYAxisTickLength" [xAxisTickFormatting]="formatString" [yAxisTickFormatting]="formatNumber" [yAxisTicks]="yAxisTicks_2" [showDataLabel]="showDataLabel"
                     [barPadding]="barPadding" [tooltipDisabled]="tooltipDisabled" [roundEdges]="roundEdges">
                   </ngx-charts-bar-vertical>
                    </div>
+                   <div *ngIf="selectedType == 'Line'" style="margin-left: 10px;">
+                    <ngx-charts-pie-chart [results]="getWaterBare" [view]="view" [scheme]="colorScheme" [schemeType]="schemeType" [legend]="legend"
+                    [legendTitle]="legendTitle" [legendPosition]="legendPosition" [animations]="animations" 
+                    [tooltipDisabled]="tooltipDisabled">
+                  </ngx-charts-pie-chart>
+                   </div>
                     </div>
                     <div class="tab-pane fade pt-2" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">  
                       <div style="margin-left: 20px;">
-                        Moods
+                        <div  class="container mb-3" *ngFor="let mood of userMood">
+                          <div class="card" *ngIf="mood.emoji.endsWith('12;')">
+                            <div class="card-header fw-bold">{{mood.date | date}}</div>
+                            <div class="card-body"><span style="font-size:20px;">😀</span> {{mood.note}}</div>
+                          </div>
+                        </div>
+                        <div  class="container mb-3" *ngFor="let mood of userMood">
+                          <div class="card" *ngIf="mood.emoji.endsWith('14;')">
+                            <div class="card-header fw-bold">{{mood.date | date}}</div>
+                            <div class="card-body"><span style="font-size:20px;">😂</span> {{mood.note}}</div>
+                          </div>
+                        </div>
+                        <div  class="container mb-3" *ngFor="let mood of userMood">
+                          <div class="card" *ngIf="mood.emoji.endsWith('21;')">
+                            <div class="card-header fw-bold">{{mood.date | date}}</div>
+                            <div class="card-body"><span style="font-size:20px;">😉</span> {{mood.note}}</div>
+                          </div>
+                        </div>
+                        <div  class="container mb-3" *ngFor="let mood of userMood">
+                          <div class="card" *ngIf="mood.emoji.endsWith('25;')">
+                            <div class="card-header fw-bold">{{mood.date | date}}</div>
+                            <div class="card-body"><span style="font-size:20px;">😍</span> {{mood.note}}</div>
+                          </div>
+                        </div>
+                        <div  class="container mb-3" *ngFor="let mood of userMood">
+                          <div class="card" *ngIf="mood.emoji.endsWith('32;')">
+                            <div class="card-header fw-bold">{{mood.date | date}}</div>
+                            <div class="card-body"><span style="font-size:20px;">😔</span> {{mood.note}}</div>
+                          </div>
+                        </div>
+                        <div  class="container mb-3" *ngFor="let mood of userMood">
+                          <div class="card" *ngIf="mood.emoji.endsWith('45;')">
+                            <div class="card-header fw-bold">{{mood.date | date}}</div>
+                            <div class="card-body"><span style="font-size:20px;">😡</span> {{mood.note}}</div>
+                          </div>
+                        </div>
+                        <div  class="container mb-3" *ngFor="let mood of userMood">
+                          <div class="card" *ngIf="mood.emoji.endsWith('49;')">
+                            <div class="card-header fw-bold">{{mood.date | date}}</div>
+                            <div class="card-body"><span style="font-size:20px;">😥</span> {{mood.note}}</div>
+                          </div>
+                        </div>
+                        <div  class="container mb-3" *ngFor="let mood of userMood">
+                          <div class="card" *ngIf="mood.emoji.endsWith('57;')">
+                            <div class="card-header fw-bold">{{mood.date | date}}</div>
+                            <div class="card-body"><span style="font-size:20px;">😭</span> {{mood.note}}</div>
+                          </div>
+                        </div>
+                        <div *ngIf="userMood.length == 0">
+                          <h2>No Data Available</h2>
+                        </div>
                        </div>
                   </div>
                     <div class="tab-pane fade pt-2" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">

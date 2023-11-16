@@ -177,7 +177,15 @@ export class MobileUserService implements OnInit {
   }
 
   getWeghitDailyBar(userId: string): Observable<any> {
-    return this.httpClient.get(`${BaseUrl}MealPlan/GetWeghitAndMesurementMonthlyBar?day=${this.todayDate}&userId=${userId}`,
+    return this.httpClient.get(`${BaseUrl}MealPlan/GetWeghitAndMesurementDailyBar?day=${this.todayDate}&userId=${userId}`,
+      {
+        params: { userId },
+      }
+    );
+  }
+
+  getUserMood(userId: string): Observable<any> {
+    return this.httpClient.get(`${BaseUrl}UserMood/GetPagedList?UserId=${userId}`,
       {
         params: { userId },
       }
