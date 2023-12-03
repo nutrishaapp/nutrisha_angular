@@ -68,6 +68,16 @@ export class MobileUserDetailsComponent implements OnInit {
   getHipsMonthlylable: string
   getHipsMonthlyBar: any[]
 
+  getStepsMonthlytype: string
+  getStepsMonthlylable: string
+  getStepsMonthlyBar: any[]
+
+
+  getSleepMonthlytype: string
+  getSleepMonthlylable: string
+  getSleepMonthlyBar: any[]
+
+
   getWeghitDailytype: string
   getWeghitDailylable: string
   getWeghitDailyBar: any[]
@@ -85,6 +95,14 @@ export class MobileUserDetailsComponent implements OnInit {
   getHipsDailytype: string
   getHipsDailylable: string
   getHipsDailyBar: any[]
+
+  getStepsDailytype: string
+  getStepsDailylable: string
+  getStepsDailyBar: any[]
+
+  getSleepDailytype: string
+  getSleepDailylable: string
+  getSleepDailyBar: any[]
 
   view: [number, number] = [700, 450];
 
@@ -109,7 +127,7 @@ export class MobileUserDetailsComponent implements OnInit {
   rotateXAxisTicks: boolean = false;
 
   xAxisTicks: any[] = ['Genre 1', 'Genre 2', 'Genre 3', 'Genre 4', 'Genre 5', 'Genre 6', 'Genre 7']
-  yAxisTicks: any[] = [5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100]
+  yAxisTicks: any[] = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210, 220, 230, 240, 250, 260, 270, 280, 290, 300]
   yAxisTicks_2: any[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
   animations: boolean = true; // animations on load
 
@@ -425,6 +443,14 @@ export class MobileUserDetailsComponent implements OnInit {
         this.getHipsMonthlytype = res.data[3].type
         this.getHipsMonthlylable = res.data[3].lable
         this.getHipsMonthlyBar = res.data[3].data;
+
+        this.getStepsMonthlytype = res.data[4].type
+        this.getStepsMonthlylable = res.data[4].lable
+        this.getStepsMonthlyBar = res.data[4].data;
+
+        this.getSleepMonthlytype = res.data[5].type
+        this.getSleepMonthlylable = res.data[5].lable
+        this.getSleepMonthlyBar = res.data[5].data;
       },
       error: (err) => {
         alert("Error while fetching the Records")
@@ -452,6 +478,14 @@ export class MobileUserDetailsComponent implements OnInit {
         this.getHipsDailytype = res.data[3].type
         this.getHipsDailylable = res.data[3].lable
         this.getHipsDailyBar = res.data[3].data;
+
+        this.getStepsDailytype = res.data[4].type
+        this.getStepsDailylable = res.data[4].lable
+        this.getStepsDailyBar = res.data[4].data;
+
+        this.getSleepDailytype = res.data[5].type
+        this.getSleepDailylable = res.data[5].lable
+        this.getSleepDailyBar = res.data[5].data;
       },
       error: (err) => {
         alert("Error while fetching the Records")

@@ -306,6 +306,8 @@
                     <button  style="background-color: #ff725a;" class="nav-link mb-3" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">Moods  <i class="fa fa-cubes" aria-hidden="true"></i></button>
                     <button  style="background-color: #ff725a;" class="nav-link mb-3" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">Weight  <i class="fa-solid fa-weight-scale"></i></button>
                     <button  style="background-color: #ff725a;"style="background-color: #ff725a;" class="nav-link mb-3" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">Measurement  <i class="fa-solid fa-ruler"></i></button>
+                    <button  style="background-color: #ff725a;"style="background-color: #ff725a;" class="nav-link mb-3" id="v-pills-steps-tab" data-bs-toggle="pill" data-bs-target="#v-pills-steps" type="button" role="tab" aria-controls="v-pills-steps" aria-selected="false">Steps <i class="fa-solid fa-shoe-prints"></i></button>
+                    <button  style="background-color: #ff725a;"style="background-color: #ff725a;" class="nav-link mb-3" id="v-pills-sleep-tab" data-bs-toggle="pill" data-bs-target="#v-pills-sleep" type="button" role="tab" aria-controls="v-pills-sleep" aria-selected="false">Sleep <i class="fa-regular fa-moon"></i></button>
                   </div>
                   <div class="tab-content" id="v-pills-tabContent">
                     <div class="tab-pane fade show active pt-2" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
@@ -459,6 +461,64 @@
                               [rotateXAxisTicks]="rotateXAxisTicks" [maxXAxisTickLength]="maxXAxisTickLength" [maxYAxisTickLength]="maxYAxisTickLength" [xAxisTickFormatting]="formatString" [yAxisTickFormatting]="formatNumber" [yAxisTicks]="yAxisTicks" [showDataLabel]="showDataLabel"
                               [barPadding]="barPadding" [tooltipDisabled]="tooltipDisabled" [roundEdges]="roundEdges">
                             </ngx-charts-bar-vertical>
+                             </div>
+                          </mat-tab>
+                        </mat-tab-group>
+                       </div>
+                    </div>
+
+                    <div class="tab-pane fade pt-2" id="v-pills-steps" role="tabpanel" aria-labelledby="v-pills-steps-tab">
+                      <div style="margin-left: 10px;">
+                        <mat-tab-group>
+                          <mat-tab label="Daily">
+                            <div style="margin-left: 10px;margin-right: 15px;">
+                              <div style="margin-top: 20px;">
+                            <ngx-charts-bar-vertical [results]="getStepsDailyBar" [view]="view" [scheme]="colorScheme" [schemeType]="schemeType" [gradient]="gradient" [xAxis]="xAxis" [yAxis]="yAxis" [legend]="legend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
+                              [xAxisLabel]="getStepsDailylable" [yAxisLabel]="getStepsDailylable" [legendTitle]="legendTitle" [legendPosition]="legendPosition" [animations]="animations" [showGridLines]="showGridLines" [trimXAxisTicks]="trimXAxisTicks" [trimYAxisTicks]="trimYAxisTicks"
+                              [rotateXAxisTicks]="rotateXAxisTicks" [maxXAxisTickLength]="maxXAxisTickLength" [maxYAxisTickLength]="maxYAxisTickLength" [xAxisTickFormatting]="formatString" [yAxisTickFormatting]="formatNumber" [yAxisTicks]="yAxisTicks" [showDataLabel]="showDataLabel"
+                              [barPadding]="barPadding" [tooltipDisabled]="tooltipDisabled" [roundEdges]="roundEdges">
+                            </ngx-charts-bar-vertical>
+                          </div>                     
+                             </div>
+                          </mat-tab>
+                          <mat-tab label="Monthly">
+                            <div style="margin-left: 10px;margin-right: 15px;">
+                              <div style="margin-top: 20px;">
+                            <ngx-charts-bar-vertical [results]="getStepsMonthlyBar" [view]="view" [scheme]="colorScheme" [schemeType]="schemeType" [gradient]="gradient" [xAxis]="xAxis" [yAxis]="yAxis" [legend]="legend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
+                              [xAxisLabel]="getStepsMonthlylable" [yAxisLabel]="getStepsMonthlylable" [legendTitle]="legendTitle" [legendPosition]="legendPosition" [animations]="animations" [showGridLines]="showGridLines" [trimXAxisTicks]="trimXAxisTicks" [trimYAxisTicks]="trimYAxisTicks"
+                              [rotateXAxisTicks]="rotateXAxisTicks" [maxXAxisTickLength]="maxXAxisTickLength" [maxYAxisTickLength]="maxYAxisTickLength" [xAxisTickFormatting]="formatString" [yAxisTickFormatting]="formatNumber" [yAxisTicks]="yAxisTicks" [showDataLabel]="showDataLabel"
+                              [barPadding]="barPadding" [tooltipDisabled]="tooltipDisabled" [roundEdges]="roundEdges">
+                            </ngx-charts-bar-vertical>
+                          </div>
+                             </div>
+                          </mat-tab>
+                        </mat-tab-group>
+                       </div>
+                    </div>
+
+                    <div class="tab-pane fade pt-2" id="v-pills-sleep" role="tabpanel" aria-labelledby="v-pills-sleep-tab">
+                      <div style="margin-left: 10px;">
+                        <mat-tab-group>
+                          <mat-tab label="Daily">
+                            <div style="margin-left: 10px;margin-right: 15px;">
+                              <div style="margin-top: 20px;">
+                            <ngx-charts-bar-vertical [results]="getSleepDailyBar" [view]="view" [scheme]="colorScheme" [schemeType]="schemeType" [gradient]="gradient" [xAxis]="xAxis" [yAxis]="yAxis" [legend]="legend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
+                              [xAxisLabel]="getSleepDailylable" [yAxisLabel]="getSleepDailylable" [legendTitle]="legendTitle" [legendPosition]="legendPosition" [animations]="animations" [showGridLines]="showGridLines" [trimXAxisTicks]="trimXAxisTicks" [trimYAxisTicks]="trimYAxisTicks"
+                              [rotateXAxisTicks]="rotateXAxisTicks" [maxXAxisTickLength]="maxXAxisTickLength" [maxYAxisTickLength]="maxYAxisTickLength" [xAxisTickFormatting]="formatString" [yAxisTickFormatting]="formatNumber" [yAxisTicks]="yAxisTicks" [showDataLabel]="showDataLabel"
+                              [barPadding]="barPadding" [tooltipDisabled]="tooltipDisabled" [roundEdges]="roundEdges">
+                            </ngx-charts-bar-vertical>
+                          </div>                     
+                             </div>
+                          </mat-tab>
+                          <mat-tab label="Monthly">
+                            <div style="margin-left: 10px;margin-right: 15px;">
+                              <div style="margin-top: 20px;">
+                            <ngx-charts-bar-vertical [results]="getSleepMonthlyBar" [view]="view" [scheme]="colorScheme" [schemeType]="schemeType" [gradient]="gradient" [xAxis]="xAxis" [yAxis]="yAxis" [legend]="legend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
+                              [xAxisLabel]="getSleepMonthlylable" [yAxisLabel]="getSleepMonthlylable" [legendTitle]="legendTitle" [legendPosition]="legendPosition" [animations]="animations" [showGridLines]="showGridLines" [trimXAxisTicks]="trimXAxisTicks" [trimYAxisTicks]="trimYAxisTicks"
+                              [rotateXAxisTicks]="rotateXAxisTicks" [maxXAxisTickLength]="maxXAxisTickLength" [maxYAxisTickLength]="maxYAxisTickLength" [xAxisTickFormatting]="formatString" [yAxisTickFormatting]="formatNumber" [yAxisTicks]="yAxisTicks" [showDataLabel]="showDataLabel"
+                              [barPadding]="barPadding" [tooltipDisabled]="tooltipDisabled" [roundEdges]="roundEdges">
+                            </ngx-charts-bar-vertical>
+                          </div>
                              </div>
                           </mat-tab>
                         </mat-tab-group>
