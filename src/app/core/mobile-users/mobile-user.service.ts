@@ -176,7 +176,31 @@ export class MobileUserService implements OnInit {
     );
   }
 
+  getCurrentPlanBar(userId: string): Observable<any> {
+    return this.httpClient.get(`${BaseUrl}MealPlan/GetCurrentPlanBar?userId=${userId}`,
+      {
+        params: { userId },
+      }
+    );
+  }
+
   getWeghitDailyBar(userId: string): Observable<any> {
+    return this.httpClient.get(`${BaseUrl}MealPlan/GetWeghitAndMesurementDailyBar?day=${this.todayDate}&userId=${userId}`,
+      {
+        params: { userId },
+      }
+    );
+  }
+
+  getHeartMonthlyBar(userId: string): Observable<any> {
+    return this.httpClient.get(`${BaseUrl}MealPlan/GetWeghitAndMesurementMonthlyBar?day=${this.todayDate}&userId=${userId}`,
+      {
+        params: { userId },
+      }
+    );
+  }
+
+  getHeartDailyBar(userId: string): Observable<any> {
     return this.httpClient.get(`${BaseUrl}MealPlan/GetWeghitAndMesurementDailyBar?day=${this.todayDate}&userId=${userId}`,
       {
         params: { userId },
@@ -191,4 +215,21 @@ export class MobileUserService implements OnInit {
       }
     );
   }
+
+  getPeriodDailyBar(userId: string): Observable<any> {
+    return this.httpClient.get(`${BaseUrl}MealPlan/GetWeghitAndMesurementDailyBar?day=${this.todayDate}&userId=${userId}`,
+      {
+        params: { userId },
+      }
+    );
+  }
+
+  getPeriodMonthlyBar(userId: string): Observable<any> {
+    return this.httpClient.get(`${BaseUrl}MealPlan/GetWeghitAndMesurementMonthlyBar?day=${this.todayDate}&userId=${userId}`,
+      {
+        params: { userId },
+      }
+    );
+  }
+
 }

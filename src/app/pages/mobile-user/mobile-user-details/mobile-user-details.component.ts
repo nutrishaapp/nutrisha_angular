@@ -28,8 +28,7 @@ import { userInfo } from 'os';
 import { MealPlanListModel } from 'src/app/core/meal-plan/models/meal-plan-list.model';
 import { Chart } from 'chart.js';
 import { productSales, productSalesMulti, emoji } from 'products';
-
-
+import { DatePipe } from '@angular/common';
 
 
 
@@ -41,11 +40,14 @@ import { productSales, productSalesMulti, emoji } from 'products';
 })
 export class MobileUserDetailsComponent implements OnInit {
   selectedType = 'Bar';
+  public chart: any;
 
   onChange(event) {
     this.selectedType = event.target.value;
   }
   userMood: any[];
+  mealData: any;
+  menuTypes = [];
   getWatertype: string
   getWaterlable: string
   getWaterBare: any[]
@@ -77,6 +79,14 @@ export class MobileUserDetailsComponent implements OnInit {
   getSleepMonthlylable: string
   getSleepMonthlyBar: any[]
 
+  getHeartMonthlytype: string
+  getHeartMonthlylable: string
+  getHeartMonthlyBar: any[]
+
+  getPeriodMonthlytype: string
+  getPeriodMonthlylable: string
+  getPeriodMonthlyBar: any[]
+
 
   getWeghitDailytype: string
   getWeghitDailylable: string
@@ -104,6 +114,18 @@ export class MobileUserDetailsComponent implements OnInit {
   getSleepDailylable: string
   getSleepDailyBar: any[]
 
+  getHeartDailytype: string
+  getHeartDailylable: string
+  getHeartDailyBar: any[]
+
+  getPeriodDailytype: string
+  getPeriodDailylable: string
+  getPeriodDailyBar: any[]
+
+  getCurrentPlantype: string
+  getCurrentPlanlable: string
+  getCurrentPlanBare: any[]
+
   view: [number, number] = [700, 450];
 
   // start-chart
@@ -126,9 +148,14 @@ export class MobileUserDetailsComponent implements OnInit {
   trimYAxisTicks: boolean = false;
   rotateXAxisTicks: boolean = false;
 
+
   xAxisTicks: any[] = ['Genre 1', 'Genre 2', 'Genre 3', 'Genre 4', 'Genre 5', 'Genre 6', 'Genre 7']
+  xAxisTicks_meal: any[] = ['Breakfast', 'Lunch', 'Dinner', 'Snack', 'Supplement', 'Water', 'ExtraBites', 'Recommended']
+  yAxisTicks_meal_days: any[] = ['Saturday', 'Friday', 'Thursday', 'Wednesday', 'Tuesday', 'Monday', 'Sunday']
   yAxisTicks: any[] = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200, 210, 220, 230, 240, 250, 260, 270, 280, 290, 300]
   yAxisTicks_sleep: any[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]
+  yAxisTicks_period: any[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30]
+  yAxisTicks_heart: any[] = [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
   yAxisTicks_steps: any[] = [1000, 2000, 3000, 4000, 5000, 6000, 7000, 8000, 9000, 10000, 11000, 12000, 13000, 14000, 15000, 16000, 17000, 18000, 19000, 20000, 21000, 22000, 23000, 24000, 25000, 26000, 27000, 28000, 29000, 30000]
   yAxisTicks_2: any[] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
   animations: boolean = true; // animations on load
@@ -156,7 +183,19 @@ export class MobileUserDetailsComponent implements OnInit {
   userDetails: MobileUserDetailsViewModel;
   mealTypes = MealType;
   selectedFiles = [];
-  myChart: any;
+
+
+  viewLC: [number, number] = [700, 450];
+  animationsLC = true;
+  showGridLinesLC = true;
+  legendLC = true;
+  legendTitleLC = "Countries";
+  roundDomainsLC = true;
+  xAxisLC = true;
+  yAxisLC = true;
+
+
+
 
 
   userId: string;
@@ -207,6 +246,8 @@ export class MobileUserDetailsComponent implements OnInit {
     return input
   }
 
+
+
   ngOnInit(): void {
     this.activatedRoute.params.subscribe((params) => {
       this.userId = params['id'];
@@ -224,6 +265,7 @@ export class MobileUserDetailsComponent implements OnInit {
     this.getWeghitDaily();
     this.getWeghitMonthly();
     this.getUserMood();
+    this.getCurrentPlanBar();
   }
 
   loadUserDetails(id: string) {
@@ -428,6 +470,7 @@ export class MobileUserDetailsComponent implements OnInit {
   getWeghitMonthly() {
     this.mobileUserService.getWeghitMonthlyBar(this.userId).subscribe({
       next: (res) => {
+        console.log(res.data[7].data);
         this.getWeghitMonthlytype = res.data[0].type;
         this.getWeghitMonthlylable = res.data[0].lable;
         this.getWeghitMonthlyBar = res.data[0].data;
@@ -453,6 +496,14 @@ export class MobileUserDetailsComponent implements OnInit {
         this.getSleepMonthlytype = res.data[5].type
         this.getSleepMonthlylable = res.data[5].lable
         this.getSleepMonthlyBar = res.data[5].data;
+
+        this.getHeartMonthlytype = res.data[6].type
+        this.getHeartMonthlylable = res.data[6].lable
+        this.getHeartMonthlyBar = res.data[6].data;
+
+        this.getPeriodMonthlytype = res.data[7].type
+        this.getPeriodMonthlylable = res.data[7].lable
+        this.getPeriodMonthlyBar = res.data[7].data;
       },
       error: (err) => {
         alert("Error while fetching the Records")
@@ -488,6 +539,14 @@ export class MobileUserDetailsComponent implements OnInit {
         this.getSleepDailytype = res.data[5].type
         this.getSleepDailylable = res.data[5].lable
         this.getSleepDailyBar = res.data[5].data;
+
+        this.getHeartDailytype = res.data[6].type
+        this.getHeartDailylable = res.data[6].lable
+        this.getHeartDailyBar = res.data[6].data;
+
+        this.getPeriodDailytype = res.data[7].type
+        this.getPeriodDailylable = res.data[7].lable
+        this.getPeriodDailyBar = res.data[7].data;
       },
       error: (err) => {
         alert("Error while fetching the Records")
@@ -498,8 +557,35 @@ export class MobileUserDetailsComponent implements OnInit {
   getUserMood() {
     this.mobileUserService.getUserMood(this.userId).subscribe({
       next: (res) => {
-        console.log(res.data);
         this.userMood = res.data;
+      },
+      error: (err) => {
+        alert("Error while fetching the Records")
+      },
+    });
+  }
+
+  getCurrentPlanBar() {
+    this.mobileUserService.getCurrentPlanBar(this.userId).subscribe({
+      next: (res) => {
+
+        this.mealData = res.data['data'];
+        console.log(this.mealData);
+        // console.log(res.data['data'][0]);
+        // console.log(res.data['data'][0].days);
+        // this.getCurrentPlanBare = res.data['data'][0];
+        // for (let index = 0; index < res.data['data'].length; index++) {
+        //   this.days.push(res.data['data'][index].days);
+        //   console.log(this.days);
+        // }
+        // this.days = [... this.days];
+        // console.log(this.days);
+        // console.log(this.days);
+        // for (const i in res.data['data']) {
+        //   this.days.push(res.data['data'][i].days);
+        //   // this.menuTypes.push(res.data['data'][i]['meal']['menuType']);
+        //   // console.log(this.menuTypes);
+        // }
       },
       error: (err) => {
         alert("Error while fetching the Records")

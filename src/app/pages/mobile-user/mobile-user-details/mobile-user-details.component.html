@@ -308,6 +308,9 @@
                     <button  style="background-color: #ff725a;"style="background-color: #ff725a;" class="nav-link mb-3" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">Measurement  <i class="fa-solid fa-ruler"></i></button>
                     <button  style="background-color: #ff725a;"style="background-color: #ff725a;" class="nav-link mb-3" id="v-pills-steps-tab" data-bs-toggle="pill" data-bs-target="#v-pills-steps" type="button" role="tab" aria-controls="v-pills-steps" aria-selected="false">Steps <i class="fa-solid fa-shoe-prints"></i></button>
                     <button  style="background-color: #ff725a;"style="background-color: #ff725a;" class="nav-link mb-3" id="v-pills-sleep-tab" data-bs-toggle="pill" data-bs-target="#v-pills-sleep" type="button" role="tab" aria-controls="v-pills-sleep" aria-selected="false">Sleep <i class="fa-regular fa-moon"></i></button>
+                    <button  style="background-color: #ff725a;"style="background-color: #ff725a;" class="nav-link mb-3" id="v-pills-heart-tab" data-bs-toggle="pill" data-bs-target="#v-pills-heart" type="button" role="tab" aria-controls="v-pills-heart" aria-selected="false">Heart <i class="fa-solid fa-heart-pulse"></i></button>
+                    <button *ngIf="userDetails?.gender == 'Female' "  style="background-color: #ff725a;"style="background-color: #ff725a;" class="nav-link mb-3" id="v-pills-period-tab" data-bs-toggle="pill" data-bs-target="#v-pills-period" type="button" role="tab" aria-controls="v-pills-period" aria-selected="false">Period <i class="fa-solid fa-venus"></i></button>
+                    <button  style="background-color: #ff725a;"style="background-color: #ff725a;" class="nav-link mb-3" id="v-pills-meal-tab" data-bs-toggle="pill" data-bs-target="#v-pills-meal" type="button" role="tab" aria-controls="v-pills-meal" aria-selected="false">Log Meal <i class="fa-solid fa-utensils"></i></button>
                   </div>
                   <div class="tab-content" id="v-pills-tabContent">
                     <div class="tab-pane fade show active pt-2" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
@@ -384,7 +387,7 @@
                           </div>
                         </div>
                       
-                        <div *ngIf="userMood.length == 0">
+                        <div *ngIf="!userMood">
                           <h2>No Data Available</h2>
                         </div>
                         
@@ -524,6 +527,88 @@
                              </div>
                           </mat-tab>
                         </mat-tab-group>
+                       </div>
+                    </div>
+
+                    <div class="tab-pane fade pt-2" id="v-pills-heart" role="tabpanel" aria-labelledby="v-pills-heart-tab">
+                      <div style="margin-left: 10px;">
+                        <mat-tab-group>
+                          <mat-tab label="Daily">
+                            <div style="margin-left: 10px;margin-right: 15px;">
+                              <div style="margin-top: 20px;">
+                            <ngx-charts-bar-vertical [results]="getHeartDailyBar" [view]="view" [scheme]="colorScheme" [schemeType]="schemeType" [gradient]="gradient" [xAxis]="xAxis" [yAxis]="yAxis" [legend]="legend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
+                              [xAxisLabel]="getHeartDailylable" [yAxisLabel]="getHeartDailylable" [legendTitle]="legendTitle" [legendPosition]="legendPosition" [animations]="animations" [showGridLines]="showGridLines" [trimXAxisTicks]="trimXAxisTicks" [trimYAxisTicks]="trimYAxisTicks"
+                              [rotateXAxisTicks]="rotateXAxisTicks" [maxXAxisTickLength]="maxXAxisTickLength" [maxYAxisTickLength]="maxYAxisTickLength" [xAxisTickFormatting]="formatString" [yAxisTickFormatting]="formatNumber" [yAxisTicks]="yAxisTicks_heart" [showDataLabel]="showDataLabel"
+                              [barPadding]="barPadding" [tooltipDisabled]="tooltipDisabled" [roundEdges]="roundEdges">
+                            </ngx-charts-bar-vertical>
+                          </div>                     
+                             </div>
+                          </mat-tab>
+                          <mat-tab label="Monthly">
+                            <div style="margin-left: 10px;margin-right: 15px;">
+                              <div style="margin-top: 20px;">
+                            <ngx-charts-bar-vertical [results]="getHeartMonthlyBar" [view]="view" [scheme]="colorScheme" [schemeType]="schemeType" [gradient]="gradient" [xAxis]="xAxis" [yAxis]="yAxis" [legend]="legend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
+                              [xAxisLabel]="getHeartMonthlylable" [yAxisLabel]="getHeartMonthlylable" [legendTitle]="legendTitle" [legendPosition]="legendPosition" [animations]="animations" [showGridLines]="showGridLines" [trimXAxisTicks]="trimXAxisTicks" [trimYAxisTicks]="trimYAxisTicks"
+                              [rotateXAxisTicks]="rotateXAxisTicks" [maxXAxisTickLength]="maxXAxisTickLength" [maxYAxisTickLength]="maxYAxisTickLength" [xAxisTickFormatting]="formatString" [yAxisTickFormatting]="formatNumber" [yAxisTicks]="yAxisTicks_heart" [showDataLabel]="showDataLabel"
+                              [barPadding]="barPadding" [tooltipDisabled]="tooltipDisabled" [roundEdges]="roundEdges">
+                            </ngx-charts-bar-vertical>
+                          </div>
+                             </div>
+                          </mat-tab>
+                        </mat-tab-group>
+                       </div>
+                    </div>
+
+
+                    <div class="tab-pane fade pt-2" id="v-pills-period" role="tabpanel" aria-labelledby="v-pills-period-tab">
+                      <div style="margin-left: 10px;">
+                        <div *ngIf="selectedType == 'Bar'" style="margin-left: 10px;">
+                          <ngx-charts-bar-vertical [results]="getPeriodMonthlyBar" [view]="view" [scheme]="colorScheme" [schemeType]="schemeType" [gradient]="gradient" [xAxis]="xAxis" [yAxis]="yAxis" [legend]="legend" [showXAxisLabel]="showXAxisLabel" [showYAxisLabel]="showYAxisLabel"
+                          [xAxisLabel]="xAxisLabel" [yAxisLabel]="getPeriodMonthlylable" [legendTitle]="legendTitle" [legendPosition]="legendPosition" [animations]="animations" [showGridLines]="showGridLines" [trimXAxisTicks]="trimXAxisTicks" [trimYAxisTicks]="trimYAxisTicks"
+                          [rotateXAxisTicks]="rotateXAxisTicks" [maxXAxisTickLength]="maxXAxisTickLength" [maxYAxisTickLength]="maxYAxisTickLength" [xAxisTickFormatting]="formatString" [yAxisTickFormatting]="formatNumber" [yAxisTicks]="yAxisTicks_period" [showDataLabel]="showDataLabel"
+                          [barPadding]="barPadding" [tooltipDisabled]="tooltipDisabled" [roundEdges]="roundEdges">
+                        </ngx-charts-bar-vertical>
+                         </div>
+                         <div *ngIf="selectedType == 'Line'" style="margin-left: 10px;">
+                          <ngx-charts-pie-chart [results]="getHeartMonthlyBar" [view]="view" [scheme]="colorScheme" [schemeType]="schemeType" [legend]="legend"
+                          [legendTitle]="legendTitle" [legendPosition]="legendPosition" [animations]="animations" 
+                          [tooltipDisabled]="tooltipDisabled">
+                        </ngx-charts-pie-chart>
+                         </div>
+                       </div>
+                    </div>
+
+                    <div class="tab-pane fade pt-2" id="v-pills-meal" role="tabpanel" aria-labelledby="v-pills-meal-tab">
+                      <div style="margin-left: 10px; margin-right: 20px;">
+                        <div *ngIf="!mealData">
+                        <h1>No Data Available</h1>
+                        </div>
+                            <div *ngIf="mealData">
+        
+                              <table class="table table-bordered">
+                                <thead>
+                                </thead>
+                                <tbody>
+                                  <tr *ngFor="let day of mealData">
+                                    <td class="fw-bold table-warning">{{ day.days }}</td>
+                                    <td *ngFor="let mealType of day.meal">
+                                     <span class="text-decoration-underline"> {{mealType.menuType == 0 ?"Breakfast":""}}</span>
+                                     <span class="text-decoration-underline"> {{mealType.menuType == 1 ?"Lunch":""}}</span>
+                                     <span class="text-decoration-underline"> {{mealType.menuType == 2 ?"Dinner":""}}</span>
+                                     <span class="text-decoration-underline"> {{mealType.menuType == 3 ?"Snack":""}}</span>
+                                     <span class="text-decoration-underline"> {{mealType.menuType == 4 ?"Supplement":""}}</span>
+                                     <span class="text-decoration-underline"> {{mealType.menuType == 5 ?"Water":""}}</span>
+                                     <span class="text-decoration-underline"> {{mealType.menuType == 6 ?"ExtraBites":""}}</span>
+                                     <span class="text-decoration-underline"> {{mealType.menuType == 7 ?"Recommended":""}}</span>
+                                      <ul>
+                                        <li *ngFor="let menuItem of mealType.name">{{ menuItem }}</li>
+                                      </ul>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+
+                            </div>
                        </div>
                     </div>
                   </div>

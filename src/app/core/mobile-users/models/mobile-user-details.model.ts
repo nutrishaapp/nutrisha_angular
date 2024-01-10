@@ -17,7 +17,6 @@ export class MobileUserDetailsViewModel extends MobileUserListModel {
   height: number;
   currentWeight: number;
   weightLoss: number;
-
   userRisks: string[];
   currentPlan;
   previousPlan;
