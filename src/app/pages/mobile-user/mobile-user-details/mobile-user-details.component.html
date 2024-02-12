@@ -592,7 +592,7 @@
                                   <tr *ngFor="let day of mealData">
                                     <td class="fw-bold table-warning">{{ day.days }}</td>
                                     <td *ngFor="let mealType of day.meal">
-                                      {{mealType.color == "Green" ?"🟢":""}}{{mealType.color == "Red" ?"🔴":""}}{{mealType.color == "Yellow" ?"🟡":""}}<span class="text-decoration-underline"> {{mealType.menuType == 0 ?"Breakfast":""}}</span>
+                                      {{mealType.color == "Green" ?"🟢":""}}{{mealType.color == "Red" ?"🔴":""}}{{mealType.color == "Yellow" ?"🟡":""}}{{mealType.color == "Orange" ?"🟠":""}}<span class="text-decoration-underline"> {{mealType.menuType == 0 ?"Breakfast":""}}</span>
                                      <span class="text-decoration-underline"> {{mealType.menuType == 1 ?"Lunch":""}}</span>
                                      <span class="text-decoration-underline"> {{mealType.menuType == 2 ?"Dinner":""}}</span>
                                      <span class="text-decoration-underline"> {{mealType.menuType == 3 ?"Snack":""}}</span>
@@ -600,14 +600,16 @@
                                      <span class="text-decoration-underline"> {{mealType.menuType == 5 ?"Water":""}}</span>
                                      <span class="text-decoration-underline"> {{mealType.menuType == 6 ?"ExtraBites":""}}</span>
                                      <span class="text-decoration-underline"> {{mealType.menuType == 7 ?"Recommended":""}}</span>
+
                                       <ul>
                                         <li *ngFor="let menuItem of mealType.name">{{ menuItem }}</li>
                                       </ul>
+                                      <div *ngIf="mealType?.logDate"><span><i class="fa-regular fa-clock"></i></span><span style="color:blue;"> {{mealType.logDate}}</span></div>
                                     </td>
                                   </tr>
                                 </tbody>
                               </table>
-                              <div><span>Skipped</span><span> 🔴</span><span> Eaten</span><span> 🟢</span><span> Swap</span><span> 🟡</span></div>
+                              <div><span>Skipped</span><span> 🔴</span><span> Eaten</span><span> 🟢</span><span> Swap</span><span> 🟡</span><span> Other</span><span> 🟠</span></div>
                             </div>
                        </div>
                     </div>
