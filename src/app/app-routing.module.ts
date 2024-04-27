@@ -115,6 +115,18 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'notifications',
+        canActivate: [PermissionGuard],
+        data: {
+          permission: 'canAccessAdminUsersModule',
+        },
+        loadChildren: () =>
+          import('./pages/notifications/notifications/notifications.module').then(
+            (m) => m.NotificationsModule
+          ),
+
+      },
+      {
         path: 'profiles',
         loadChildren: () =>
           import('./pages/profile/profile.module').then((m) => m.ProfileModule),
@@ -138,4 +150,4 @@ const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

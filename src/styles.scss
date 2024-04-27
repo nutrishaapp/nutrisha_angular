@@ -67,7 +67,7 @@ body[dir="rtl"] {
 /*#region Angular Material*/
 
 .mat-form-field-flex:hover {
-  & > .mat-form-field-outline {
+  &>.mat-form-field-outline {
     outline: none;
   }
 }
@@ -163,9 +163,11 @@ input.form-control:focus {
 .margin-end-4 {
   margin-inline-end: 2rem !important;
 }
+
 .margin-end-5 {
   margin-inline-end: 2.5rem !important;
 }
+
 .padding-start-1 {
   padding-inline-start: 0.5rem !important;
 }
@@ -208,6 +210,7 @@ input.form-control:focus {
 .radius-2 {
   border-radius: 20px !important;
 }
+
 .radius-4 {
   border-radius: 50px !important;
 }
@@ -219,6 +222,7 @@ input.form-control:focus {
 .w-67 {
   width: 67% !important;
 }
+
 .nut-btn {
   border: 0;
   outline: none;
@@ -227,3 +231,8 @@ input.form-control:focus {
   border-radius: 49px;
 }
 
+.nav-pills .nav-link.active,
+.nav-pills .show>.nav-link {
+  color: var(--bs-nav-pills-link-active-color);
+  background-color: #ff725a;
+}

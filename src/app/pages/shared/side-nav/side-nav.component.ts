@@ -13,9 +13,9 @@ enum sideNavTypes {
 export class SideNavComponent implements OnInit {
   @Input() collapse = false;
 
-  constructor() {}
+  constructor() { }
 
-  ngOnInit(): void {}
+  ngOnInit(): void { }
   sideNav = [
     // {
     //   title: 'DASHBOARD.NAV_TITLE',
@@ -96,6 +96,14 @@ export class SideNavComponent implements OnInit {
       permission: 'canAccessAdminUsersModule',
       icon: 'fa-solid fa-user-gear',
       href: '/roles',
+      active: false,
+    },
+    {
+      title: 'Notifications',
+      type: sideNavTypes.Link,
+      permission: 'canAccessAdminUsersModule',
+      icon: 'fa-solid fa-bell',
+      href: '/notifications/send-notification',
       active: false,
     },
     {

@@ -37,6 +37,8 @@ import { UploadDocumentDialogComponent } from './pages/mobile-user/mobile-user-d
 import { UserDocumentsDialogComponent } from './pages/mobile-user/mobile-user-details/sub/user-documents-dialog/user-documents-dialog.component';
 import { RichTextModule } from './pages/shared/rich-text/rich-text.module';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { SendNotificationComponent } from './pages/notifications/send-notification/send-notification.component';
+import { NotificationsModule } from './pages/notifications/notifications/notifications.module';
 
 
 
@@ -64,6 +66,7 @@ function initializeAppFactory(store: Store): () => Observable<any> {
     DialogComponent,
     UploadDocumentDialogComponent,
     UserDocumentsDialogComponent,
+    SendNotificationComponent,
   ],
   imports: [
     ReactiveFormsModule,
@@ -95,7 +98,8 @@ function initializeAppFactory(store: Store): () => Observable<any> {
     NgxPermissionsModule.forRoot(),
     UserModule,
     RichTextModule,
-    NgxChartsModule
+    NgxChartsModule,
+    NotificationsModule
   ],
   providers: [
     AuthService,
