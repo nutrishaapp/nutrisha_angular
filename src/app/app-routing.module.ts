@@ -73,6 +73,17 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'Hunger-videos',
+        canActivate: [PermissionGuard],
+        data: {
+          permission: 'canAccessBlogsModule',
+        },
+        loadChildren: () =>
+          import('./pages/hunger-vedio/hunger-vedio.module').then(
+            (m) => m.HungerVedioModule
+          ),
+      },
+      {
         path: 'app/users',
         canActivate: [PermissionGuard],
         data: {

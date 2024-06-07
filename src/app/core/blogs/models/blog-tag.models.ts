@@ -3,7 +3,7 @@
     color: string;
 }
 
-export class BlogTagDetailsModel{
+export class BlogTagDetailsModel {
     id: string;
     color: string;
     name: string;

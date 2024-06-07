@@ -39,6 +39,8 @@ import { RichTextModule } from './pages/shared/rich-text/rich-text.module';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { SendNotificationComponent } from './pages/notifications/send-notification/send-notification.component';
 import { NotificationsModule } from './pages/notifications/notifications/notifications.module';
+import { HungerVedioModule } from './pages/hunger-vedio/hunger-vedio.module';
+import { HungerVedioDetailsComponent } from './pages/hunger-vedio/hunger-vedio-details/hunger-vedio-details.component';
 
 
 
@@ -99,7 +101,8 @@ function initializeAppFactory(store: Store): () => Observable<any> {
     UserModule,
     RichTextModule,
     NgxChartsModule,
-    NotificationsModule
+    NotificationsModule,
+    HungerVedioModule
   ],
   providers: [
     AuthService,

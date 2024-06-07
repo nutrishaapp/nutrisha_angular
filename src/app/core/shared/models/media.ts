@@ -77,5 +77,5 @@ export class ExternalMediaValidator {
 
 export namespace MediaFlags {
   export const CoverImage = 'CoverImage';
-  export const MainMedia = 'MainMedia';
+  export const MainMedia = 'Files[0].file';
 }

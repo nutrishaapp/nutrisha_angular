@@ -42,6 +42,14 @@ export class SideNavComponent implements OnInit {
       active: false,
     },
     {
+      title: 'Hunger  Videos',
+      type: sideNavTypes.Link,
+      permission: 'canAccessBlogsModule',
+      icon: 'fa-solid fa-utensils',
+      href: '/Hunger-videos',
+      active: false,
+    },
+    {
       title: 'POLLS.NAV_TITLE',
       type: sideNavTypes.Link,
       permission: 'canAccessBlogsModule',

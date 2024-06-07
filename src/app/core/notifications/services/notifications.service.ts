@@ -1,5 +1,8 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
+
+const BaseUrl = environment.baseUrl;
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +18,7 @@ export class NotificationsService {
         body
       }
     };
-    return this.http.post<any>('http://localhost:3000/send-notification', notification);
+    return this.http.post<any>(BaseUrl + '/Admin/api/v1/Notification/SendNotification', notification);
   }
   sendNotificationToSubscribedUsers(token: string, title: string, body: string) {
     const notification = {
@@ -25,7 +28,7 @@ export class NotificationsService {
         body
       }
     };
-    return this.http.post<any>('http://localhost:3000/send-notification', notification);
+    return this.http.post<any>(BaseUrl + '/Admin/api/v1/Notification/SendNotification', notification);
   }
   sendNotificationToUnSubscribedUsers(token: string, title: string, body: string) {
     const notification = {
@@ -35,7 +38,7 @@ export class NotificationsService {
         body
       }
     };
-    return this.http.post<any>('http://localhost:3000/send-notification', notification);
+    return this.http.post<any>(BaseUrl + '/Admin/api/v1/Notification/SendNotification', notification);
   }
   sendNotificationToSpecificUser(token: string, title: string, body: string) {
     const notification = {
@@ -45,6 +48,6 @@ export class NotificationsService {
         body
       }
     };
-    return this.http.post<any>('http://localhost:3000/send-notification', notification);
+    return this.http.post<any>(BaseUrl + '/Admin/api/v1/Notification/SendNotification', notification);
   }
 }
