@@ -41,7 +41,7 @@ import { SendNotificationComponent } from './pages/notifications/send-notificati
 import { NotificationsModule } from './pages/notifications/notifications/notifications.module';
 import { HungerVedioModule } from './pages/hunger-vedio/hunger-vedio.module';
 import { HungerVedioDetailsComponent } from './pages/hunger-vedio/hunger-vedio-details/hunger-vedio-details.component';
-
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 
 
@@ -102,7 +102,8 @@ function initializeAppFactory(store: Store): () => Observable<any> {
     RichTextModule,
     NgxChartsModule,
     NotificationsModule,
-    HungerVedioModule
+    HungerVedioModule,
+    NgMultiSelectDropDownModule.forRoot()
   ],
   providers: [
     AuthService,

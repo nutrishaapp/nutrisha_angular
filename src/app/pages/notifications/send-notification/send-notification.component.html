@@ -1,4 +1,6 @@
-<div class="container my-5">
+<div class="p-3 bg-white mat-elevation-z8">
+  <div class="d-flex justify-content-start">
+    <div class="flex-grow-1">
   <div class="card">
     <div class="card-header">
       <h1 class="mb-3">Send Notifications</h1>
@@ -16,15 +18,15 @@
             <div class="container">
               <h2>Send Notification to All Users</h2>
               <form #form="ngForm" (ngSubmit)="sendNotificationToAllUsers()">
-                <div class="mb-3 mt-3">
+                <div class="fmb-3 mt-3">
                   <label for="title">Title</label>
                   <input type="text" class="form-control" id="titleAll" [(ngModel)]="titleAll" placeholder="Enter title" name="titleAll" required>
                 </div>
-                <div class="mb-3">
+                <div class="mb-3 mt-3">
                   <label for="exampleFormControlTextarea1" class="form-label">Notification content</label>
                   <textarea class="form-control" id="exampleFormControlTextarea1" [(ngModel)]="bodyAll" rows="3" required></textarea>
                 </div>
-                <button type="submit" class="btn btn-primary">Send</button>
+                <button class="button-1" type="submit">Send</button>
               </form>
             </div>
           </div>
@@ -40,7 +42,7 @@
                   <label for="exampleFormControlTextarea1" class="form-label">Notification content</label>
                   <textarea class="form-control" id="exampleFormControlTextarea1" [(ngModel)]="bodySubscribed" rows="3" required></textarea>
                 </div>
-                <button type="submit" class="btn btn-primary">Send</button>
+                <button class="button-1" type="submit">Send</button>
               </form>
             </div>
           </div>
@@ -56,14 +58,14 @@
                   <label for="exampleFormControlTextarea1" class="form-label">Notification content</label>
                   <textarea class="form-control" id="exampleFormControlTextarea1" [(ngModel)]="bodyUnSubscribed" rows="3" required></textarea>
                 </div>
-                <button type="submit" class="btn btn-primary">Send</button>
+                <button class="button-1" type="submit">Send</button>
               </form>
             </div>
           </div>
           <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
             <div class="container">
               <h2>Send Notification to Specific User</h2>
-              <form #form="ngForm" (ngSubmit)="sendNotificationToSpecificUser()">
+              <!-- <form #form="ngForm" (ngSubmit)="sendNotificationToSpecificUser()">
                 <div class="mb-3 mt-3">
                   <label for="title">Title</label>
                   <input type="text" class="form-control" id="titleSpecificUser" [(ngModel)]="titleSpecificUser" placeholder="Enter title" name="titleSpecificUser" required>
@@ -73,11 +75,36 @@
                   <textarea class="form-control" id="exampleFormControlTextarea1" [(ngModel)]="bodySpecificUser" rows="3" required></textarea>
                 </div>
                 <button type="submit" class="btn btn-primary">Send</button>
-              </form>
+              </form> -->
+                <div class="mb-3">
+                  <label class="form-label" for="title">Title:</label>
+                  <input class="form-control" [(ngModel)]="title" id="title" placeholder="Enter notification title" class="form-control">
+                </div>
+              
+                <div class="mb-3">
+                  <label class="form-label" for="body">Body:</label>
+                  <input class="form-control" [(ngModel)]="body" id="body" placeholder="Enter notification body" class="form-control">
+                </div>
+              
+                <div class="mb-3">
+                  <label class="form-label" for="users">User Name:</label>
+                  <ng-multiselect-dropdown
+                  required="true"
+                    [placeholder]="'Select User'"
+                    [data]="users"
+                    [(ngModel)]="selectedUsers"
+                    [settings]="dropdownSettings"
+                    class="form-control">
+                  </ng-multiselect-dropdown>
+                </div>
+              
+                <button (click)="send()" class="button-1">Send</button>                      
             </div>
           </div>
         </div>
       </div>
     </div>
   </div>
+</div>
+</div>
 </div>
