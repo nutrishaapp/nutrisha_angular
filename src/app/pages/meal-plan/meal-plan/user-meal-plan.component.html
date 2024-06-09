@@ -160,7 +160,7 @@
             [ngClass]="formArray.touched && formArray.invalid ? 'error' : ''"
           >
             <mat-label
-              >{{ "MEALS.MEALS_LABELS." + (label | uppercase) | translate }}
+              >{{ (label | uppercase) | translate }}
               *
             </mat-label>
             <mat-chip-list #chipList>
