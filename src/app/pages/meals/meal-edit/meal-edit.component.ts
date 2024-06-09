@@ -44,6 +44,9 @@ export class MealEditComponent implements OnInit {
     | MealType.Snacks
     | MealType.Supplements
     | MealType.Recommended
+    | MealType.DeliciousSnack
+    | MealType.SomethingSpicy
+    | MealType.SomethingSweet
     | MealType;
 
   ingredientUnitType = IngredientUnitType;
@@ -56,7 +59,7 @@ export class MealEditComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private store: Store
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.meal = new MealDetailsModel();
@@ -112,8 +115,8 @@ export class MealEditComponent implements OnInit {
       coverImage: this.formBuilder.control(
         this.meal?.coverImage
           ? new Media({
-              url: this.meal.coverImage,
-            })
+            url: this.meal.coverImage,
+          })
           : null,
         []
       ),
@@ -140,9 +143,9 @@ export class MealEditComponent implements OnInit {
         meal.ingredients = null;
       }*/
       if (this.mealForm.value.ingredients) {
-        for (let i=0; i<this.mealForm.value.ingredients.length; i++) {
+        for (let i = 0; i < this.mealForm.value.ingredients.length; i++) {
           let ingredient = this.mealForm.value.ingredients[i];
-          if(ingredient.quantity != null && ingredient.unitType != null && ingredient.name != null) {
+          if (ingredient.quantity != null && ingredient.unitType != null && ingredient.name != null) {
             //meal.ingredients.splice(i,1);
             meal.ingredients.push(ingredient);
           }
@@ -175,8 +178,8 @@ export class MealEditComponent implements OnInit {
     const controls =
       this.meal?.ingredients && this.meal?.ingredients.length
         ? this.meal.ingredients.map((value) =>
-            this.createIngredientGroup(value)
-          )
+          this.createIngredientGroup(value)
+        )
         : [this.createIngredientGroup()];
 
     this.ingredientsForm = this.formBuilder.array(controls);

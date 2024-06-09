@@ -214,7 +214,10 @@
       "SNACKS": "Snacks",
       "SUPPLEMENTS": "Supplements",
       "EXTRABITES": "Extra Bites",
-      "RECOMMENDED": "Recommended"
+      "RECOMMENDED": "Recommended",
+      "Delicious_Snack": "Delicious Snack",
+      "Something_Spicy": "Something Spicy",
+      "Something_Sweet": "Something Sweet"
     },
     "MEAL_TYPE_ENUM": {
       "0": "Breakfast",
@@ -224,7 +227,10 @@
       "4": "Supplements",
       "5": "Water",
       "6": "ExtraBites",
-      "7": "Recommended"
+      "7": "Recommended",
+      "8": "Delicious Snack",
+      "9": "Something Spicy",
+      "10": "Something Sweet"
     },
     "MEAL_UNIT_TYPE": {
       "Liter": "Liter",

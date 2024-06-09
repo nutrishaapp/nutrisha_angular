@@ -37,6 +37,9 @@ export class MealLookUp {
   dinner: LookupItemModel[] = [];
   snacks: LookupItemModel[] = [];
   supplements: LookupItemModel[] = [];
+  deliciousSnack: LookupItemModel[] = [];
+  somethingSpicy: LookupItemModel[] = [];
+  somethingSweet: LookupItemModel[] = [];
 }
 
 @Component({
@@ -83,7 +86,7 @@ export class UserMealPlanComponent implements OnInit, OnDestroy {
     public activatedRoute: ActivatedRoute,
     private mealPlanService: MealPlanService,
     private router: Router
-  ) {}
+  ) { }
 
   async ngOnInit(): Promise<void> {
     this.initializeForm();
@@ -102,7 +105,11 @@ export class UserMealPlanComponent implements OnInit, OnDestroy {
           dinner: result.data[MealType.Dinner] ?? [],
           snacks: result.data[MealType.Snacks] ?? [],
           supplements: result.data[MealType.Supplements] ?? [],
+          deliciousSnack: result.data[MealType.DeliciousSnack] ?? [],
+          somethingSpicy: result.data[MealType.SomethingSpicy] ?? [],
+          somethingSweet: result.data[MealType.SomethingSweet] ?? [],
         };
+        console.log(result.data);
       });
 
     const params = await firstValueFrom(this.activatedRoute.params);
@@ -200,10 +207,10 @@ export class UserMealPlanComponent implements OnInit, OnDestroy {
         if (this.userId) {
           await this.router.navigateByUrl(
             'plans/templates/' +
-              this.templateId +
-              '/user/' +
-              this.userId +
-              '/edit'
+            this.templateId +
+            '/user/' +
+            this.userId +
+            '/edit'
           );
         } else {
           this.loadTemplate(id);
@@ -263,6 +270,9 @@ export class UserMealPlanComponent implements OnInit, OnDestroy {
       dinner: this.createMealFormGroup(planDay?.Dinner),
       snacks: this.createMealFormGroup(planDay?.Snacks),
       supplements: this.createMealFormGroup(planDay?.Supplements),
+      deliciousSnack: this.createMealFormGroup(planDay?.DeliciousSnack),
+      somethingSpicy: this.createMealFormGroup(planDay?.SomethingSpicy),
+      somethingSweet: this.createMealFormGroup(planDay?.SomethingSweet),
     });
   }
 

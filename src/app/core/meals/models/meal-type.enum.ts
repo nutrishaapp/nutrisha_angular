@@ -7,6 +7,9 @@
   Water = 5,
   ExtraBites = 6,
   Recommended = 7,
+  DeliciousSnack = 8,
+  SomethingSpicy = 9,
+  SomethingSweet = 10
 }
 
 export const getMealTypeByKey = (key: string) => {
@@ -21,4 +24,7 @@ export const mealTypes: MealType[] = [
   MealType.Snacks,
   MealType.Supplements,
   MealType.Recommended,
+  MealType.DeliciousSnack,
+  MealType.SomethingSpicy,
+  MealType.SomethingSweet,
 ];

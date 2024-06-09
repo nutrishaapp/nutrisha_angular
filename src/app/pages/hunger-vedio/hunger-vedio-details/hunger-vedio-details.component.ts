@@ -299,7 +299,7 @@ export class HungerVedioDetailsComponent implements OnInit {
     this.hungerService.getById(id).subscribe((data) => {
       this.id = data.data.id;
       this.subject = data.data.subject;
-      this.selectedHungerTypeId = '1';
+      this.selectedHungerTypeId = data.data.hungerTypeId;
       this.url = data.data.media[0].url;
       // this.deletedMediaIds = data.data.media[0].id;
       // console.log(this.selectedFile = data.data.media[0].url);

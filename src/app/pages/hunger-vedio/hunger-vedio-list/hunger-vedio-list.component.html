@@ -87,17 +87,15 @@
             </td>
           </ng-container>
   
-          <ng-container matColumnDef="tag">
+          <ng-container matColumnDef="hungerType">
             <th mat-header-cell *matHeaderCellDef>
-              {{ "BLOG_VIDEOS.TAG" | translate }}
+              Hunger Type
             </th>
-            <td mat-cell *matCellDef="let element">
-              <span
-                class="tag-preview"
-                [style.background-color]="element.tag?.color"
-              >
-                {{ element.tag?.name }}
-              </span>
+            <td  mat-cell *matCellDef="let element">
+              <span *ngIf="element.hungerTypeId=='1'">Tummy Making Noises</span>
+              <span *ngIf="element.hungerTypeId=='2'">Feeling Chewy</span>
+              <span *ngIf="element.hungerTypeId=='3'">Emotional Craves</span>
+               <span *ngIf="element.hungerTypeId=='4'">I Don't Know</span>
             </td>
           </ng-container>
   

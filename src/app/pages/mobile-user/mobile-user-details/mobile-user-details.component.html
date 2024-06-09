@@ -761,6 +761,27 @@
             mealType: mealTypes.ExtraBites
           }"
         ></ng-template>
+        <ng-template
+          [ngTemplateOutlet]="meal"
+          [ngTemplateOutletContext]="{
+            meal: item[currentPlanSelectedDay].mens[mealTypes.DeliciousSnack],
+            mealType: mealTypes.DeliciousSnack
+          }"
+        ></ng-template>
+        <ng-template
+          [ngTemplateOutlet]="meal"
+          [ngTemplateOutletContext]="{
+            meal: item[currentPlanSelectedDay].mens[mealTypes.SomethingSpicy],
+            mealType: mealTypes.SomethingSpicy
+          }"
+        ></ng-template>
+        <ng-template
+          [ngTemplateOutlet]="meal"
+          [ngTemplateOutletContext]="{
+            meal: item[currentPlanSelectedDay].mens[mealTypes.SomethingSweet],
+            mealType: mealTypes.SomethingSweet
+          }"
+        ></ng-template>
       </div>
     </div>
   </div>

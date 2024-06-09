@@ -75,7 +75,7 @@ import { HungerVedioService } from 'src/app/core/hunger-vedio/services/hunger-ve
   styleUrls: ['./hunger-vedio-list.component.scss']
 })
 export class HungerVedioListComponent implements OnInit {
-  displayedColumns: string[] = ['subject', 'createdAt'];
+  displayedColumns: string[] = ['subject', 'hungerType', 'createdAt'];
   dataSource = new MatTableDataSource([]);
   totalItems = 0;
   pageSize = 10;

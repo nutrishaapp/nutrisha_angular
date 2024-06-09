@@ -153,7 +153,8 @@ export class HungerVedioService {
     formData.append('Id', id);
     formData.append('Subject', subject);
     formData.append('HungerTypeId', hungerTypeId);
-    formData.append('Files', file, file.name);
+    formData.append('Files[0].file', file, file.name);
+    formData.append('Files[0].Flags', 'Vedio');
 
     return this.httpClient.put(this.updateUrl, formData, { headers: headers });
   }
