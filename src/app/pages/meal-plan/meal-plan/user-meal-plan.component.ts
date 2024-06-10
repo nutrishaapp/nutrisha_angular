@@ -238,7 +238,6 @@ export class UserMealPlanComponent implements OnInit, OnDestroy {
 
   private initializeForm() {
     this.isOwned = JSON.parse(localStorage.getItem('isOwned'));
-    console.log(this.isOwned);
 
     this.planForm = new FormGroup({
       [DayOfWeek.SATURDAY]: this.createDayForm(DayOfWeek.SATURDAY),
@@ -316,8 +315,9 @@ export class UserMealPlanComponent implements OnInit, OnDestroy {
 
           return of(false);
         }),
-        untilDestroyed(this)
+        // untilDestroyed(this)
       )
       .subscribe();
   }
+
 }

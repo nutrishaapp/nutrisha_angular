@@ -17,7 +17,7 @@ const mealPlan = environment.baseAdminV1Url + 'MealPlan';
 
 @Injectable()
 export class MealPlanService {
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) { }
 
   getTemplates(
     queryParams: PagedListQueryModel

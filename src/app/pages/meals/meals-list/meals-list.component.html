@@ -35,7 +35,7 @@
           </th>
           <td *matCellDef="let element" mat-cell>
             {{
-              "MEALS.MEALS_LABELS." + (mealType[element.mealType] | uppercase)
+              (mealType[element.mealType] | uppercase)
                 | translate
             }}
           </td>

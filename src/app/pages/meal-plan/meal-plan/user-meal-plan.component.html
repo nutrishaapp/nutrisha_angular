@@ -116,11 +116,9 @@
         <button
           class="btn add add-template w-100"
           (click)="openSaveAsTemplate()"
-          [disabled]="planForm.invalid"
         >
           {{
-            (planDetails?.isTemplate &&
-            currentUserId == planDetails?.createdBy.id
+            (planDetails?.id
               ? "MEALS_PLAN.UPDATE_TEMPLATE"
               : "MEALS_PLAN.ADD_AS_TEMPLATE"
             ) | translate
@@ -161,7 +159,6 @@
           >
             <mat-label
               >{{ (label | uppercase) | translate }}
-              *
             </mat-label>
             <mat-chip-list #chipList>
               <div *ngFor="let meal of formArray.value; let valueIndex = index">
@@ -204,11 +201,11 @@
                 </mat-option>
               </div>
             </mat-autocomplete>
-            <mat-hint
+            <!-- <mat-hint
               *ngIf="formArray.touched && formArray.invalid"
               style="color: red"
               >{{ "VALIDATION_ERRORS.REQUIRED" | translate }}</mat-hint
-            >
+            > -->
           </mat-form-field>
         </div>
         <!--        <button-->

@@ -37,11 +37,12 @@ export class SendNotificationComponent implements OnInit {
       singleSelection: false,
       idField: 'deviceToken',
       textField: 'name',
-      selectAllText: 'Select All',
-      unSelectAllText: 'Unselect All',
+      // selectAllText: 'Select All',
+      // unSelectAllText: 'Unselect All',
       limitSelection: 1,
       itemsShowLimit: 1,
-      allowSearchFilter: true
+      allowSearchFilter: true,
+      enableCheckAll: false
     };
   }
 
@@ -125,9 +126,9 @@ export class SendNotificationComponent implements OnInit {
   send() {
     const tokens = this.selectedUsers.map(user => user.deviceToken);
     if (this.title, this.body) {
-      console.log(tokens);
+      console.log(tokens[0]);
       if (tokens.length === 0) {
-        console.error('No device tokens available');
+        alert('User is required');
         return;
       }
 

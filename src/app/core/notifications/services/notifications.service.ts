@@ -12,7 +12,7 @@ export class NotificationsService {
 
   constructor(private http: HttpClient) { }
   getUserData(): Observable<any> {
-    return this.http.get<any>(BaseUrl + '/Admin/api/v1/MobileUser/GetPagedList?PageSize=1000000');
+    return this.http.get<any>(BaseUrl + '/Admin/api/v1/MobileUser/GetPagedList?PageSize=10000');
   }
   sendNotificationToAllUsers(token: string, title: string, body: string) {
     const notification = {
