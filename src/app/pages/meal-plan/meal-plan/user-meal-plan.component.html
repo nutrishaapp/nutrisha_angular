@@ -104,8 +104,7 @@
             mat-flat-button
             color="primary"
             class="margin-start-1 flex-grow-1 add-plan w-100"
-            [disabled]="startDateControl.invalid || isPlanEdited
-            "
+            [disabled]="isPlanEdited"
             (click)="submit()"
           >
             {{ "MEALS_PLAN.ASSIGN_TO_USER" | translate }}
