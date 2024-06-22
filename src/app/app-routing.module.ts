@@ -138,6 +138,18 @@ const routes: Routes = [
 
       },
       {
+        path: 'hungry-questions',
+        canActivate: [PermissionGuard],
+        data: {
+          permission: 'canAccessAdminUsersModule',
+        },
+        loadChildren: () =>
+          import('./pages/hungry-questions/hungry-questions.module').then(
+            (m) => m.HungryQuestionsModule
+          ),
+
+      },
+      {
         path: 'profiles',
         loadChildren: () =>
           import('./pages/profile/profile.module').then((m) => m.ProfileModule),
@@ -155,6 +167,7 @@ const routes: Routes = [
       { path: '**', redirectTo: 'articles', pathMatch: 'full' },
     ],
   },
+  { path: 'hungryQuestions', loadChildren: () => import('./pages/hungry-questions/hungry-questions.module').then(m => m.HungryQuestionsModule) },
 ];
 
 @NgModule({

@@ -115,6 +115,14 @@ export class SideNavComponent implements OnInit {
       active: false,
     },
     {
+      title: "I'm Hungry Q&A",
+      type: sideNavTypes.Link,
+      permission: 'canAccessAdminUsersModule',
+      icon: 'fa-solid fa-person-circle-question',
+      href: '/hungry-questions',
+      active: false,
+    },
+    {
       // title: 'POLLS.NAV_TITLE',
       // type: sideNavTypes.Section,
       // permission: 'canAccessAdminUsersModule',

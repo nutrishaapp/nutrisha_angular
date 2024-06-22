@@ -27,7 +27,7 @@ export class BaseComponent implements OnInit {
     private authService: AuthService,
     private translationService: TranslationService,
     private permissionService: NgxPermissionsService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.internalizeApp();
