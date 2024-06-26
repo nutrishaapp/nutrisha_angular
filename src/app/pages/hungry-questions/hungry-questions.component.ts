@@ -100,7 +100,7 @@ export class HungryQuestionsComponent implements OnInit {
 
   ngOnInit(): void {
     this.lang = this.getSelectedLanguage.getSelectedLanguage();
-    this.mealDataService.getTummyMakingNoises().subscribe(
+    this.mealDataService.getTummyMakingNoises('6116').subscribe(
       (data) => {
         this.dataSource = new MatTableDataSource(data.data);
         this.dataSource.paginator = this.paginator;
@@ -111,7 +111,7 @@ export class HungryQuestionsComponent implements OnInit {
       }
     );
 
-    this.mealDataService.getFeelingChewy().subscribe(
+    this.mealDataService.getFeelingChewy('6116').subscribe(
       (data) => {
         this.dataSource_2 = new MatTableDataSource(data.data);
         this.dataSource_2.paginator = this.paginator;
@@ -122,7 +122,7 @@ export class HungryQuestionsComponent implements OnInit {
       }
     );
 
-    this.mealDataService.getEmotionalCrave().subscribe(
+    this.mealDataService.getEmotionalCrave('6116').subscribe(
       (data) => {
         this.dataSource_3 = new MatTableDataSource(data.data);
         this.dataSource_3.paginator = this.paginator;

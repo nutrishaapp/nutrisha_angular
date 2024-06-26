@@ -330,8 +330,12 @@ export class MobileUserDetailsComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.activatedRoute.params.subscribe((params) => {
+      this.userId = params['id'];
+      this.loadUserDetails(params['id']);
+    });
     this.lang = this.getSelectedLanguage.getSelectedLanguage();
-    this.mealDataService.getTummyMakingNoises().subscribe(
+    this.mealDataService.getTummyMakingNoises(this.userId).subscribe(
       (data) => {
         this.dataSource_1 = new MatTableDataSource(data.data);
         this.dataSource_1.paginator = this.paginator;
@@ -342,7 +346,7 @@ export class MobileUserDetailsComponent implements OnInit {
       }
     );
 
-    this.mealDataService.getFeelingChewy().subscribe(
+    this.mealDataService.getFeelingChewy(this.userId).subscribe(
       (data) => {
         this.dataSource_2 = new MatTableDataSource(data.data);
         this.dataSource_2.paginator = this.paginator;
@@ -353,7 +357,7 @@ export class MobileUserDetailsComponent implements OnInit {
       }
     );
 
-    this.mealDataService.getEmotionalCrave().subscribe(
+    this.mealDataService.getEmotionalCrave(this.userId).subscribe(
       (data) => {
         this.dataSource_3 = new MatTableDataSource(data.data);
         this.dataSource_3.paginator = this.paginator;
@@ -363,10 +367,6 @@ export class MobileUserDetailsComponent implements OnInit {
         console.error('Error fetching meal data', error);
       }
     );
-    this.activatedRoute.params.subscribe((params) => {
-      this.userId = params['id'];
-      this.loadUserDetails(params['id']);
-    });
 
     this.user$
       .pipe(untilDestroyed(this))
