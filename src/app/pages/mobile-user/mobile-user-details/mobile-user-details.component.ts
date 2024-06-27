@@ -30,6 +30,8 @@ import { Chart } from 'chart.js';
 import { productSales, productSalesMulti, emoji } from 'products';
 import { DatePipe } from '@angular/common';
 import { HungryQuestionService } from 'src/app/core/hungryQuestions/services/hungry-question.service';
+import { environment } from 'src/environments/environment';
+
 
 
 
@@ -101,6 +103,13 @@ export interface EmotionalCrave {
   styleUrls: ['./mobile-user-details.component.scss'],
 })
 export class MobileUserDetailsComponent implements OnInit {
+  userQuestiondata = [];
+  userQuestiondataresult = [];
+  questionGroups = [...new Set(this.userQuestiondata.map(item => item.questionGroupName))];
+  selectedGroup = '';
+  filteredQuestions = [];
+
+
   lang: string;
   displayedColumns_1: string[] = [
     'created', 'hungryNo', 'sleepNo', 'lastMealTime',
@@ -307,16 +316,16 @@ export class MobileUserDetailsComponent implements OnInit {
 
 
   onSelect(event: any) {
-    console.log(event);
+    // console.log(event);
   }
 
 
   onActivate(data: any): void {
-    console.log('Activate', JSON.parse(JSON.stringify(data)));
+    // console.log('Activate', JSON.parse(JSON.stringify(data)));
   }
 
   onDeactivate(data: any): void {
-    console.log('Deactivate', JSON.parse(JSON.stringify(data)));
+    // console.log('Deactivate', JSON.parse(JSON.stringify(data)));
   }
 
   formatString(input: string): string {
@@ -368,6 +377,7 @@ export class MobileUserDetailsComponent implements OnInit {
       }
     );
 
+    this.getUserQuestionData(this.userId);
     this.user$
       .pipe(untilDestroyed(this))
       .subscribe((u) => {
@@ -380,6 +390,14 @@ export class MobileUserDetailsComponent implements OnInit {
     this.getWeghitMonthly();
     this.getUserMood();
     this.getCurrentPlanBar();
+  }
+
+  filterQuestions() {
+    if (this.selectedGroup) {
+      this.filteredQuestions = this.userQuestiondataresult.filter(item => item.questionGroupName === this.selectedGroup);
+    } else {
+      this.filteredQuestions = [];
+    }
   }
 
   loadUserDetails(id: string) {
@@ -506,7 +524,7 @@ export class MobileUserDetailsComponent implements OnInit {
   getUserDocuments() {
     this.mobileUserService.getFiles(this.userId).subscribe({
       next: (res) => {
-        console.log(res.data);
+        // console.log(res.data);
       },
       error: (err) => {
         alert("Error while fetching the Records")
@@ -584,7 +602,7 @@ export class MobileUserDetailsComponent implements OnInit {
   getWeghitMonthly() {
     this.mobileUserService.getWeghitMonthlyBar(this.userId).subscribe({
       next: (res) => {
-        console.log(res.data[7].data);
+        // console.log(res.data[7].data);
         this.getWeghitMonthlytype = res.data[0].type;
         this.getWeghitMonthlylable = res.data[0].lable;
         this.getWeghitMonthlyBar = res.data[0].data;
@@ -684,7 +702,7 @@ export class MobileUserDetailsComponent implements OnInit {
       next: (res) => {
 
         this.mealData = res.data['data'];
-        console.log(this.mealData);
+        // console.log(this.mealData);
         // console.log(res.data['data'][0]);
         // console.log(res.data['data'][0].days);
         // this.getCurrentPlanBare = res.data['data'][0];
@@ -733,6 +751,30 @@ export class MobileUserDetailsComponent implements OnInit {
       this.dataSource_3.paginator.firstPage();
     }
   }
+
+  getUserQuestionData(id: string) {
+    const myHeaders: Headers = new Headers();
+    myHeaders.append("accept", "/");
+    myHeaders.append("Authorization", "Bearer eyJhbGciOiJIUzUxMiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiIyMDQ5IiwidW5pcXVlX25hbWUiOiJhaG1lZC5oLmZyYWdAZ21haWwuY29tIiwibmJmIjoxNjk5MjgyNDUxLCJleHAiOjE3MzAzODI4NTEsImlhdCI6MTY5OTI4MjQ1MX0.3tY5fVeaILmEqO4na1DIyGPjBq7A4fJEv7tqW54ZkbjxP6OCGpc3cr3RXkxIkJVyyWMEcGk8xs9d8rBZfCN15g");
+
+    const requestOptions: RequestInit = {
+      method: "GET",
+      headers: myHeaders,
+      redirect: "follow"
+    };
+
+    fetch(environment.baseUrl + "/mobile/api/v1/UserQuestion/GetPagedList?userId=" + id, requestOptions)
+      .then((response: Response) => response.text())
+      .then((result: string) => {
+        this.userQuestiondata = JSON.parse(result);
+        console.log(this.userQuestiondata['data']);
+        this.userQuestiondataresult = this.userQuestiondata['data'];
+        this.questionGroups = [...new Set(this.userQuestiondataresult.map(item => item.questionGroupName))];
+      }
+      )
+      .catch((error: Error) => console.error(error));
+  }
+
 
 }
 
