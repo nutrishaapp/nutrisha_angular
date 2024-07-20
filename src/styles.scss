@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Cairo:wght@600&display=swap');
 $primary: #ff725a;
 
 html,
@@ -5,16 +6,52 @@ body {
   height: 100%;
   background-color: #f2f3f8;
   // font-family: Poppins, Helvetica, sans-serif in !important;
-  font-family: Tajawal, Poppins, Helvetica, sans-serif;
-  font-size: 1rem;
-  font-weight: 400;
+  font-family: Cairo, Helvetica, sans-serif !important;
+  // font-family: Tajawal, Poppins, Helvetica, sans-serif;
+  // font-size: 1rem;
+  font-weight: 600;
   line-height: 1.5;
 }
 
-body [class^="mat-"],
-body [class*=" mat-"] {
-  font-family: Poppins, Helvetica, sans-serif in !important;
+// body [class^="mat-"],
+// body [class*=" mat-"] {
+//   font-family: Cairo, Helvetica, sans-serif !important;
+// }
+
+.mat-tab-label,
+.form-control,
+.card,
+.mat-body,
+h3 {
+  font-family: Cairo, Helvetica, sans-serif !important;
 }
+
+.mat-raised-button {
+  font-family: Cairo, Helvetica, sans-serif !important;
+}
+
+.mat-stroked-button {
+  font-family: Cairo, Helvetica, sans-serif !important;
+}
+
+
+th.mat-header-cell,
+td.mat-cell,
+li,
+ul,
+td.mat-footer-cell {
+  font-family: Cairo, Helvetica, sans-serif !important;
+
+}
+
+.mat-flat-button {
+  font-family: Cairo, Helvetica, sans-serif !important;
+}
+
+
+// .mat-icon {
+//   font-family: Cairo, Helvetica, sans-serif in !important;
+// }
 
 body {
   margin: 0;

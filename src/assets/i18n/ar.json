@@ -126,6 +126,14 @@
     "NOTES_FOR_DOCTORS": "ملاحظات للأطباء",
     "TRACKERS": "المتابعات",
     "ADD_NOTES": "إضافة ملاحظات",
+    "HUNGRY": "أنا جائع سؤال وجواب",
+    "USER_QUESTION": "سؤال المستخدم",
+    "TUMMY_NOISES": "أصوات البطن",
+    "CHEWY": "الشعور بالمضغ",
+    "CRAVES": "الرغبات العاطفية",
+    "Select_Question_Group": "حدد مجموعة الأسئلة",
+    "Notifications": "الإشعارات",
+    "Hunger_Videos": "فيديوهات الجوع",
     "FILTERS": {
       "NEW_USER": "مستخدم جديد",
       "FOLLOW_UP": "متابعة"

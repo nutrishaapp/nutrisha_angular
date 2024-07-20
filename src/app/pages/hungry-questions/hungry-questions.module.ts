@@ -9,6 +9,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { HungryQuestionsRoutingModule } from './hungry-questions-routing.module';
 import { HungryQuestionsComponent } from './hungry-questions.component';
 import { CommonModule } from '@angular/common';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { CommonModule } from '@angular/common';
     HungryQuestionsRoutingModule,
     MatTableModule,
     MatPaginatorModule,
+    TranslateModule,
     MatSortModule,
     MatInputModule,
     MatFormFieldModule

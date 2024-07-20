@@ -1,8 +1,9 @@
-﻿@use '@angular/material'as mat;
+﻿@use '@angular/material' as mat;
 
 @include mat.core();
 
-$pink-palette: (50: #FF725A,
+$pink-palette: (
+  50: #FF725A,
   100: #FF725A,
   200: #FF725A,
   300: #FF725A,
@@ -30,12 +31,13 @@ $pink-palette: (50: #FF725A,
     A200: #FF725A,
     A400: #FF725A,
     A700: #FF725A,
-  ));
+  )
+);
 
 $font-family: Tajawal,
-Poppins,
-Helvetica,
-sans-serif;
+  Poppins,
+  Helvetica,
+  sans-serif;
 
 $custom-typography: mat.define-typography-config($font-family: $font-family);
 
@@ -43,7 +45,7 @@ $my-primary: mat.define-palette($pink-palette, 500);
 $my-accent: mat.define-palette($pink-palette, 500);
 
 $my-theme: mat.define-light-theme((color: (primary: $my-primary,
-      accent: $my-accent)));
+        accent: $my-accent)));
 
 @include mat.core($custom-typography);
 @include mat.core-theme($my-theme);

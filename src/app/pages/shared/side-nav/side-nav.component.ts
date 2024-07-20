@@ -42,7 +42,7 @@ export class SideNavComponent implements OnInit {
       active: false,
     },
     {
-      title: 'Hunger  Videos',
+      title: 'MOBILE_USERS.Hunger_Videos',
       type: sideNavTypes.Link,
       permission: 'canAccessBlogsModule',
       icon: 'fa-solid fa-utensils',
@@ -107,7 +107,7 @@ export class SideNavComponent implements OnInit {
       active: false,
     },
     {
-      title: 'Notifications',
+      title: 'MOBILE_USERS.Notifications',
       type: sideNavTypes.Link,
       permission: 'canAccessAdminUsersModule',
       icon: 'fa-solid fa-bell',
