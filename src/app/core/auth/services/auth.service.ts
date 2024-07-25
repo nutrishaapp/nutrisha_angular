@@ -10,7 +10,7 @@ const baseUrl = environment.baseAdminV1Url + 'auth';
 
 @Injectable()
 export class AuthService {
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) { }
 
   login(
     loginModel: LoginModel
@@ -23,7 +23,9 @@ export class AuthService {
       .pipe(
         tap((res) => {
           this.setToken(res.data.token)
-          this.setIsOwned(res.data.user.isOwned)})
+          this.setIsOwned(res.data.user.isOwned)
+          this.setUserId(res.data.user.id)
+        })
         ,
         shareReplay(1)
       );
@@ -40,6 +42,10 @@ export class AuthService {
 
   getToken() {
     return localStorage.getItem('token');
+  }
+
+  getUserId() {
+    return localStorage.getItem('userId');
   }
 
   requestResetPassword(email: string): Observable<any> {
@@ -73,5 +79,9 @@ export class AuthService {
   private setIsOwned(isOwned: boolean) {
     localStorage.setItem('isOwned', JSON.stringify(isOwned));
   }
-  
+
+  private setUserId(userId: number) {
+    localStorage.setItem('userId', JSON.stringify(userId));
+  }
+
 }

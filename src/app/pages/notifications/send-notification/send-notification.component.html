@@ -3,68 +3,68 @@
     <div class="flex-grow-1">
   <div class="card">
     <div class="card-header">
-      <h1 class="mb-3">Send Notifications</h1>
+      <h1 class="mb-3">{{ "MOBILE_USERS.SEND_NOTIFICATIONS" | translate }}</h1>
     </div>
     <div class="card-body">
       <div class="d-flex align-items-start">
         <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-          <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">All Users</button>
-          <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">Subscribed Users</button>
-          <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">Unsubscribed Users</button>
-          <button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">Specific User</button>
+          <button style="margin-right: 50px;margin-left: 50px;margin-bottom: 30px;" class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">{{ "MOBILE_USERS.ALL_USERS" | translate }}</button>
+          <button style="margin-right: 50px;margin-left: 50px;margin-bottom: 30px;" class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">{{ "MOBILE_USERS.SUBSCRIBED_USERS" | translate }}</button>
+          <button style="margin-right: 50px;margin-left: 50px;margin-bottom: 30px;" class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">{{ "MOBILE_USERS.UNSUBSCRIBED_USERS" | translate }}</button>
+          <button style="margin-right: 50px;margin-left: 50px;margin-bottom: 30px;" class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">{{ "MOBILE_USERS.SPECIFIC_USER" | translate }}</button>
         </div>
         <div class="tab-content" id="v-pills-tabContent">
           <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
             <div class="container">
-              <h2>Send Notification to All Users</h2>
+              <h2>{{ "MOBILE_USERS.SEND_NOTIFICATION_TO_ALL_USERS" | translate }}</h2>
               <form #form="ngForm" (ngSubmit)="sendNotificationToAllUsers()">
-                <div class="fmb-3 mt-3">
+                <!-- <div class="fmb-3 mt-3">
                   <label for="title">Title</label>
                   <input type="text" class="form-control" id="titleAll" [(ngModel)]="titleAll" placeholder="Enter title" name="titleAll" required>
-                </div>
+                </div> -->
                 <div class="mb-3 mt-3">
-                  <label for="exampleFormControlTextarea1" class="form-label">Notification content</label>
+                  <label for="exampleFormControlTextarea1" class="form-label">{{ "MOBILE_USERS.MESSAGE" | translate }}</label>
                   <textarea class="form-control" id="exampleFormControlTextarea1" [(ngModel)]="bodyAll" rows="3" required></textarea>
                 </div>
-                <button class="button-1" type="submit">Send</button>
+                <button class="button-1" type="submit">{{ "MOBILE_USERS.SEND" | translate }}</button>
               </form>
             </div>
           </div>
           <div class="tab-pane fade" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
             <div class="container">
-              <h2>Send Notification to Subscribed Users</h2>
+              <h2>{{ "MOBILE_USERS.SEND_NOTIFICATION_TO_SUBSCRIBED_USERS" | translate }}</h2>
               <form #form="ngForm" (ngSubmit)="sendNotificationToSubscribedUsers()">
-                <div class="mb-3 mt-3">
+                <!-- <div class="mb-3 mt-3">
                   <label for="title">Title</label>
                   <input type="text" class="form-control" id="titleSubscribed" [(ngModel)]="titleSubscribed" placeholder="Enter title" name="titleSubscribed" required>
-                </div>
+                </div> -->
                 <div class="mb-3">
-                  <label for="exampleFormControlTextarea1" class="form-label">Notification content</label>
+                  <label for="exampleFormControlTextarea1" class="form-label">{{ "MOBILE_USERS.MESSAGE" | translate }}</label>
                   <textarea class="form-control" id="exampleFormControlTextarea1" [(ngModel)]="bodySubscribed" rows="3" required></textarea>
                 </div>
-                <button class="button-1" type="submit">Send</button>
+                <button class="button-1" type="submit">{{ "MOBILE_USERS.SEND" | translate }}</button>
               </form>
             </div>
           </div>
           <div class="tab-pane fade" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
             <div class="container">
-              <h2>Send Notification to Unsubscribed Users</h2>
+              <h2>{{ "MOBILE_USERS.SEND_NOTIFICATION_TO_UNSUBSCRIBED_USERS" | translate }}</h2>
               <form #form="ngForm" (ngSubmit)="sendNotificationToUnSubscribedUsers()">
-                <div class="mb-3 mt-3">
+                <!-- <div class="mb-3 mt-3">
                   <label for="title">Title</label>
                   <input type="text" class="form-control" id="titleUnSubscribed" [(ngModel)]="titleUnSubscribed" placeholder="Enter title" name="titleUnSubscribed" required>
-                </div>
+                </div> -->
                 <div class="mb-3">
-                  <label for="exampleFormControlTextarea1" class="form-label">Notification content</label>
+                  <label for="exampleFormControlTextarea1" class="form-label">{{ "MOBILE_USERS.MESSAGE" | translate }}</label>
                   <textarea class="form-control" id="exampleFormControlTextarea1" [(ngModel)]="bodyUnSubscribed" rows="3" required></textarea>
                 </div>
-                <button class="button-1" type="submit">Send</button>
+                <button class="button-1" type="submit">{{ "MOBILE_USERS.SEND" | translate }}</button>
               </form>
             </div>
           </div>
           <div class="tab-pane fade" id="v-pills-settings" role="tabpanel" aria-labelledby="v-pills-settings-tab">
             <div class="container">
-              <h2>Send Notification to Specific User</h2>
+              <h2>{{ "MOBILE_USERS.SEND_NOTIFICATION_TO_SPECIFIC_USER" | translate }}</h2>
               <!-- <form #form="ngForm" (ngSubmit)="sendNotificationToSpecificUser()">
                 <div class="mb-3 mt-3">
                   <label for="title">Title</label>
@@ -76,14 +76,15 @@
                 </div>
                 <button type="submit" class="btn btn-primary">Send</button>
               </form> -->
-                <div class="mb-3">
+                <!-- <div class="mb-3">
                   <label class="form-label" for="title">Title:</label>
                   <input class="form-control" [(ngModel)]="title" id="title" placeholder="Enter notification title" class="form-control">
-                </div>
+                </div> -->
               
                 <div class="mb-3">
-                  <label class="form-label" for="body">Body:</label>
-                  <input class="form-control" [(ngModel)]="body" id="body" placeholder="Enter notification body" class="form-control">
+                  <label class="form-label" for="body">{{ "MOBILE_USERS.MESSAGE" | translate }}:</label>
+                  <textarea class="form-control" [(ngModel)]="body" id="body" rows="3" required></textarea>
+                  <!-- <input class="form-control" [(ngModel)]="body" id="body" placeholder="" class="form-control"> -->
                 </div>
               
                 <!-- <div class="form-group col-md-6 mt-3">
@@ -94,7 +95,7 @@
                 </div> -->
 
                 <div class="mb-3">
-                  <label class="form-label" for="users">User Name:</label>
+                  <label class="form-label" for="users">{{ "MOBILE_USERS.USER_NAME" | translate }}:</label>
                   <ng-multiselect-dropdown
                   required="true"
                     [placeholder]="'Select User'"
@@ -105,7 +106,7 @@
                   </ng-multiselect-dropdown>
                 </div>
               
-                <button (click)="send()" class="button-1">Send</button>                      
+                <button (click)="send()" class="button-1">{{ "MOBILE_USERS.SEND" | translate }}</button>                      
             </div>
           </div>
         </div>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/core/auth/services/auth.service';
 import { NotificationsService } from 'src/app/core/notifications/services/notifications.service';
 
 @Component({
@@ -28,10 +29,12 @@ export class SendNotificationComponent implements OnInit {
   users: any[] = [];
   selectedUsers: any[] = [];
   dropdownSettings = {};
+  userId: string;
 
-  constructor(private notificationsService: NotificationsService) { }
+  constructor(private notificationsService: NotificationsService, private authService: AuthService) { }
 
   ngOnInit() {
+    this.userId = this.authService.getUserId();
     this.fetchUserData();
     this.dropdownSettings = {
       singleSelection: false,
@@ -51,7 +54,10 @@ export class SendNotificationComponent implements OnInit {
     const titleAll = this.titleAll;
     const bodyAll = this.bodyAll;
     if (this.tokenAll, this.titleAll, this.bodyAll) {
-      this.notificationsService.sendNotificationToAllUsers(tokenAll, titleAll, bodyAll).subscribe((response) => {
+      this.notificationsService.postDataToBackend(bodyAll, this.userId, true, false).subscribe((response) => {
+        console.log('Notification sent to backend successfully:', response);
+      });
+      this.notificationsService.sendNotificationToAllUsers(tokenAll, bodyAll).subscribe((response) => {
         alert('Notification sent successfully');
         console.log('Notification sent successfully:', response);
       },
@@ -60,7 +66,7 @@ export class SendNotificationComponent implements OnInit {
           console.error('Error sending notification:', error);
         });
     } else {
-      alert("Title and notification content are required");
+      alert("Message is required");
     }
   }
 
@@ -69,7 +75,10 @@ export class SendNotificationComponent implements OnInit {
     const titleSubscribed = this.titleSubscribed;
     const bodySubscribed = this.bodySubscribed;
     if (this.tokenSubscribed, this.titleSubscribed, this.bodySubscribed) {
-      this.notificationsService.sendNotificationToSubscribedUsers(tokenSubscribed, titleSubscribed, bodySubscribed).subscribe((response) => {
+      this.notificationsService.postDataToBackend(bodySubscribed, this.userId, true, false).subscribe((response) => {
+        console.log('Notification sent to backend successfully:', response);
+      });
+      this.notificationsService.sendNotificationToSubscribedUsers(tokenSubscribed, bodySubscribed).subscribe((response) => {
         alert('Notification sent successfully');
         console.log('Notification sent successfully:', response);
       },
@@ -78,7 +87,7 @@ export class SendNotificationComponent implements OnInit {
           console.error('Error sending notification:', error);
         });
     } else {
-      alert("Title and notification content are required");
+      alert("Message is required");
     }
   }
 
@@ -87,7 +96,10 @@ export class SendNotificationComponent implements OnInit {
     const titleUnSubscribed = this.titleUnSubscribed;
     const bodyUnSubscribed = this.bodyUnSubscribed;
     if (this.tokenUnSubscribed, this.titleUnSubscribed, this.bodyUnSubscribed) {
-      this.notificationsService.sendNotificationToUnSubscribedUsers(tokenUnSubscribed, titleUnSubscribed, bodyUnSubscribed).subscribe((response) => {
+      this.notificationsService.postDataToBackend(bodyUnSubscribed, this.userId, false, true).subscribe((response) => {
+        console.log('Notification sent to backend successfully:', response);
+      });
+      this.notificationsService.sendNotificationToUnSubscribedUsers(tokenUnSubscribed, bodyUnSubscribed).subscribe((response) => {
         alert('Notification sent successfully');
         console.log('Notification sent successfully:', response);
       },
@@ -96,7 +108,7 @@ export class SendNotificationComponent implements OnInit {
           console.error('Error sending notification:', error);
         });
     } else {
-      alert("Title and notification content are required");
+      alert("Message is required");
     }
   }
 
@@ -131,15 +143,19 @@ export class SendNotificationComponent implements OnInit {
         alert('User is required');
         return;
       }
-
-      this.notificationsService.sendNotifications(tokens, this.title, this.body)
+      this.notificationsService.postDataToBackend(this.body, this.userId, true, false).subscribe((response) => {
+        console.log('Notification sent to backend successfully:', response);
+      });
+      this.notificationsService.sendNotifications(tokens, this.body)
         .subscribe(response => {
+          alert('Notification sent successfully');
           console.log('Notifications sent', response);
         }, error => {
+          alert('Error sending notification');
           console.error('Error sending notifications', error);
         });
     } else {
-      alert("Title, notification content and User are required");
+      alert("Message and User are required");
     }
   }
 
