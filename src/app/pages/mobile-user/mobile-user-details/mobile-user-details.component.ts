@@ -106,8 +106,12 @@ export class MobileUserDetailsComponent implements OnInit {
   userQuestiondata = [];
   userQuestiondataresult = [];
   questionGroups = [...new Set(this.userQuestiondata.map(item => item.questionGroupName))];
+  questionGroupsAr = [...new Set(this.userQuestiondata.map(item => item.questionGroupNameAr))];
   selectedGroup = '';
+  selectedGroupAr = '';
   filteredQuestions = [];
+  filteredQuestionsAr = [];
+
 
 
   lang: string;
@@ -393,8 +397,16 @@ export class MobileUserDetailsComponent implements OnInit {
   }
 
   filterQuestions() {
-    if (this.selectedGroup) {
+    if (this.selectedGroup || this.selectedGroupAr) {
       this.filteredQuestions = this.userQuestiondataresult.filter(item => item.questionGroupName === this.selectedGroup);
+    } else {
+      this.filteredQuestions = [];
+    }
+  }
+
+  filterQuestionsAr() {
+    if (this.selectedGroupAr) {
+      this.filteredQuestions = this.userQuestiondataresult.filter(item => item.questionGroupNameAr === this.selectedGroupAr);
     } else {
       this.filteredQuestions = [];
     }
@@ -770,6 +782,7 @@ export class MobileUserDetailsComponent implements OnInit {
         console.log(this.userQuestiondata['data']);
         this.userQuestiondataresult = this.userQuestiondata['data'];
         this.questionGroups = [...new Set(this.userQuestiondataresult.map(item => item.questionGroupName))];
+        this.questionGroupsAr = [...new Set(this.userQuestiondataresult.map(item => item.questionGroupNameAr))];
       }
       )
       .catch((error: Error) => console.error(error));

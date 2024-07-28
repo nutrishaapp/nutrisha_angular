@@ -118,9 +118,13 @@
     "ADD_NEW_ANSWER": "اضف اجابة اخرى"
   },
   "MOBILE_USERS": {
+    "Hunger_Type": "نوع الجوع",
+    "No_File_Chosen": "لم يتم إختيار ملف",
+    "Upload_Video": "رفع الفيديو",
     "NAV_TITLE": "المستخدمين",
     "PROFILE_IMAGE": "صورة المستخدم",
     "SIGN_UP_DATE": "تاريخ تسجيل الدخول",
+    "SUBSCRIBED_FROM_CLINIC": "اشترك، من العيادة",
     "NAME": "الإسم",
     "EMAIL": "البريد الإلكترونى",
     "NOTES_FOR_DOCTORS": "ملاحظات للأطباء",
@@ -147,6 +151,19 @@
     "SEND_NOTIFICATION_TO_SUBSCRIBED_USERS": "إرسال إشعار إلى المستخدمين المشتركين",
     "SEND_NOTIFICATION_TO_UNSUBSCRIBED_USERS": "إرسال إشعار إلى المستخدمين غير المشتركين",
     "SEND_NOTIFICATION_TO_SPECIFIC_USER": "إرسال إشعار إلى مستخدم محدد",
+    "Water": "الماء",
+    "Moods": "الحالة المزاجية",
+    "Weight": "الوزن",
+    "Measurement": "القياس",
+    "Steps": "الخطوات",
+    "Sleep": "النوم",
+    "Heart": "القلب",
+    "Period": "الدورة الشهرية",
+    "Log_Meal": "سجل الوجبات",
+    "Notes_Form": "نموذج الملاحظات",
+    "Save": "حفظ",
+    "Date": "التاريخ",
+    "Action": "الإجراء",
     "FILTERS": {
       "NEW_USER": "مستخدم جديد",
       "FOLLOW_UP": "متابعة"

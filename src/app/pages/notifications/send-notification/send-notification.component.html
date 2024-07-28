@@ -98,7 +98,7 @@
                   <label class="form-label" for="users">{{ "MOBILE_USERS.USER_NAME" | translate }}:</label>
                   <ng-multiselect-dropdown
                   required="true"
-                    [placeholder]="'Select User'"
+                    [placeholder]="lang == 'en'?'Select User':'إختار المستخدم'"
                     [data]="users"
                     [(ngModel)]="selectedUsers"
                     [settings]="dropdownSettings"

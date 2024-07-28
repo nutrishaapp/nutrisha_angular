@@ -252,23 +252,23 @@
                       
                           <!-- Title Column -->
                           <ng-container matColumnDef="title">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Title </th>
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'ARTICLES.SUBJECT' | translate }}</th>
                             <td mat-cell *matCellDef="let row"> {{row.title | slice:0:20}} </td>
                           </ng-container>
                       
                           <!-- Notes Column -->
                           <ng-container matColumnDef="notes">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Notes </th>
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header>{{ 'SHARED.NOTES' | translate }}</th>
                             <td mat-cell *matCellDef="let row"> {{row.notes | slice:0:30}}</td>
                           </ng-container>
                           <!-- Date Column -->
                           <ng-container matColumnDef="date">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Date </th>
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'MOBILE_USERS.Date'| translate }} </th>
                             <td mat-cell *matCellDef="let row"> {{row.date | date}}</td>
                           </ng-container>
                           <!-- Action Column -->
                           <ng-container matColumnDef="action">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> {{ 'MOBILE_USERS.Action'| translate }} </th>
                             <td mat-cell *matCellDef="let row">
                               <button mat-button  color="warn" (click)="uploadDocument(row)">
                                 <mat-icon>cloud_upload</mat-icon>
@@ -302,15 +302,15 @@
               <mat-tab label="{{ 'MOBILE_USERS.TRACKERS' | translate }}"> 
                 <div class="d-flex align-items-start mt-4">
                   <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                    <button style="background-color: #ff725a;" class="nav-link active mb-3" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Water  <i class="fa-solid fa-droplet"></i></button>
-                    <button  style="background-color: #ff725a;" class="nav-link mb-3" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">Moods  <i class="fa fa-cubes" aria-hidden="true"></i></button>
-                    <button  style="background-color: #ff725a;" class="nav-link mb-3" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">Weight  <i class="fa-solid fa-weight-scale"></i></button>
-                    <button  style="background-color: #ff725a;"style="background-color: #ff725a;" class="nav-link mb-3" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">Measurement  <i class="fa-solid fa-ruler"></i></button>
-                    <button  style="background-color: #ff725a;"style="background-color: #ff725a;" class="nav-link mb-3" id="v-pills-steps-tab" data-bs-toggle="pill" data-bs-target="#v-pills-steps" type="button" role="tab" aria-controls="v-pills-steps" aria-selected="false">Steps <i class="fa-solid fa-shoe-prints"></i></button>
-                    <button  style="background-color: #ff725a;"style="background-color: #ff725a;" class="nav-link mb-3" id="v-pills-sleep-tab" data-bs-toggle="pill" data-bs-target="#v-pills-sleep" type="button" role="tab" aria-controls="v-pills-sleep" aria-selected="false">Sleep <i class="fa-regular fa-moon"></i></button>
-                    <button  style="background-color: #ff725a;"style="background-color: #ff725a;" class="nav-link mb-3" id="v-pills-heart-tab" data-bs-toggle="pill" data-bs-target="#v-pills-heart" type="button" role="tab" aria-controls="v-pills-heart" aria-selected="false">Heart <i class="fa-solid fa-heart-pulse"></i></button>
-                    <button *ngIf="userDetails?.gender == 'Female' "  style="background-color: #ff725a;"style="background-color: #ff725a;" class="nav-link mb-3" id="v-pills-period-tab" data-bs-toggle="pill" data-bs-target="#v-pills-period" type="button" role="tab" aria-controls="v-pills-period" aria-selected="false">Period <i class="fa-solid fa-venus"></i></button>
-                    <button  style="background-color: #ff725a;"style="background-color: #ff725a;" class="nav-link mb-3" id="v-pills-meal-tab" data-bs-toggle="pill" data-bs-target="#v-pills-meal" type="button" role="tab" aria-controls="v-pills-meal" aria-selected="false">Log Meal <i class="fa-solid fa-utensils"></i></button>
+                    <button style="background-color: #ff725a;" class="nav-link active mb-3" id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">{{ "MOBILE_USERS.Water" | translate }}  <i class="fa-solid fa-droplet"></i></button>
+                    <button  style="background-color: #ff725a;" class="nav-link mb-3" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">{{ "MOBILE_USERS.Moods" | translate }}  <i class="fa fa-cubes" aria-hidden="true"></i></button>
+                    <button  style="background-color: #ff725a;" class="nav-link mb-3" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">{{ "MOBILE_USERS.Weight" | translate }}  <i class="fa-solid fa-weight-scale"></i></button>
+                    <button  style="background-color: #ff725a;"style="background-color: #ff725a;" class="nav-link mb-3" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">{{ "MOBILE_USERS.Measurement" | translate }}  <i class="fa-solid fa-ruler"></i></button>
+                    <button  style="background-color: #ff725a;"style="background-color: #ff725a;" class="nav-link mb-3" id="v-pills-steps-tab" data-bs-toggle="pill" data-bs-target="#v-pills-steps" type="button" role="tab" aria-controls="v-pills-steps" aria-selected="false">{{ "MOBILE_USERS.Steps" | translate }}  <i class="fa-solid fa-shoe-prints"></i></button>
+                    <button  style="background-color: #ff725a;"style="background-color: #ff725a;" class="nav-link mb-3" id="v-pills-sleep-tab" data-bs-toggle="pill" data-bs-target="#v-pills-sleep" type="button" role="tab" aria-controls="v-pills-sleep" aria-selected="false">{{ "MOBILE_USERS.Sleep" | translate }}  <i class="fa-regular fa-moon"></i></button>
+                    <button  style="background-color: #ff725a;"style="background-color: #ff725a;" class="nav-link mb-3" id="v-pills-heart-tab" data-bs-toggle="pill" data-bs-target="#v-pills-heart" type="button" role="tab" aria-controls="v-pills-heart" aria-selected="false">{{ "MOBILE_USERS.Heart" | translate }}  <i class="fa-solid fa-heart-pulse"></i></button>
+                    <button *ngIf="userDetails?.gender == 'Female' "  style="background-color: #ff725a;"style="background-color: #ff725a;" class="nav-link mb-3" id="v-pills-period-tab" data-bs-toggle="pill" data-bs-target="#v-pills-period" type="button" role="tab" aria-controls="v-pills-period" aria-selected="false">{{ "MOBILE_USERS.Period" | translate }}  <i class="fa-solid fa-venus"></i></button>
+                    <button  style="background-color: #ff725a;"style="background-color: #ff725a;" class="nav-link mb-3" id="v-pills-meal-tab" data-bs-toggle="pill" data-bs-target="#v-pills-meal" type="button" role="tab" aria-controls="v-pills-meal" aria-selected="false">{{ "MOBILE_USERS.Log_Meal" | translate }}  <i class="fa-solid fa-utensils"></i></button>
                   </div>
                   <div class="tab-content" id="v-pills-tabContent">
                     <div class="tab-pane fade show active pt-2" id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab">
@@ -935,11 +935,17 @@
                 </div>
                 <div class="align-items-start mt-4" *ngIf="userQuestiondataresult.length > 0">
                                       <!-- question-filter.component.html -->
-                  <div class="form-group m-4">
-                    <!-- <label for="questionGroup"><h3>{{ 'MOBILE_USERS.Select_Question_Group' | translate }} :</h3></label> -->
+                    <div class="form-group m-4" *ngIf="lang == 'en'">
                     <select class="form-control" id="questionGroup" [(ngModel)]="selectedGroup" (change)="filterQuestions()">
                       <option value="">-- {{ 'MOBILE_USERS.Select_Question_Group' | translate }} --</option>
                       <option *ngFor="let group of questionGroups" [value]="group">{{ group }}</option>
+                    </select>
+                  </div>
+
+                  <div class="form-group m-4" *ngIf="lang == 'ar'">
+                    <select class="form-control" id="questionGroup" [(ngModel)]="selectedGroupAr" (change)="filterQuestionsAr()">
+                      <option value="">-- {{ 'MOBILE_USERS.Select_Question_Group' | translate }} --</option>
+                      <option *ngFor="let group of questionGroupsAr" [value]="group">{{ group }}</option>
                     </select>
                   </div>
 

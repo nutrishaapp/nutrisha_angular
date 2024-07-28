@@ -68,6 +68,7 @@ import { debounceTime, distinctUntilChanged, switchMap } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { HungerVedioService } from 'src/app/core/hunger-vedio/services/hunger-vedio.service';
+import { TranslationService } from 'src/app/core/shared/services/translate.service';
 
 @Component({
   selector: 'app-hunger-vedio-list',
@@ -81,12 +82,14 @@ export class HungerVedioListComponent implements OnInit {
   pageSize = 10;
   searchControl = new FormControl('');
   search$: Observable<any>;
+  lang: string;
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
-  constructor(public router: Router, private videoService: HungerVedioService) { }
+  constructor(public router: Router, private videoService: HungerVedioService, private getSelectedLanguage: TranslationService,) { }
 
   ngOnInit(): void {
+    this.lang = this.getSelectedLanguage.getSelectedLanguage();
     this.search$ = this.searchControl.valueChanges.pipe(
       debounceTime(300),
       distinctUntilChanged()

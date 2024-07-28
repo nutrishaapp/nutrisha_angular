@@ -2,18 +2,18 @@
 <div>
       <mat-dialog-content>
         <form [formGroup]="noteForm">
-        <h1 mat-dialog-title>Notes Form</h1>
+        <h1 mat-dialog-title>{{ 'MOBILE_USERS.Notes_Form'| translate }}</h1>
           <mat-form-field class="w-100">
-            <mat-label>Title</mat-label>
+            <mat-label>{{ 'ARTICLES.SUBJECT' | translate }}</mat-label>
             <input
               required
               formControlName="title"
               matInput
-              placeholder="Title"
+              placeholder="{{ 'ARTICLES.SUBJECT' | translate }}"
             />
           </mat-form-field>
           <mat-form-field class="w-100">
-            <mat-label>Notes</mat-label>
+            <mat-label>{{ 'SHARED.NOTES' | translate }}</mat-label>
             <textarea
               rows="10"
               cols="50"
@@ -33,7 +33,7 @@
           <div class="d-flex justify-content-end m-3" *ngxPermissionsOnly="'canAssignPremiumFeaturesToAppUsers'">
             <button mat-raised-button
             color="primary"><span class="text-white" (click)="addnote()">{{actionBtn}}</span></button>
-            <button mat-raised-button mat-dialog-close style="margin-left: 8px;">Close</button>
+            <button mat-raised-button mat-dialog-close style="margin-left: 8px;">{{ 'SHARED.CLOSE' | translate }}</button>
           </div>
         </form>
         <div class="m-4">

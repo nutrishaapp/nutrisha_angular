@@ -2,14 +2,17 @@
   <div class="d-flex justify-content-start">
     <div class="flex-grow-1">
         <div class="form-group col-md-6 mt-3">
-          <label for="subject">Subject</label>
+          <label for="subject">{{ "BLOG_VIDEOS.SUBJECT" | translate }}</label>
           <input type="text" class="form-control" placeholder="Subject" id="subject" [(ngModel)]="subject">
         </div> 
 
         <div class="form-group col-md-6 mt-3">
-          <label for="hungerType">Hunger Type</label>
-          <select class="form-control" id="hungerType" [(ngModel)]="selectedHungerTypeId">
+          <label for="hungerType">{{ "MOBILE_USERS.Hunger_Type" | translate }}</label>
+          <select *ngIf="lang == 'en'" class="form-control" id="hungerType" [(ngModel)]="selectedHungerTypeId">
             <option *ngFor="let hungerType of hungerTypes" [value]="hungerType.id">{{ hungerType.name }}</option>
+          </select>
+          <select *ngIf="lang == 'ar'" class="form-control" id="hungerType" [(ngModel)]="selectedHungerTypeId">
+            <option *ngFor="let hungerType of hungerTypes" [value]="hungerType.id">{{ hungerType.nameAr }}</option>
           </select>
         </div>
 
@@ -37,7 +40,7 @@
       <button *ngIf="id == ''"  (click)="uploadFile()" type="button" class="btn btn-outline-secondary"> {{ "SHARED.ADD" | translate }}</button>
     </div>
     <div class="col-md-3">
-      <button *ngIf="id != ''" (click)="updateFile()" type="button" class="btn btn-outline-secondary">Save</button>
+      <button *ngIf="id != ''" (click)="updateFile()" type="button" class="btn btn-outline-secondary">{{ "MOBILE_USERS.Save" | translate }}</button>
     </div>
     <div class="col-md-3" style="margin-left:0">
       <button *ngIf="id != ''" (click)="delete($event,id)" type="button" class="button-1">{{ "SHARED.DELETE" | translate }}</button>

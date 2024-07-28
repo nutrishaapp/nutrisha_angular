@@ -118,6 +118,9 @@
     "ADD_NEW_ANSWER": "Add new answer"
   },
   "MOBILE_USERS": {
+    "Hunger_Type": "Hunger Type",
+    "No_File_Chosen": "no file chosen",
+    "Upload_Video": "Upload Video",
     "NAV_TITLE": "Mobile Users",
     "PROFILE_IMAGE": "Profile Image",
     "SIGN_UP_DATE": "Sign up date",
@@ -147,6 +150,19 @@
     "SEND_NOTIFICATION_TO_SUBSCRIBED_USERS": "Send Notification to Subscribed Users",
     "SEND_NOTIFICATION_TO_UNSUBSCRIBED_USERS": "Send Notification to Unsubscribed Users",
     "SEND_NOTIFICATION_TO_SPECIFIC_USER": "Send Notification to Specific User",
+    "Water": "Water",
+    "Moods": "Moods",
+    "Weight": "Weight",
+    "Measurement": "Measurement",
+    "Steps": "Steps",
+    "Sleep": "Sleep",
+    "Heart": "Heart",
+    "Period": "Period",
+    "Log_Meal": "Log Meal",
+    "Notes_Form": "Notes Form",
+    "Save": "Save",
+    "Date": "Date",
+    "Action": "Action",
     "FILTERS": {
       "NEW_USER": "New User",
       "FOLLOW_UP": "Followups"

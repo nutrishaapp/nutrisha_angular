@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/core/auth/services/auth.service';
 import { NotificationsService } from 'src/app/core/notifications/services/notifications.service';
+import { TranslationService } from 'src/app/core/shared/services/translate.service';
 
 @Component({
   selector: 'app-send-notification',
@@ -30,10 +31,13 @@ export class SendNotificationComponent implements OnInit {
   selectedUsers: any[] = [];
   dropdownSettings = {};
   userId: string;
+  lang: string;
 
-  constructor(private notificationsService: NotificationsService, private authService: AuthService) { }
+
+  constructor(private notificationsService: NotificationsService, private authService: AuthService, private getSelectedLanguage: TranslationService,) { }
 
   ngOnInit() {
+    this.lang = this.getSelectedLanguage.getSelectedLanguage();
     this.userId = this.authService.getUserId();
     this.fetchUserData();
     this.dropdownSettings = {
