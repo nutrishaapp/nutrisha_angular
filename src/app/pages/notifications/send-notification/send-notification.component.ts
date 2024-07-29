@@ -58,7 +58,7 @@ export class SendNotificationComponent implements OnInit {
     const titleAll = this.titleAll;
     const bodyAll = this.bodyAll;
     if (this.tokenAll, this.titleAll, this.bodyAll) {
-      this.notificationsService.postDataToBackend(bodyAll, this.userId, true, false).subscribe((response) => {
+      this.notificationsService.postDataToBackend(bodyAll, this.userId, true, true).subscribe((response) => {
         console.log('Notification sent to backend successfully:', response);
       });
       this.notificationsService.sendNotificationToAllUsers(tokenAll, bodyAll).subscribe((response) => {
@@ -141,13 +141,17 @@ export class SendNotificationComponent implements OnInit {
 
   send() {
     const tokens = this.selectedUsers.map(user => user.deviceToken);
+    const id = this.users.filter(user => user.deviceToken == tokens[0]);
+
+    console.log(tokens[0]);
+    console.log(id[0].id);
+
     if (this.title, this.body) {
-      console.log(tokens[0]);
       if (tokens.length === 0) {
         alert('User is required');
         return;
       }
-      this.notificationsService.postDataToBackend(this.body, this.userId, true, false).subscribe((response) => {
+      this.notificationsService.postDataToBackendSpecificUser(this.body, this.userId, id[0].id).subscribe((response) => {
         console.log('Notification sent to backend successfully:', response);
       });
       this.notificationsService.sendNotifications(tokens, this.body)
