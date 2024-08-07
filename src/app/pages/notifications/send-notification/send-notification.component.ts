@@ -58,10 +58,10 @@ export class SendNotificationComponent implements OnInit {
     const titleAll = this.titleAll;
     const bodyAll = this.bodyAll;
     if (this.tokenAll, this.titleAll, this.bodyAll) {
-      this.notificationsService.postDataToBackend(bodyAll, this.userId, true, true).subscribe((response) => {
+      this.notificationsService.postDataToBackend(bodyAll, titleAll, this.userId, true, true).subscribe((response) => {
         console.log('Notification sent to backend successfully:', response);
       });
-      this.notificationsService.sendNotificationToAllUsers(tokenAll, bodyAll).subscribe((response) => {
+      this.notificationsService.sendNotificationToAllUsers(tokenAll, titleAll, bodyAll).subscribe((response) => {
         alert('Notification sent successfully');
         console.log('Notification sent successfully:', response);
       },
@@ -79,10 +79,10 @@ export class SendNotificationComponent implements OnInit {
     const titleSubscribed = this.titleSubscribed;
     const bodySubscribed = this.bodySubscribed;
     if (this.tokenSubscribed, this.titleSubscribed, this.bodySubscribed) {
-      this.notificationsService.postDataToBackend(bodySubscribed, this.userId, true, false).subscribe((response) => {
+      this.notificationsService.postDataToBackend(bodySubscribed, titleSubscribed, this.userId, true, false).subscribe((response) => {
         console.log('Notification sent to backend successfully:', response);
       });
-      this.notificationsService.sendNotificationToSubscribedUsers(tokenSubscribed, bodySubscribed).subscribe((response) => {
+      this.notificationsService.sendNotificationToSubscribedUsers(tokenSubscribed, titleSubscribed, bodySubscribed).subscribe((response) => {
         alert('Notification sent successfully');
         console.log('Notification sent successfully:', response);
       },
@@ -100,10 +100,10 @@ export class SendNotificationComponent implements OnInit {
     const titleUnSubscribed = this.titleUnSubscribed;
     const bodyUnSubscribed = this.bodyUnSubscribed;
     if (this.tokenUnSubscribed, this.titleUnSubscribed, this.bodyUnSubscribed) {
-      this.notificationsService.postDataToBackend(bodyUnSubscribed, this.userId, false, true).subscribe((response) => {
+      this.notificationsService.postDataToBackend(bodyUnSubscribed, titleUnSubscribed, this.userId, false, true).subscribe((response) => {
         console.log('Notification sent to backend successfully:', response);
       });
-      this.notificationsService.sendNotificationToUnSubscribedUsers(tokenUnSubscribed, bodyUnSubscribed).subscribe((response) => {
+      this.notificationsService.sendNotificationToUnSubscribedUsers(tokenUnSubscribed, titleUnSubscribed, bodyUnSubscribed).subscribe((response) => {
         alert('Notification sent successfully');
         console.log('Notification sent successfully:', response);
       },
@@ -151,10 +151,10 @@ export class SendNotificationComponent implements OnInit {
         alert('User is required');
         return;
       }
-      this.notificationsService.postDataToBackendSpecificUser(this.body, this.userId, id[0].id).subscribe((response) => {
+      this.notificationsService.postDataToBackendSpecificUser(this.body, this.title, this.userId, id[0].id).subscribe((response) => {
         console.log('Notification sent to backend successfully:', response);
       });
-      this.notificationsService.sendNotifications(tokens, this.body)
+      this.notificationsService.sendNotifications(tokens, this.title, this.body)
         .subscribe(response => {
           alert('Notification sent successfully');
           console.log('Notifications sent', response);

@@ -18,10 +18,10 @@
             <div class="container">
               <h2>{{ "MOBILE_USERS.SEND_NOTIFICATION_TO_ALL_USERS" | translate }}</h2>
               <form #form="ngForm" (ngSubmit)="sendNotificationToAllUsers()">
-                <!-- <div class="fmb-3 mt-3">
-                  <label for="title">Title</label>
-                  <input type="text" class="form-control" id="titleAll" [(ngModel)]="titleAll" placeholder="Enter title" name="titleAll" required>
-                </div> -->
+                <div class="fmb-3 mt-3">
+                  <label for="title">{{ "ARTICLES.SUBJECT" | translate }}</label>
+                  <input type="text" class="form-control" id="titleAll" [(ngModel)]="titleAll" placeholder="" name="titleAll" required>
+                </div>
                 <div class="mb-3 mt-3">
                   <label for="exampleFormControlTextarea1" class="form-label">{{ "MOBILE_USERS.MESSAGE" | translate }}</label>
                   <textarea class="form-control" id="exampleFormControlTextarea1" [(ngModel)]="bodyAll" rows="3" required></textarea>
@@ -34,10 +34,10 @@
             <div class="container">
               <h2>{{ "MOBILE_USERS.SEND_NOTIFICATION_TO_SUBSCRIBED_USERS" | translate }}</h2>
               <form #form="ngForm" (ngSubmit)="sendNotificationToSubscribedUsers()">
-                <!-- <div class="mb-3 mt-3">
-                  <label for="title">Title</label>
-                  <input type="text" class="form-control" id="titleSubscribed" [(ngModel)]="titleSubscribed" placeholder="Enter title" name="titleSubscribed" required>
-                </div> -->
+                <div class="mb-3 mt-3">
+                  <label for="title">{{ "ARTICLES.SUBJECT" | translate }}</label>
+                  <input type="text" class="form-control" id="titleSubscribed" [(ngModel)]="titleSubscribed" placeholder="" name="titleSubscribed" required>
+                </div>
                 <div class="mb-3">
                   <label for="exampleFormControlTextarea1" class="form-label">{{ "MOBILE_USERS.MESSAGE" | translate }}</label>
                   <textarea class="form-control" id="exampleFormControlTextarea1" [(ngModel)]="bodySubscribed" rows="3" required></textarea>
@@ -50,10 +50,10 @@
             <div class="container">
               <h2>{{ "MOBILE_USERS.SEND_NOTIFICATION_TO_UNSUBSCRIBED_USERS" | translate }}</h2>
               <form #form="ngForm" (ngSubmit)="sendNotificationToUnSubscribedUsers()">
-                <!-- <div class="mb-3 mt-3">
-                  <label for="title">Title</label>
-                  <input type="text" class="form-control" id="titleUnSubscribed" [(ngModel)]="titleUnSubscribed" placeholder="Enter title" name="titleUnSubscribed" required>
-                </div> -->
+                <div class="mb-3 mt-3">
+                  <label for="title">{{ "ARTICLES.SUBJECT" | translate }}</label>
+                  <input type="text" class="form-control" id="titleUnSubscribed" [(ngModel)]="titleUnSubscribed" placeholder="" name="titleUnSubscribed" required>
+                </div>
                 <div class="mb-3">
                   <label for="exampleFormControlTextarea1" class="form-label">{{ "MOBILE_USERS.MESSAGE" | translate }}</label>
                   <textarea class="form-control" id="exampleFormControlTextarea1" [(ngModel)]="bodyUnSubscribed" rows="3" required></textarea>
@@ -76,10 +76,10 @@
                 </div>
                 <button type="submit" class="btn btn-primary">Send</button>
               </form> -->
-                <!-- <div class="mb-3">
-                  <label class="form-label" for="title">Title:</label>
-                  <input class="form-control" [(ngModel)]="title" id="title" placeholder="Enter notification title" class="form-control">
-                </div> -->
+                <div class="mb-3">
+                  <label class="form-label" for="title">{{ "ARTICLES.SUBJECT" | translate }}</label>
+                  <input class="form-control" [(ngModel)]="title" id="title" placeholder="" class="form-control">
+                </div>
               
                 <div class="mb-3">
                   <label class="form-label" for="body">{{ "MOBILE_USERS.MESSAGE" | translate }}:</label>
