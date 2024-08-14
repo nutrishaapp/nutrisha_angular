@@ -66,8 +66,8 @@ export class SendNotificationComponent implements OnInit {
         console.log('Notification sent successfully:', response);
       },
         (error) => {
-          alert('Error sending notification');
-          console.error('Error sending notification:', error);
+          // alert('Error sending notification');
+          // console.error('Error sending notification:', error);
         });
     } else {
       alert("Message is required");
@@ -87,8 +87,8 @@ export class SendNotificationComponent implements OnInit {
         console.log('Notification sent successfully:', response);
       },
         (error) => {
-          alert('Error sending notification');
-          console.error('Error sending notification:', error);
+          // alert('Error sending notification');
+          // console.error('Error sending notification:', error);
         });
     } else {
       alert("Message is required");
@@ -108,27 +108,14 @@ export class SendNotificationComponent implements OnInit {
         console.log('Notification sent successfully:', response);
       },
         (error) => {
-          alert('Error sending notification');
-          console.error('Error sending notification:', error);
+          // alert('Error sending notification');
+          // console.error('Error sending notification:', error);
         });
     } else {
       alert("Message is required");
     }
   }
 
-  // sendNotificationToSpecificUser() {
-  //   const tokenSpecificUser = this.tokenSpecificUser; // Replace with the FCM token of the device
-  //   const titleSpecificUser = this.titleSpecificUser;
-  //   const bodySpecificUser = this.bodySpecificUser;
-  //   this.notificationsService.sendNotificationToSpecificUser(tokenSpecificUser, titleSpecificUser, bodySpecificUser).subscribe((response) => {
-  //     alert('Notification sent successfully');
-  //     console.log('Notification sent successfully:', response);
-  //   },
-  //     (error) => {
-  //       alert('Error sending notification');
-  //       console.error('Error sending notification:', error);
-  //     });
-  // }
 
   fetchUserData() {
     this.notificationsService.getUserData().subscribe(data => {
@@ -159,8 +146,8 @@ export class SendNotificationComponent implements OnInit {
           alert('Notification sent successfully');
           console.log('Notifications sent', response);
         }, error => {
-          alert('Error sending notification');
-          console.error('Error sending notifications', error);
+          // alert('Error sending notification');
+          // console.error('Error sending notifications', error);
         });
     } else {
       alert("Message and User are required");

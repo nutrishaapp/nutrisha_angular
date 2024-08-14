@@ -6,7 +6,6 @@ import { environment } from 'src/environments/environment';
 
 const BaseUrl = environment.baseUrl;
 
-
 @Injectable({
   providedIn: 'root'
 })
@@ -20,145 +19,46 @@ export class NotificationsService {
 
 
   sendNotificationToAllUsers(token: string, title: string, body: string) {
-    // const notification = {
-    //   to: token,
-    //   notification: {
-    //     body
-    //   }
-    // };
-    const notification = {
-      to: token,
-      notification: {
-        title: title,
-        body: body,
-        sound: 'default',
-      },
-      data: {
-        "aps": {
-          "alert": {
-            "title": title,
-            "body": body
-          },
-          "category": "All Users",
-          "sound": "default",
-          "content-available": 0,
-          "mutable-content": 1,
-          "interruption-level": "active",
-          "relevance-score": 1,
-        }
-      }
+    const payload = {
+      token: token,
+      title: title,
+      body: body
     };
 
-    return this.http.post<any>(BaseUrl + '/Admin/api/v1/Notification/SendNotification', notification);
+    return this.http.post(BaseUrl + '/Admin/api/v1/Notification/SendNotification', payload);
   }
 
 
   sendNotificationToSubscribedUsers(token: string, title: string, body: string) {
-    // const notification = {
-    //   to: token,
-    //   notification: {
-    //     body
-    //   }
-    // };
-    const notification = {
-      to: token,
-      notification: {
-        title: title,
-        body: body,
-        sound: 'default',
-      },
-      data: {
-        "aps": {
-          "alert": {
-            "title": title,
-            "body": body
-          },
-          "category": "Subscribed Users",
-          "sound": "default",
-          "content-available": 0,
-          "mutable-content": 1,
-          "interruption-level": "active",
-          "relevance-score": 1,
-        }
-      }
+    const payload = {
+      token: token,
+      title: title,
+      body: body
     };
-    return this.http.post<any>(BaseUrl + '/Admin/api/v1/Notification/SendNotification', notification);
+
+    return this.http.post(BaseUrl + '/Admin/api/v1/Notification/SendNotification', payload);
   }
 
 
   sendNotificationToUnSubscribedUsers(token: string, title: string, body: string) {
-    // const notification = {
-    //   to: token,
-    //   notification: {
-    //     body
-    //   }
-    // };
-    const notification = {
-      to: token,
-      notification: {
-        title: title,
-        body: body,
-        sound: 'default',
-      },
-      data: {
-        "aps": {
-          "alert": {
-            "title": title,
-            "body": body
-          },
-          "category": "Un Subscribed Users",
-          "sound": "default",
-          "content-available": 0,
-          "mutable-content": 1,
-          "interruption-level": "active",
-          "relevance-score": 1,
-        }
-      }
+    const payload = {
+      token: token,
+      title: title,
+      body: body
     };
-    return this.http.post<any>(BaseUrl + '/Admin/api/v1/Notification/SendNotification', notification);
+
+    return this.http.post(BaseUrl + '/Admin/api/v1/Notification/SendNotification', payload);
   }
 
-  // sendNotificationToSpecificUser(token: string, title: string, body: string) {
-  //   const notification = {
-  //     to: token,
-  //     notification: {
-  //       title,
-  //       body
-  //     }
-  //   };
-  //   return this.http.post<any>(BaseUrl + '/Admin/api/v1/Notification/SendNotification', notification);
-  // }
 
   sendNotifications(tokens: string[], title: string, body: string) {
-    // const notification = {
-    //   to: tokens[0],
-    //   notification: {
-    //     body
-    //   }
-    // };
-    const notification = {
-      to: tokens[0],
-      notification: {
-        title: title,
-        body: body,
-        sound: 'default',
-      },
-      data: {
-        "aps": {
-          "alert": {
-            "title": title,
-            "body": body
-          },
-          "category": "Specific User",
-          "sound": "default",
-          "content-available": 0,
-          "mutable-content": 1,
-          "interruption-level": "active",
-          "relevance-score": 1,
-        }
-      }
+    const payload = {
+      token: tokens[0],
+      title: title,
+      body: body
     };
-    return this.http.post<any>(BaseUrl + '/Admin/api/v1/Notification/SendNotification', notification);
+
+    return this.http.post(BaseUrl + '/Admin/api/v1/Notification/SendNotification', payload);
   }
 
   postDataToBackend(message: string, title: string, createdId: string, isSubscribe: boolean, isNonSubscribe: boolean, lstUserId?: string): Observable<any> {
@@ -201,6 +101,5 @@ export class NotificationsService {
 
     return this.http.post(this.apiUrl, body, { headers: myHeaders });
   }
-
 
 }
