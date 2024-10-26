@@ -338,7 +338,64 @@
                     </div>
                     <div class="tab-pane fade pt-2" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">  
                       <div class="container" style="margin-left: 20px;">
-                        <div  class="container mb-3" *ngFor="let mood of userMood">
+
+                        <div class="row">
+                        <div  class="col-md-4 mb-3" *ngFor="let mood of userMood">
+                          <div class="card" *ngIf="mood.emoji.endsWith('26;')">
+                            <div class="card-header fw-bold">{{mood.date | date}}</div>
+                            <div class="card-body">
+                              <h3 *ngIf="lang =='en'">{{mood.name}}</h3>
+                              <h3 *ngIf="lang =='ar'">{{mood.nameAr}}</h3>
+                              <span style="font-size:20px;">😎</span> {{mood.note}}
+                            </div>
+                          </div>
+                        </div>
+
+                        <div  class="col-md-4 mb-3" *ngFor="let mood of userMood">
+                          <div class="card" *ngIf="mood.emoji.endsWith('64;')">
+                            <div class="card-header fw-bold">{{mood.date | date}}</div>
+                            <div class="card-body">
+                              <h3 *ngIf="lang =='en'">{{mood.name}}</h3>
+                              <h3 *ngIf="lang =='ar'">{{mood.nameAr}}</h3>
+                              <span style="font-size:20px;">😴</span> {{mood.note}}
+                            </div>
+                          </div>
+                        </div>
+
+                        <div  class="col-md-4 mb-3" *ngFor="let mood of userMood">
+                          <div class="card" *ngIf="mood.emoji.endsWith('16;')">
+                            <div class="card-header fw-bold">{{mood.date | date}}</div>
+                            <div class="card-body">
+                              <h3 *ngIf="lang =='en'">{{mood.name}}</h3>
+                              <h3 *ngIf="lang =='ar'">{{mood.nameAr}}</h3>
+                              <span style="font-size:20px;">🤤</span> {{mood.note}}
+                            </div>
+                          </div>
+                        </div>
+
+                        <div  class="col-md-4 mb-3" *ngFor="let mood of userMood">
+                          <div class="card" *ngIf="mood.emoji.endsWith('46;')">
+                            <div class="card-header fw-bold">{{mood.date | date}}</div>
+                            <div class="card-body">
+                              <h3 *ngIf="lang =='en'">{{mood.name}}</h3>
+                              <h3 *ngIf="lang =='ar'">{{mood.nameAr}}</h3>
+                              <span style="font-size:20px;">😢</span> {{mood.note}}
+                            </div>
+                          </div>
+                        </div>
+
+                        <div  class="col-md-4 mb-3" *ngFor="let mood of userMood">
+                          <div class="card" *ngIf="mood.emoji.endsWith('57;')">
+                            <div class="card-header fw-bold">{{mood.date | date}}</div>
+                            <div class="card-body">
+                              <h3 *ngIf="lang =='en'">{{mood.name}}</h3>
+                              <h3 *ngIf="lang =='ar'">{{mood.nameAr}}</h3>
+                              <span style="font-size:20px;">😭</span> {{mood.note}}
+                            </div>
+                          </div>
+                        </div>
+
+                        <div  class="col-md-4 mb-3" *ngFor="let mood of userMood">
                           <div class="card" *ngIf="mood.emoji.endsWith('12;')">
                             <div class="card-header fw-bold">{{mood.date | date}}</div>
                             <div class="card-body">
@@ -348,7 +405,8 @@
                             </div>
                           </div>
                         </div>
-                        <div  class="container mb-3" *ngFor="let mood of userMood">
+
+                        <div  class="col-md-4 mb-3" *ngFor="let mood of userMood">
                           <div class="card" *ngIf="mood.emoji.endsWith('28;')">
                             <div class="card-header fw-bold">{{mood.date | date}}</div>
                             <div class="card-body">
@@ -358,7 +416,8 @@
                             </div>
                           </div>
                         </div>
-                        <div  class="container mb-3" *ngFor="let mood of userMood">
+
+                        <div  class="col-md-4 mb-3" *ngFor="let mood of userMood">
                           <div class="card" *ngIf="mood.emoji.endsWith('14;')">
                             <div class="card-header fw-bold">{{mood.date | date}}</div>
                             <div class="card-body">
@@ -368,7 +427,8 @@
                             </div>
                           </div>
                         </div>
-                        <div  class="container mb-3 " *ngFor="let mood of userMood">
+
+                        <div  class="col-md-4 mb-3 " *ngFor="let mood of userMood">
                           <div class="card" *ngIf="mood.emoji.endsWith('24;')">
                             <div class="card-header fw-bold">{{mood.date | date}}</div>
                             <div class="card-body">
@@ -378,7 +438,8 @@
                             </div>
                           </div>
                         </div>
-                        <div  class="container mb-3" *ngFor="let mood of userMood">
+
+                        <div  class="col-md-4 mb-3" *ngFor="let mood of userMood">
                           <div class="card" *ngIf="mood.emoji.endsWith('25;')">
                             <div class="card-header fw-bold">{{mood.date | date}}</div>
                             <div class="card-body">
@@ -388,7 +449,8 @@
                             </div>
                           </div>
                         </div>
-                        <div  class="container mb-3" *ngFor="let mood of userMood">
+
+                        <div  class="col-md-4 mb-3" *ngFor="let mood of userMood">
                           <div class="card" *ngIf="mood.emoji.endsWith('45;')">
                             <div class="card-header fw-bold">{{mood.date | date}}</div>
                             <div class="card-body">
@@ -398,6 +460,7 @@
                             </div>
                           </div>
                         </div>
+
                         <div  class="container mb-3" *ngFor="let mood of userMood">
                           <div class="card" *ngIf="mood.emoji.endsWith('49;')">
                             <div class="card-header fw-bold">{{mood.date | date}}</div>
@@ -408,21 +471,11 @@
                             </div>
                           </div>
                         </div>
-                        <div  class="container mb-3" *ngFor="let mood of userMood">
-                          <div class="card" *ngIf="mood.emoji.endsWith('57;')">
-                            <div class="card-header fw-bold">{{mood.date | date}}</div>
-                            <div class="card-body">
-                              <h3 *ngIf="lang =='en'">{{mood.name}}</h3>
-                              <h3 *ngIf="lang =='ar'">{{mood.nameAr}}</h3>
-                              <span style="font-size:20px;">😭</span> {{mood.note}}
-                            </div>
-                          </div>
-                        </div>
                       
                         <div *ngIf="!userMood">
                           <h2>No Data Available</h2>
                         </div>
-                        
+                      </div>
                        </div>
                   </div>
                     <div class="tab-pane fade pt-2" id="v-pills-messages" role="tabpanel" aria-labelledby="v-pills-messages-tab">
