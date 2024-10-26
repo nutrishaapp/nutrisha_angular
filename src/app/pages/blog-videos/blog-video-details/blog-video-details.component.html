@@ -56,6 +56,7 @@
             [readOnly]="viewOnly"
           ></app-blog-tag>
         </div>
+        <div class="d-flex">
         <app-attachment
           class="my-1 w-100"
           formControlName="mainVideo"
@@ -68,6 +69,11 @@
         >
         </app-attachment>
 
+          <video class="video" width="550" height="250" style="margin-left: 20px;" controls autoplay>
+            <source [src]="blogVideo['media'][0]['url']">
+          </video>
+        
+      </div>
         <app-attachment
           class="my-1 w-100"
           formControlName="coverImage"

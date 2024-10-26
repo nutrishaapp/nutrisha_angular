@@ -6,6 +6,8 @@
     <i class="fa-solid fa-xmark"></i>
   </span>
   <div class="w-100 h-100 d-flex justify-content-center align-items-center">
-    <video class="video" [src]="media.url" controls></video>
+    <video class="video"  controls autoplay>
+      <source [src]="media.url" type="video/mp4">
+    </video>
   </div>
 </div>
