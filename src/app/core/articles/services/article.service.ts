@@ -9,14 +9,15 @@ import {
   HttpUtilsService,
   PagedListQueryModel,
 } from '../../shared';
-import { environment } from '../../../../environments/environment';
+
 import { ArticleListModel } from '../models/article-list.model';
+import { environment } from 'src/environments/environment';
 
 const articleAPI = environment.baseAdminV1Url + 'Article';
 
 @Injectable()
 export class ArticleService {
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) { }
 
   getPagedList(
     queryParams: PagedListQueryModel
