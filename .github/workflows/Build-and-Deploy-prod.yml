@@ -34,7 +34,7 @@ jobs:
 
       - name: Deploy dist folder to server
         run: |
-          rsync -avz -e "ssh -o StrictHostKeyChecking=no" ./dist/ ${{ env.REMOTE_USER }}@${{ env.REMOTE_HOST }}:/var/www/frontend/
+          rsync -avz -e "ssh -o StrictHostKeyChecking=no" ./dist/dev ${{ env.REMOTE_USER }}@${{ env.REMOTE_HOST }}:/var/www/frontend/
 
 
       - name: Restart Nginx
