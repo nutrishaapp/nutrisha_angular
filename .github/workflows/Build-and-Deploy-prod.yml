@@ -24,10 +24,9 @@ jobs:
         run: |
           rm -rf src/environments/environment.ts
           echo '${{ secrets.DEV_SERVER_ENV }}' > src/environments/environment.ts
-          cat src/environments/environment.ts
+          echo '${{ secrets.DEV_SERVER_ENV }}' > src/environments/environment.ts
           cat src/environments/environment.ts
           ls -la src/environments/
-        shell: bash
         
       - name: Install dependencies
         run: npm install
