@@ -55,6 +55,7 @@ jobs:
 
       - name: Deploy dist folder to server
         run: |
+          ls -la ./dist/
           rsync -avz -e "ssh -o StrictHostKeyChecking=no" ./dist/nutrisha_angular/ ${{ env.REMOTE_USER }}@${{ env.REMOTE_HOST }}:/var/www/frontend/
 
 
