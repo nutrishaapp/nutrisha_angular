@@ -20,12 +20,21 @@ jobs:
         with:
           node-version: 22.11.0
           cache: 'npm'
-      - name: Create secret config file
+
+      - name: Inject OpenAI API Key
         run: |
-          rm -rf  $GITHUB_WORKSPACE/src/environments/environment.dev.ts
-          echo "${{ secrets.DEV_SERVER_ENV }}" >  $GITHUB_WORKSPACE/src/environments/environment.dev.ts
-          cat  $GITHUB_WORKSPACE/src/environments/environment.dev.ts
-          ls -la  $GITHUB_WORKSPACE/src/environments/
+          # Replace the entire openaiApi declaration
+          sed -i "s|const openaiApi = .*|const openaiApi = \"${{ secrets.OPENAI_API_KEY }}\";|" src/environments/environment.ts
+          
+          # Verify change (shows only the modified line)
+          grep -A2 "const openaiApi" src/environments/environment.ts
+          
+      # - name: Create secret config file
+      #   run: |
+      #     rm -rf  $GITHUB_WORKSPACE/src/environments/environment.dev.ts
+      #     echo "${{ secrets.DEV_SERVER_ENV }}" >  $GITHUB_WORKSPACE/src/environments/environment.dev.ts
+      #     cat  $GITHUB_WORKSPACE/src/environments/environment.dev.ts
+      #     ls -la  $GITHUB_WORKSPACE/src/environments/
         
       - name: Install dependencies
         run: npm install
