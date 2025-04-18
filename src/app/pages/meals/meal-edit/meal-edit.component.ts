@@ -21,6 +21,7 @@ import { MealsActions } from '../../../core/store/meals/meals.action';
 import { Store } from '@ngxs/store';
 import { MealsState } from '../../../core/store/meals/meals.state';
 import { Media } from '../../../core/shared';
+import axios from 'axios';
 
 @UntilDestroy()
 @Component({
@@ -33,6 +34,93 @@ export class MealEditComponent implements OnInit {
   mealForm: FormGroup;
 
   ingredientsForm: FormArray;
+
+  // Start GPT
+  mealName: string = '';
+  mealData: any = null;
+  loading: boolean = false;
+  error: string = '';
+
+  async searchMeal() {
+    if (!this.mealName.trim()) {
+      this.error = 'Please enter a meal name';
+      return;
+    }
+
+    this.loading = true;
+    this.error = '';
+    this.mealData = null;
+
+    try {
+      const response = await axios.post(
+        'https://api.openai.com/v1/chat/completions',
+        {
+          model: 'gpt-4o-mini', // Use 'gpt-3.5-turbo' for a cheaper option
+          messages: [
+            {
+              role: 'system',
+              content: 'You are a helpful assistant specialized in providing recipe details.'
+            },
+            {
+              role: 'user',
+              content: `Provide details about the meal "${this.mealName}" in JSON format only without text after or before or json word , including:
+                - id
+                - name
+                - mealType (0,1,2,3,4,5,6,7,8) where (0=Breakfast,1=Lunch,2=Dinner,3=Snacks,4=Supplements,5=Recommended,6=DeliciousSnack,7=SomethingSpicy,8=SomethingSweet)
+                - cookingTime (type min word instead minutes word after cookingTime)
+                - preparingTime
+                - coverImage 
+                - steps
+                - allergies (without Contains word only allergies )
+                - detailedIngredients (with quantity,unitType (0,1,2,3,4,5,6,7) where (0=Liter,1=Cup,2=Tbs,3=Tsp,4=kg,5=Gram,6=Slice,7=Piece),ingredientName(only name without unitType and quantity ))`
+            }
+          ],
+          temperature: 0.7
+        },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer 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` // Replace <YOUR_API_KEY> with your OpenAI API key
+          }
+        }
+      );
+
+      const rawResponse = response.data.choices[0].message.content.trim();
+      this.mealData = JSON.parse(rawResponse);
+      console.log(this.mealData);
+      this.mealForm = this.formBuilder.group({
+        name: this.formBuilder.control(this.mealData?.name, [Validators.required]),
+        label: this.formBuilder.control(this.mealData?.mealType, [
+          Validators.required,
+        ]),
+        prepTime: this.formBuilder.control(this.mealData?.preparingTime, [
+          this.nonSupplementValidator.bind(this),
+        ]),
+        cockingTime: this.formBuilder.control(this.mealData?.cookingTime, [
+          this.nonSupplementValidator.bind(this),
+        ]),
+        steps: this.formBuilder.control(this.mealData?.steps, []),
+        allergies: this.formBuilder.control(this.mealData?.allergies, []),
+        coverImage: this.formBuilder.control(
+          this.meal?.coverImage
+            ? new Media({
+              url: this.meal.coverImage,
+            })
+            : null,
+          []
+        ),
+      });
+
+      this.mealForm.setControl('ingredients', this.initializeIngredientFormGpt());
+      console.log(this.mealForm);
+    } catch (err) {
+      this.error = 'Error fetching meal details. Please try again.';
+      console.error(err);
+    } finally {
+      this.loading = false;
+    }
+  }
+  // end GPT
 
   // Enums
   mealType = MealType;
@@ -178,6 +266,18 @@ export class MealEditComponent implements OnInit {
     const controls =
       this.meal?.ingredients && this.meal?.ingredients.length
         ? this.meal.ingredients.map((value) =>
+          this.createIngredientGroup(value)
+        )
+        : [this.createIngredientGroup()];
+
+    this.ingredientsForm = this.formBuilder.array(controls);
+    return this.ingredientsForm;
+  }
+
+  initializeIngredientFormGpt() {
+    const controls =
+      this.mealData?.detailedIngredients && this.mealData?.detailedIngredients.length
+        ? this.mealData?.detailedIngredients.map((value) =>
           this.createIngredientGroup(value)
         )
         : [this.createIngredientGroup()];

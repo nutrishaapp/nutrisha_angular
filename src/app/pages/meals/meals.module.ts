@@ -5,7 +5,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { NgxPermissionsModule } from 'ngx-permissions';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MealsRoutingModule } from './meals-routing.module';
 import { MatButtonModule } from '@angular/material/button';
 import { SharedModule } from '../shared/shared.module';
@@ -25,6 +25,7 @@ import { MatIconModule } from '@angular/material/icon';
   declarations: [MealEditComponent, MealsListComponent, MealDetailsComponent],
   exports: [],
   imports: [
+    FormsModule,
     CommonModule,
     MealsRoutingModule,
     MatPaginatorModule,
@@ -44,4 +45,4 @@ import { MatIconModule } from '@angular/material/icon';
   ],
   providers: [MealService],
 })
-export class MealsModule {}
+export class MealsModule { }

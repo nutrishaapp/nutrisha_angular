@@ -1,3 +1,49 @@
+<div class="bg-white mat-elevation-z8" *ngIf="!meal?.id">
+  <app-details-header
+    [headerTitle]="'Generate Meal'"
+  ></app-details-header>
+
+  <div class="meal-search">
+    <input
+      type="text"
+      [(ngModel)]="mealName"
+      placeholder="Enter meal name"
+    />
+    <button (click)="searchMeal()">Generate</button>
+  
+    <div *ngIf="loading" class="loading">Loading...</div>
+    <div *ngIf="error" class="error">{{ error }}</div>
+    <div class="mt-3" *ngIf="mealData">
+      <div class="card">
+        <div class="card-header">{{mealData.name}}</div>
+        <div class="card-body">
+          <ul class="list-group">
+            <li class="list-group-item">meal Type : {{mealData.mealType==0?'Breakfast':''}}{{mealData.mealType==1?'Lunch':''}}{{mealData.mealType==2?'Dinner':''}}{{mealData.mealType==3?'Snacks':''}}{{mealData.mealType==4?'Supplements':''}}{{mealData.mealType==5?'Recommended':''}}{{mealData.mealType==6?'DeliciousSnack':''}}{{mealData.mealType==7?'SomethingSpicy':''}}{{mealData.mealType==8?'SomethingSweet':''}}</li>
+            <li class="list-group-item">cooking Time : {{mealData.cookingTime}}</li>
+            <li class="list-group-item">preparing Time : {{mealData.preparingTime}}</li>
+          </ul>
+          <h2 class="mt-2">allergies:</h2>
+          <ul class="list-group" *ngFor=" let item of mealData.allergies">
+            <li class="list-group-item mt-2">{{item}}</li>
+          </ul>
+          <h2 class="mt-2">steps:</h2>
+          <ul class="list-group" *ngFor=" let step of mealData.steps">
+            <li class="list-group-item mt-2">{{step}}</li>
+          </ul>
+          <h2 class="mt-2">ingredients:</h2>
+          <ul class="list-group" *ngFor="let item of mealData.detailedIngredients">
+            <li class="list-group-item mt-2"><span>{{item.ingredientName}} - quantity : {{item.quantity}}  {{item.unitType==0?'Liter':''}}{{item.unitType==1?'Cup':''}}{{item.unitType==2?'Tbs':''}}{{item.unitType==3?'Tsp':''}}{{item.unitType==4?'kg':''}}{{item.unitType==5?'Gram':''}}{{item.unitType==6?'Slice':''}}{{item.unitType==7?'Piece':''}}</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+ 
+</div>
+
+
 <div class="bg-white mat-elevation-z8">
   <app-details-header
     [headerTitle]="meal?.id ? 'Edit Meal' : 'Add New Meal'"
@@ -50,7 +96,7 @@
         class="w-100"
         mat-flat-button
         color="primary"
-        [disabled]="mealForm.invalid"
+        [disabled]="meal?.id ? !mealForm.invalid:mealForm.invalid"
         (click)="submit()"
       >
         {{ (meal?.id ? "SHARED.EDIT" : "SHARED.ADD") | translate }}

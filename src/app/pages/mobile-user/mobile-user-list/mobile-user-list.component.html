@@ -22,6 +22,12 @@
         (click)="selectedFilter = 'userWithAboutToFinishPlan'; loadUsers()"
         >{{ "MOBILE_USERS.FILTERS.FOLLOW_UP" | translate }}</span
       >
+      <!-- <span
+        class="custom-filter"
+        [class.selected-filter]="selectedFilter == 'subscriptionDate'"
+        (click)="selectedFilter = 'subscriptionDate'; loadUsers()"
+        >Subscribed</span
+      > -->
     </ng-container>
   </app-list-header>
 

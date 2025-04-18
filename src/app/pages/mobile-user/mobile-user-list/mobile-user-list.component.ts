@@ -51,7 +51,7 @@ export class MobileUserListComponent implements OnInit, AfterViewInit {
     private store: Store,
     private router: Router,
     private permissionService: NgxPermissionsService
-  ) {}
+  ) { }
 
   ngAfterViewInit(): void {
     this.search$
@@ -99,8 +99,8 @@ export class MobileUserListComponent implements OnInit, AfterViewInit {
 
     this.queryParams.customFilters = this.selectedFilter
       ? (this.queryParams.customFilters = new Map<string, any>([
-          [this.selectedFilter, true],
-        ]))
+        [this.selectedFilter, true],
+      ]))
       : null;
   }
 
