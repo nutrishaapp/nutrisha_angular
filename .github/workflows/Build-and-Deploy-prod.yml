@@ -23,6 +23,7 @@ jobs:
       - name: Create secret config file
         run: |
           echo '${{ secrets.DEV_SERVER_ENV }}' > ./src/environments/environment.ts
+          cat ./src/environments/environment.ts
           # For multiple secrets, use:
           # echo '{"API_KEY": "${{ secrets.API_KEY }}"}' > ./src/config.json
         shell: bash
