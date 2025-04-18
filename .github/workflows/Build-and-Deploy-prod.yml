@@ -22,11 +22,10 @@ jobs:
           cache: 'npm'
       - name: Create secret config file
         run: |
-          rm -rf src/environments/environment.ts
-          echo '${{ secrets.DEV_SERVER_ENV }}' > src/environments/environment.ts
-          echo '${{ secrets.DEV_SERVER_ENV }}' > src/environments/environment.ts
-          cat src/environments/environment.ts
-          ls -la src/environments/
+          rm -rf  $GITHUB_WORKSPACE/src/environments/environment.ts
+          echo '${{ secrets.DEV_SERVER_ENV }}' >  $GITHUB_WORKSPACE/src/environments/environment.ts
+          cat  $GITHUB_WORKSPACE/src/environments/environment.ts
+          ls -la  $GITHUB_WORKSPACE/src/environments/
         
       - name: Install dependencies
         run: npm install
