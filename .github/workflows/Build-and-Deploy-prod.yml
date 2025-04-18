@@ -34,10 +34,13 @@ jobs:
 
       - name: Deploy dist folder to server
         run: |
-          rsync -avz -e "ssh -o StrictHostKeyChecking=no" ./dist/dev ${{ env.REMOTE_USER }}@${{ env.REMOTE_HOST }}:/var/www/frontend/
+          rsync -avz -e "ssh -o StrictHostKeyChecking=no" ./dist/dev/ ${{ env.REMOTE_USER }}@${{ env.REMOTE_HOST }}:/var/www/frontend/
 
 
       - name: Restart Nginx
         run: |
-          ssh -o StrictHostKeyChecking=no ${{ env.REMOTE_USER }}@${{ env.REMOTE_HOST }} \
-          "sudo systemctl restart nginx"
+          ssh -o StrictHostKeyChecking=no ${{ env.REMOTE_USER }}@${{ env.REMOTE_HOST }} << 'EOF'
+            sudo chown -R nutrisha:www-data /var/www/frontend 
+            sudo systemctl restart nginx
+          EOF
+          
