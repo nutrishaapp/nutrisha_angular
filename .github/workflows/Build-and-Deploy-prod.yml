@@ -2,6 +2,7 @@ name: Build and Deploy
 env:
   REMOTE_HOST: '20.203.104.146'
   REMOTE_USER: 'nutrisha'
+  API_BASE_URL: 'https://dev.api.nutrisha.app'
   SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
 on:
   push:
@@ -21,14 +22,19 @@ jobs:
           node-version: 22.11.0
           cache: 'npm'
 
-      - name: Inject OpenAI API Key
+      - name: Configure Environment Variables
         run: |
-          # Replace the entire openaiApi declaration
+          # Replace openaiApi with secret
           sed -i "s|const openaiApi = .*|const openaiApi = \"${{ secrets.OPENAI_API_KEY }}\";|" src/environments/environment.ts
           
-          # Verify change (shows only the modified line)
-          grep -A2 "const openaiApi" src/environments/environment.ts
+          # Replace baseUrl with variable
+          sed -i "s|const baseUrl = .*|const baseUrl = \"${{ env.API_BASE_URL }}\";|" src/environments/environment.ts
           
+          # Verify changes (secure output)
+          echo "Environment file changes:"
+          grep -E "const (openaiApi|baseUrl)" src/environments/environment.ts
+          
+                
       # - name: Create secret config file
       #   run: |
       #     rm -rf  $GITHUB_WORKSPACE/src/environments/environment.dev.ts
@@ -49,7 +55,7 @@ jobs:
 
       - name: Deploy dist folder to server
         run: |
-          rsync -avz -e "ssh -o StrictHostKeyChecking=no" ./dist/dev/ ${{ env.REMOTE_USER }}@${{ env.REMOTE_HOST }}:/var/www/frontend/
+          rsync -avz -e "ssh -o StrictHostKeyChecking=no" ./dist/nutrisha_angular/ ${{ env.REMOTE_USER }}@${{ env.REMOTE_HOST }}:/var/www/frontend/
 
 
       - name: Restart Nginx
