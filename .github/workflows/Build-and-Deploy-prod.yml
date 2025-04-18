@@ -22,8 +22,11 @@ jobs:
           cache: 'npm'
       - name: Create secret config file
         run: |
+          rm -rf ./src/environments/environment.ts
           echo '${{ secrets.DEV_SERVER_ENV }}' > ./src/environments/environment.ts
           cat ./src/environments/environment.ts
+          cat ./src/environments/environment.ts
+          ls -la ./src/environments/
           # For multiple secrets, use:
           # echo '{"API_KEY": "${{ secrets.API_KEY }}"}' > ./src/config.json
         shell: bash
