@@ -1,5 +1,8 @@
 name: Build and Deploy
-
+env:
+  REMOTE_HOST: '20.203.104.146'
+  REMOTE_USER: 'nutrisha'
+  SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
 on:
   push:
     branches: [ main ]  # Trigger on push to main branch
@@ -24,18 +27,17 @@ jobs:
       - name: Build project
         run: npm run build:dev  # Assumes `build` script in package.json
 
-      - name: Install SSH key
-        uses: shimataro/ssh-key-action@v2
+      - name: Add SSH key
+        uses: webfactory/ssh-agent@v0.9.0
         with:
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          known_hosts: ${{ secrets.SSH_KNOWN_HOSTS }}
+          ssh-private-key: ${{ env.SSH_KEY }}
 
       - name: Deploy dist folder to server
         run: |
-          rsync -avz --delete -e "ssh -o StrictHostKeyChecking=no" \
-          ./dist/ ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }}:/var/www/frontend/
+          rsync -avz -e "ssh -o StrictHostKeyChecking=no" ./dist/ ${{ env.REMOTE_USER }}@${{ env.REMOTE_HOST }}:/var/www/frontend/
+
 
       - name: Restart Nginx
         run: |
-          ssh -o StrictHostKeyChecking=no ${{ secrets.SSH_USER }}@${{ secrets.SSH_HOST }} \
+          ssh -o StrictHostKeyChecking=no ${{ env.REMOTE_USER }}@${{ env.REMOTE_HOST }} \
           "sudo systemctl restart nginx"
