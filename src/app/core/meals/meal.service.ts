@@ -13,10 +13,37 @@ import { MealDetailsModel } from './models/meal-details.model';
 import { MealLookupListModel } from './models/meal-lookup-list.model';
 
 const mealAPI = environment.baseAdminV1Url + 'Meal';
+// const downloadImage = environment.baseUrl + '/download'
 
 @Injectable()
 export class MealService {
-  constructor(private httpClient: HttpClient) {}
+  private API_KEY = 'AIzaSyAS6AZT8_dr68NAGMkyh5hOpsxpDczUzJ8';
+  private SEARCH_ENGINE_ID = '7327671c84e4a46c8';
+  imageName: string;
+  constructor(private httpClient: HttpClient) { }
+
+  searchImages(query: string, numResults: number = 10) {
+    const url = `https://dev.api.nutrisha.app/images?query=${query}&num=${numResults}`;
+    return this.httpClient.get(url);
+  }
+  private apiUrl = 'https://image-download-beryl.vercel.app/download-image'; // Backend URL // Replace with your Node.js server URL
+  downloadImage(imageUrl: string): void {
+    const downloadLink = document.createElement('a');
+
+    this.httpClient
+      .get(`${this.apiUrl}?url=${encodeURIComponent(imageUrl)}`, {
+        responseType: 'blob', // Get the image as a Blob
+      })
+      .subscribe((blob) => {
+        const url = window.URL.createObjectURL(blob);
+        downloadLink.href = url;
+        this.imageName = `downloaded-image-${Date.now()}.jpg`
+        downloadLink.download = this.imageName; // Default file name
+        downloadLink.click();
+        window.URL.revokeObjectURL(url); // Clean up
+      });
+  }
+
 
   getPagedList(
     queryParams: PagedListQueryModel
@@ -88,6 +115,9 @@ export class MealService {
 
     if (value.prepTime) form.append('PreparingTime', value.prepTime);
     const coverImage = value.coverImage?.file;
+
+    if (value.service)
+      form.append('Service', value.service ?? null);
 
     if (coverImage) {
       form.append('CoverImage', coverImage as Blob, coverImage.name);

@@ -11,6 +11,7 @@ import {
 } from '../../../core/blog-videos';
 import { BlogVideosActions } from '../../../core/store/blog-videos/blog-videos.actions';
 import { Media } from '../../../core/shared';
+import { json } from 'stream/consumers';
 
 @UntilDestroy()
 @Component({
@@ -33,7 +34,9 @@ export class BlogVideoDetailsComponent implements OnInit {
     private store: Store,
     private blogVideoService: BlogVideoService,
     private router: Router
-  ) {}
+  ) {
+
+  }
 
   ngOnInit(): void {
     this.initializeBlogVideo();
@@ -91,12 +94,18 @@ export class BlogVideoDetailsComponent implements OnInit {
   submit() {
     const model = BlogVideoParser.toModel(this.blogVideoForm.value);
 
+
     const data = {
       subject: model.subject,
       media: model.media,
       tagId: model.tag.id,
       id: this.blogVideo.id,
     };
+    const img = data.media[1]["url"].includes("image");
+    if (!img) {
+      alert('cover image not an image type. Please choose an image file.');
+      return
+    }
 
     if (this.blogVideo.id) {
       this.blogVideoService
@@ -111,6 +120,7 @@ export class BlogVideoDetailsComponent implements OnInit {
       .subscribe(async (res) => {
         await this.router.navigateByUrl('blog-videos/edit/' + res.data);
       });
+    // console.log(data.media[1]["url"]);
   }
 
   cancelEditing() {

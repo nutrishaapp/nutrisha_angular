@@ -58,6 +58,14 @@
             {{ element.cookingTime }}
           </td>
         </ng-container>
+        <ng-container matColumnDef="service">
+          <th *matHeaderCellDef mat-header-cell>
+            {{ "MEALS.Serve" | translate }}
+          </th>
+          <td *matCellDef="let element" mat-cell>
+            {{ element.service }}
+          </td>
+        </ng-container>
         <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
         <tr
           (click)="this.router.navigateByUrl('/meals/' + row.id)"

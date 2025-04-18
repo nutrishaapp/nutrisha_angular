@@ -7,9 +7,14 @@ export class MealDetailsModel {
   coverImage: string;
   preparingTime: string;
   cockingTime: string;
+  service: string;
   ingredients: IngredientModel[];
   mealSteps: string;
   allergies: string;
+  calories: string;
+  carbs: string;
+  protein: string;
+  fat: string;
   canEdit: boolean;
 }
 

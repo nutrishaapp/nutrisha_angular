@@ -22,12 +22,18 @@
         (click)="selectedFilter = 'userWithAboutToFinishPlan'; loadUsers()"
         >{{ "MOBILE_USERS.FILTERS.FOLLOW_UP" | translate }}</span
       >
-      <!-- <span
+      <span
         class="custom-filter"
-        [class.selected-filter]="selectedFilter == 'subscriptionDate'"
-        (click)="selectedFilter = 'subscriptionDate'; loadUsers()"
-        >Subscribed</span
-      > -->
+        [class.selected-filter]="selectedFilter == 'IsSubscribed'"
+        (click)="selectedFilter = 'IsSubscribed'; loadUsers()"
+        >{{ "MOBILE_USERS.SUBSCRIBED_USERS" | translate }}</span
+      >
+      <span
+        class="custom-filter"
+        [class.selected-filter]="selectedFilter == 'IsNonSubscribed'"
+        (click)="selectedFilter = 'IsNonSubscribed'; loadUsers()"
+        >{{ "MOBILE_USERS.UNSUBSCRIBED_USERS" | translate }}</span
+      >
     </ng-container>
   </app-list-header>
 

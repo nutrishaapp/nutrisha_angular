@@ -29,6 +29,11 @@
           <h2>{{ mealDetails.cockingTime }}</h2>
           <p>{{ "MEALS.COOK_TIME" | translate }}</p>
         </div>
+        <div class="vertical-breaker"></div>
+        <div class="mx-3 d-flex flex-column justify-content-center">
+          <h2>{{ mealDetails.service }}</h2>
+          <p>{{ "MEALS.Service" | translate }}</p>
+        </div>
       </ng-template>
       <div class="vertical-breaker"></div>
       <div class="mx-3 d-flex flex-column justify-content-center">
@@ -67,7 +72,7 @@
       *ngIf="mealDetails.mealType != mealType.Supplements"
       class="meal-container margin-end-3"
     >
-      <h2 class="m-0">{{ "MEALS.INGREDIENTS" | translate }}</h2>
+      <h2 >{{ "MEALS.INGREDIENTS" | translate }}</h2>
       <p
         class="text-break"
         *ngFor="let ingredient of mealDetails.ingredients; let index = index"
@@ -85,15 +90,29 @@
       *ngIf="mealDetails.mealType != mealType.Supplements"
       class="meal-container"
     >
-      <h2 class="m-0">{{ "MEALS.STEPS" | translate }}</h2>
+      <h2 >{{ "MEALS.STEPS" | translate }}</h2>
       <p class="text-break">
         {{ mealDetails.mealSteps }}
       </p>
     </div>
     <div class="meal-container margin-start-3">
-      <h2 class="m-0">{{ "MEALS.ALLERGIES" | translate | translate }}</h2>
+      <h2 >{{ "MEALS.ALLERGIES" | translate | translate }}</h2>
       <p class="text-break">
         {{ mealDetails.allergies }}
+      </p>
+    </div><div class="meal-container margin-start-3">
+      <h2>{{ "MEALS.Nutraition_Per_Serving" | translate }}</h2>
+      <p class="text-break">
+        {{ "MEALS.Calories" | translate }}: {{ mealDetails.calories }}
+      </p>
+      <p class="text-break">
+        {{ "MEALS.Carbs" | translate }}: {{ mealDetails.carbs }}
+      </p>
+      <p class="text-break">
+        {{ "MEALS.Protein" | translate }}: {{ mealDetails.protein }}
+      </p>
+      <p class="text-break">
+        {{ "MEALS.Fat" | translate }}: {{ mealDetails.fat }}
       </p>
     </div>
   </div>

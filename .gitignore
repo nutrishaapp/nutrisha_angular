@@ -3,3 +3,4 @@
 /out-tsc
 /.angular
 /node_modules
+src/environments/environment.ts

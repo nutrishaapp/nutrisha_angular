@@ -69,7 +69,7 @@
         >
         </app-attachment>
 
-          <video class="video" width="550" height="250" style="margin-left: 20px;" controls autoplay>
+          <video *ngIf="blogVideo.id" class="video" width="550" height="250" style="margin-left: 20px;" controls autoplay>
             <source [src]="blogVideo['media'][0]['url']">
           </video>
         
@@ -91,7 +91,7 @@
             mat-flat-button
             color="primary"
             [hidden]="viewOnly"
-            [disabled]="blogVideoForm.invalid"
+            [disabled]="blogVideo.id ? !blogVideoForm.invalid : blogVideoForm.invalid"
             (click)="submit()"
           >
             {{

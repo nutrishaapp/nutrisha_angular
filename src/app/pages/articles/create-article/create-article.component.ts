@@ -32,7 +32,7 @@ export class CreateArticleComponent implements OnInit {
     private store: Store,
     private articleService: ArticleService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.initializeArticle();
@@ -103,7 +103,11 @@ export class CreateArticleComponent implements OnInit {
       tagId: this.articleForm.value.tag.id,
       id: this.article.id,
     };
-
+    const img = data.media[0]["url"].includes("image");
+    if (!img) {
+      alert('cover image not an image type. Please choose an image file.');
+      return
+    }
     if (this.article.id) {
       this.articleService
         .edit(data)

@@ -8,7 +8,7 @@ import { PagedListQueryModel } from '../../../core/shared';
 import { MealsActions } from '../../../core/store/meals/meals.action';
 import { MealsState } from '../../../core/store/meals/meals.state';
 import { MealListModel } from '../../../core/meals/models/meal-list.model';
-import {MealType} from "../../../core/meals/models/meal-type.enum";
+import { MealType } from "../../../core/meals/models/meal-type.enum";
 
 @UntilDestroy()
 @Component({
@@ -23,6 +23,7 @@ export class MealsListComponent implements OnInit {
     'label',
     'cookingTime',
     'preparingTime',
+    'service'
   ];
 
   mealType = MealType;
@@ -35,7 +36,7 @@ export class MealsListComponent implements OnInit {
   @Select(MealsState.lastPage) meals$: Observable<MealListModel[]>;
   @Select(MealsState.totalRows) totalRows$: Observable<number>;
 
-  constructor(public router: Router, private store: Store) {}
+  constructor(public router: Router, private store: Store) { }
 
   ngOnInit(): void {
     this.loadArticles();

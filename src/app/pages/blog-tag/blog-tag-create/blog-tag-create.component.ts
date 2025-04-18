@@ -18,13 +18,13 @@ const defaultTagColor = '#000000';
 export class BlogTagCreateComponent implements OnInit {
   blogForm: FormGroup;
 
-  constructor(private dialogRef: MatDialogRef<BlogTagCreateComponent>) {}
+  constructor(private dialogRef: MatDialogRef<BlogTagCreateComponent>) { }
 
   ngOnInit(): void {
     this.blogForm = new FormGroup({
       name: new FormControl(null, [
         Validators.required,
-        Validators.maxLength(10),
+        Validators.maxLength(200),
       ]),
       color: new FormControl(defaultTagColor, [
         Validators.required,
