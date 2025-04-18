@@ -20,7 +20,13 @@ jobs:
         with:
           node-version: 22.11.0
           cache: 'npm'
-
+      - name: Create secret config file
+        run: |
+          echo '${{ secrets.DEV_SERVER_ENV }}' > ./src/environments/environment.ts
+          # For multiple secrets, use:
+          # echo '{"API_KEY": "${{ secrets.API_KEY }}"}' > ./src/config.json
+        shell: bash
+        
       - name: Install dependencies
         run: npm install
 
