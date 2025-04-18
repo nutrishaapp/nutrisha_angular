@@ -40,7 +40,7 @@ jobs:
         run: npm install
 
       - name: Build project
-        run: ng build ##npm run build  # Assumes `build` script in package.json
+        run: npm run build  # Assumes `build` script in package.json
 
       - name: Add SSH key
         uses: webfactory/ssh-agent@v0.9.0
