@@ -2,6 +2,7 @@ name: Build and Deploy
 env:
   REMOTE_HOST: '20.203.104.146'
   REMOTE_USER: 'nutrisha'
+  API_BASE_URL: 'https://dev.api.nutrisha.app'
   SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
 on:
   push:
@@ -21,11 +22,31 @@ jobs:
           node-version: 22.11.0
           cache: 'npm'
 
+      - name: Configure Environment Variables
+        run: |
+          # Replace openaiApi with secret
+          sed -i "s|const openaiApi = .*|const openaiApi = \"${{ secrets.OPENAI_API_KEY }}\";|" src/environments/environment.ts
+          
+          # Replace baseUrl with variable
+          sed -i "s|const baseUrl = .*|const baseUrl = \"${{ env.API_BASE_URL }}\";|" src/environments/environment.ts
+          
+          # Verify changes (secure output)
+          echo "Environment file changes:"
+          grep -E "const (openaiApi|baseUrl)" src/environments/environment.ts
+          
+                
+      # - name: Create secret config file
+      #   run: |
+      #     rm -rf  $GITHUB_WORKSPACE/src/environments/environment.dev.ts
+      #     echo "${{ secrets.DEV_SERVER_ENV }}" >  $GITHUB_WORKSPACE/src/environments/environment.dev.ts
+      #     cat  $GITHUB_WORKSPACE/src/environments/environment.dev.ts
+      #     ls -la  $GITHUB_WORKSPACE/src/environments/
+        
       - name: Install dependencies
         run: npm install
 
       - name: Build project
-        run: npm run build:dev  # Assumes `build` script in package.json
+        run: npm run build  # Assumes `build` script in package.json
 
       - name: Add SSH key
         uses: webfactory/ssh-agent@v0.9.0
@@ -34,7 +55,8 @@ jobs:
 
       - name: Deploy dist folder to server
         run: |
-          rsync -avz -e "ssh -o StrictHostKeyChecking=no" ./dist/dev/ ${{ env.REMOTE_USER }}@${{ env.REMOTE_HOST }}:/var/www/frontend/
+          ls -la ./dist/
+          rsync -avz -e "ssh -o StrictHostKeyChecking=no" ./dist/ ${{ env.REMOTE_USER }}@${{ env.REMOTE_HOST }}:/var/www/frontend/
 
 
       - name: Restart Nginx
