@@ -112,7 +112,7 @@ export class MealEditComponent implements OnInit {
         {
           headers: {
             'Content-Type': 'application/json',
-            Authorization: this.openaiApiKey // Replace <YOUR_API_KEY> with your OpenAI API key
+            Authorization: this.openaiApiKey
           }
         }
       );
@@ -172,7 +172,7 @@ export class MealEditComponent implements OnInit {
         {
           headers: {
             'Content-Type': 'application/json',
-            Authorization: this.openaiApiKey // Replace <YOUR_API_KEY> with your OpenAI API key
+            Authorization: this.openaiApiKey
           }
         }
       );
