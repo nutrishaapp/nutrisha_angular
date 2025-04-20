@@ -2,7 +2,7 @@ name: Build and Deploy
 env:
   REMOTE_HOST: '20.203.104.146'
   REMOTE_USER: 'nutrisha'
-  API_BASE_URL: 'https://dev.api.nutrisha.app'
+  API_BASE_URL: 'https://api.nutrisha.app'
   SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
 on:
   push:
@@ -25,8 +25,8 @@ jobs:
       - name: Configure Environment Variables
         run: |
           # Replace openaiApi with secret
-          sed -i "s|const openaiApi = .*|const openaiApi = \"${{ secrets.OPENAI_API_KEY }}\";|" src/environments/environment.ts
-          
+          #sed -i "s|const openaiApi = .*|const openaiApi = \"${{ secrets.OPENAI_API_KEY }}\";|" src/environments/environment.ts
+          echo "${{ secrets.PROD_SERVER_ENV }}" >  $GITHUB_WORKSPACE/key.ts
           # Replace baseUrl with variable
           sed -i "s|const baseUrl = .*|const baseUrl = \"${{ env.API_BASE_URL }}\";|" src/environments/environment.ts
           
