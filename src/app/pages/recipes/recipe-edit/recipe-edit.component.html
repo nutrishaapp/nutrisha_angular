@@ -1,0 +1,360 @@
+<div class="bg-white mat-elevation-z8" *ngIf="!recipe?.id">
+  <!-- <app-details-header
+    [headerTitle]="'Generate Meal'"
+  ></app-details-header> -->
+
+  <!-- <div class="meal-search">
+    <input
+    type="text"
+    [(ngModel)]="mealName"
+    placeholder="{{ 'MEALS.NAME' | translate }}"
+    (input)="fetchSuggestions()"
+  />
+  <ul *ngIf="mealSuggestions.length" class="suggestions">
+    <li *ngFor="let suggestion of mealSuggestions" (click)="searchMeal(suggestion)">
+      {{ suggestion }}
+    </li>
+  </ul>
+  <button class="btn btn-dark mx-3" (click)="searchMeal()">{{ 'MEALS.Generate_Meal' | translate }}</button>
+
+  <div *ngIf="loading" class="loading">{{ "SHARED.LOADING" | translate }}...</div>
+  <div *ngIf="error" class="error">{{ error }}</div>
+
+    <div class="mt-3" *ngIf="mealData">
+      <div class="card">
+        <div class="card-header">{{mealData.name}}</div>
+        <div class="card-body">
+          <ul class="list-group">
+            <li class="list-group-item">meal Type : {{mealData.mealType==0?'Breakfast':''}}{{mealData.mealType==1?'Lunch':''}}{{mealData.mealType==2?'Dinner':''}}{{mealData.mealType==3?'Snacks':''}}{{mealData.mealType==4?'Supplements':''}}{{mealData.mealType==5?'Recommended':''}}{{mealData.mealType==6?'DeliciousSnack':''}}{{mealData.mealType==7?'SomethingSpicy':''}}{{mealData.mealType==8?'SomethingSweet':''}}</li>
+            <li class="list-group-item">cooking Time : {{mealData.cookingTime}}</li>
+            <li class="list-group-item">preparing Time : {{mealData.preparingTime}}</li>
+          </ul>
+          <h2 class="mt-2">allergies:</h2>
+          <ul class="list-group" *ngFor=" let item of mealData.allergies">
+            <li class="list-group-item mt-2">{{item}}</li>
+          </ul>
+          <h2 class="mt-2">steps:</h2>
+          <ul class="list-group" *ngFor=" let step of mealData.steps">
+            <li class="list-group-item mt-2">{{step}}</li>
+          </ul>
+          <h2 class="mt-2">ingredients:</h2>
+          <ul class="list-group" *ngFor="let item of mealData.detailedIngredients">
+            <li class="list-group-item mt-2"><span>{{item.ingredientName}} - quantity : {{item.quantity}}  {{item.unitType==0?'Liter':''}}{{item.unitType==1?'Cup':''}}{{item.unitType==2?'Tbs':''}}{{item.unitType==3?'Tsp':''}}{{item.unitType==4?'kg':''}}{{item.unitType==5?'Gram':''}}{{item.unitType==6?'Slice':''}}{{item.unitType==7?'Piece':''}}</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div> -->
+  
+</div>
+
+<div class="bg-white mat-elevation-z8">
+<div class="meal-search pt-5 pb-0">
+  
+
+  <input
+    type="text"
+    [(ngModel)]="recipeName"
+    placeholder="{{ 'MEALS.NAME' | translate }}"
+    (input)="fetchSuggestions()"
+  />
+  <ul *ngIf="recipeSuggestions.length && !loading && !recipeData" class="suggestions">
+    <li *ngFor="let suggestion of recipeSuggestions" (click)="searchRecipe(suggestion);selectSuggestion(suggestion);">
+      {{ suggestion }}
+    </li>
+  </ul>
+  <button *ngIf="!loading" class="btn btn-dark mx-3" (click)="searchRecipe()">{{ 'MEALS.Generate_Meal' | translate }}</button>
+  <button *ngIf="loading" class="btn btn-dark mx-3" (click)="searchRecipe()"><span class="spinner-border spinner-border-sm"></span>
+    {{ "SHARED.LOADING" | translate }}...</button>
+  <button *ngIf="!loading" class="btn btn-outline-danger" (click)="reloadCurrentRoute()">{{ "SHARED.CANCEL" | translate }}</button>
+  <div *ngIf="error" class="error">{{ "VALIDATION_ERRORS.INVALID_VALUE" | translate }}</div>
+</div>
+<h2 *ngIf="recipe?.id" class="mx-4 pt-4">{{ "PERMISSIONS.canEditMeals" | translate }}</h2>
+<h2 *ngIf="!recipe?.id" class="mx-4 mt-3 pt-4">{{ "PERMISSIONS.canCreateMeals" | translate }}</h2>
+  <!-- <app-details-header
+    [headerTitle]="meal?.id ? 'Edit Meal' : 'Add New Meal'"
+  ></app-details-header> -->
+  <div class="px-4 py-4">
+    <!-- <h1>بحث عن صور الوجبات</h1> -->
+    <!-- <input [(ngModel)]="query" placeholder="أدخل اسم الوجبة" /> -->
+    <!-- <button (click)="search()">بحث</button> -->
+  
+    <div *ngIf="results">
+      <!-- <h2>النتائج:</h2> -->
+      <div class="image-grid">
+        <div *ngFor="let result of results" class="image-item" (click)="selectImage(result);">
+          <img [src]="result.url" [alt]="result.title" />
+        </div>
+      </div>
+    </div>
+  
+    <!-- <h3 *ngIf="selectedImageUrl">مسار الصورة المحددة: {{ selectedImageUrl }}</h3> -->
+  </div>
+  <form
+    [formGroup]="recipeForm"
+    class="d-flex justify-content-center align-items-start w-100 p-3 pt-0 m-0"
+  >
+    <div
+      class="w-100 same-width-flex d-flex flex-column justify-content-center align-items-center padding-end-2"
+    >
+      <mat-form-field class="w-100">
+        <mat-label>{{ "MEALS.NAME" | translate }}</mat-label>
+        <input matInput formControlName="name" maxlength="25" />
+        <mat-error>{{
+          "VALIDATION_ERRORS.INVALID_VALUE" | translate
+        }}</mat-error>
+      </mat-form-field>
+
+      <div class="w-100">
+        <app-attachment-button
+          formControlName="coverImage"
+        ></app-attachment-button>
+      </div>
+
+      <mat-form-field
+        *ngIf="selectedRecipeType != recipeType.DairyFree"
+        class="w-100"
+      >
+        <mat-label>{{ "MEALS.STEPS" | translate }}</mat-label>
+        <textarea
+          class="info-area"
+          matInput
+          formControlName="steps"
+        ></textarea>
+        <mat-error>{{
+          "VALIDATION_ERRORS.INVALID_VALUE" | translate
+        }}</mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="w-100">
+        <mat-label>{{ "MEALS.ALLERGIES" | translate }}</mat-label>
+        <input matInput formControlName="allergies" maxlength="10" />
+        <mat-error>{{
+          "VALIDATION_ERRORS.INVALID_VALUE" | translate
+        }}</mat-error>
+      </mat-form-field>
+
+      <button
+        class="w-100"
+        mat-flat-button
+        color="primary"
+        [disabled]="recipe?.canEdit?!recipe?.canEdit:!recipeData"
+        (click)="submit()"
+      >
+        {{ (recipe?.id ? "SHARED.EDIT" : "SHARED.ADD") | translate }}
+      </button>
+    </div>
+    <div class="same-width-flex padding-start-2">
+      <mat-form-field class="w-100">
+        <mat-label>{{ "MEALS.LABEL" | translate }}</mat-label>
+        <mat-select
+          formControlName="label"
+          (valueChange)="recipeTypeChanged($event)"
+        >
+          <mat-option *ngFor="let type of recipeTypeKeys" [value]="type">
+            {{ "MEALS.MEAL_TYPE_ENUM." + type.toString() | translate }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <div class="d-flex justify-content-center align-items-center">
+        <mat-form-field
+          *ngIf="selectedRecipeType != recipeType.DairyFree"
+          class="w-100 margin-end-2"
+        >
+          <mat-label>{{ "MEALS.PREP_TIME" | translate }}</mat-label>
+          <input matInput formControlName="prepTime" maxlength="7" />
+          <mat-error>{{
+            "VALIDATION_ERRORS.INVALID_VALUE" | translate
+          }}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field
+          *ngIf="selectedRecipeType != recipeType.DairyFree"
+          class="w-100"
+        >
+          <mat-label>{{ "MEALS.COOK_TIME" | translate }}</mat-label>
+          <input matInput formControlName="cockingTime" maxlength="7" />
+          <mat-error>{{
+            "VALIDATION_ERRORS.INVALID_VALUE" | translate
+          }}</mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="d-flex justify-content-center align-items-center">
+        <mat-form-field
+          *ngIf="selectedRecipeType != recipeType.DairyFree"
+          class="w-100"
+        >
+          <mat-label>{{ "MEALS.Serve" | translate }}</mat-label>
+          <input matInput formControlName="service" maxlength="200" />
+          <mat-error>{{
+            "VALIDATION_ERRORS.INVALID_VALUE" | translate
+          }}</mat-error>
+        </mat-form-field>
+      </div>
+      <!-- <div><p>{{ "MEALS.Nutraition_Per_Serving" | translate }}</p></div>
+      <div class="d-flex justify-content-center align-items-center">
+        <mat-form-field
+          *ngIf="selectedMealType != mealType.Supplements"
+          class="w-100 margin-end-2"
+        >
+          <mat-label>{{ "MEALS.Calories" | translate }}</mat-label>
+          <input matInput formControlName="calories" maxlength="50" />
+          <mat-error>{{
+            "VALIDATION_ERRORS.INVALID_VALUE" | translate
+          }}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field
+          *ngIf="selectedMealType != mealType.Supplements"
+          class="w-100"
+        >
+          <mat-label>{{ "MEALS.Carbs" | translate }}</mat-label>
+          <input matInput formControlName="carbs" maxlength="50" />
+          <mat-error>{{
+            "VALIDATION_ERRORS.INVALID_VALUE" | translate
+          }}</mat-error>
+        </mat-form-field>
+      </div> -->
+
+      <!-- <div class="d-flex justify-content-center align-items-center">
+        <mat-form-field
+          *ngIf="selectedMealType != mealType.Supplements"
+          class="w-100 margin-end-2"
+        >
+          <mat-label>{{ "MEALS.Protein" | translate }}</mat-label>
+          <input matInput formControlName="protein" maxlength="50" />
+          <mat-error>{{
+            "VALIDATION_ERRORS.INVALID_VALUE" | translate
+          }}</mat-error>
+        </mat-form-field>
+
+        <mat-form-field
+          *ngIf="selectedMealType != mealType.Supplements"
+          class="w-100"
+        >
+          <mat-label> {{ "MEALS.Fat" | translate }}</mat-label>
+          <input matInput formControlName="fat" maxlength="50" />
+          <mat-error>{{
+            "VALIDATION_ERRORS.INVALID_VALUE" | translate
+          }}</mat-error>
+        </mat-form-field>
+      </div> -->
+      <div
+        *ngIf="selectedRecipeType != recipeType.DairyFree"
+        class="d-flex flex-column"
+      >
+        <div>
+          <p>{{ "MEALS.INGREDIENTS" | translate }}</p>
+          <div formArrayName="ingredients">
+            <div
+              *ngFor="let control of ingredientsForm.controls; let i = index"
+              [formGroupName]="i"
+              class="d-flex justify-content-center align-items-center"
+            >
+              <mat-form-field class="w-100">
+                <mat-label>{{
+                  "MEALS.INGREDIENT.QUANTITY" | translate
+                }}</mat-label>
+                <input
+                  type="number"
+                  matInput
+                  formControlName="quantity"
+                  min="0"
+                />
+                <mat-error>{{
+                  "VALIDATION_ERRORS.INVALID_VALUE" | translate
+                }}</mat-error>
+              </mat-form-field>
+              <mat-form-field class="w-100 mx-1">
+                <mat-label>{{ "MEALS.INGREDIENT.UNIT" | translate }}</mat-label>
+                <mat-select formControlName="unitType">
+                  <mat-option *ngFor="let type of ingredientUnitTypeKeys" [value]="ingredientUnitType[type]">
+                    {{ "MEALS.MEAL_UNIT_TYPE." + type.toString() | translate }}
+                  </mat-option>
+                </mat-select>
+
+                <mat-error>{{
+                  "VALIDATION_ERRORS.INVALID_VALUE" | translate
+                }}</mat-error>
+              </mat-form-field>
+              <mat-form-field>
+                <mat-label>{{ "MEALS.INGREDIENT.NAME" | translate }}</mat-label>
+                <div
+                  class="custom-wrapper-example"
+                  matAutocompleteOrigin
+                  #origin="matAutocompleteOrigin"
+                >
+                  <input
+                    #input
+                    (focus)="searchIngredients(input.value)"
+                    (input)="
+                      $any(ingredientsForm.controls[i]).controls[
+                        'name'
+                      ].setErrors({
+                        invalid: true
+                      });
+                      searchIngredients(input.value)
+                    "
+                    matInput
+                    [formControl]="
+                      $any(ingredientsForm.controls[i]).controls['name']
+                    "
+                    [matAutocomplete]="auto"
+                    [matAutocompleteConnectedTo]="origin"
+                  />
+                </div>
+
+                <mat-autocomplete
+                  #auto="matAutocomplete"
+                  (optionSelected)="
+                    input.value = $event.option.value;
+                    $any(ingredientsForm.controls[i]).controls[
+                      'name'
+                    ].setErrors(null)
+                  "
+                >
+                  <mat-option
+                    *ngIf="input.value.length > 0"
+                    (click)="addIngredient(input.value)"
+                    [value]="input.value"
+                    >{{ "MEALS.NOT_EXIST_INGREDIENT" | translate }}</mat-option
+                  >
+                  <mat-option
+                    *ngFor="let option of ingredients$ | async"
+                    [value]="option"
+                    >{{ option }}</mat-option
+                  >
+                </mat-autocomplete>
+                <mat-error>{{
+                  "VALIDATION_ERRORS.INVALID_VALUE" | translate
+                }}</mat-error>
+              </mat-form-field>
+              <button
+              mat-icon-button
+              color="warn"
+              (click)="removeIngredient(i)"
+              aria-label="Remove ingredient"
+              >
+            <mat-icon>delete</mat-icon>
+            </button>
+            </div>
+          </div>
+        </div>
+
+        <button
+          class="w-100"
+          mat-flat-button
+          color="primary"
+          (click)="
+            $event.preventDefault();
+            ingredientsForm.push(createIngredientGroup())
+          "
+        >
+          {{ "MEALS.ADD_MORE_INGREDIENTS" | translate }}
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
