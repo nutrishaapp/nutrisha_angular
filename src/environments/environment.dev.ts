@@ -1,4 +1,4 @@
-const baseUrl = 'https://dev.api.nutrisha.app';
+const baseUrl = 'https://api.drnutrisha.app';
 
 export const environment = {
   production: true,

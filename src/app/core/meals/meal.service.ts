@@ -23,7 +23,7 @@ export class MealService {
   constructor(private httpClient: HttpClient) { }
 
   searchImages(query: string, numResults: number = 10) {
-    const url = `https://dev.api.nutrisha.app/images?query=${query}&num=${numResults}`;
+    const url = `${environment.baseUrl}/images?query=${query}&num=${numResults}`;
     return this.httpClient.get(url);
   }
   private apiUrl = 'https://image-download-beryl.vercel.app/download-image'; // Backend URL // Replace with your Node.js server URL
