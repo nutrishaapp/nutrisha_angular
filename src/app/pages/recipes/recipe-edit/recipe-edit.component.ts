@@ -6,20 +6,15 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { MealType, mealTypes } from '../../../core/meals/models/meal-type.enum';
-import { MealService } from '../../../core/meals/meal.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import {
   IngredientModel,
   IngredientUnitType,
   ingredientUnitTypeKeys,
-  MealDetailsModel,
 } from '../../../core/meals/models/meal-details.model';
 import { map, Observable, tap } from 'rxjs';
-import { MealsActions } from '../../../core/store/meals/meals.action';
 import { Store } from '@ngxs/store';
-import { MealsState } from '../../../core/store/meals/meals.state';
 import { Media } from '../../../core/shared';
 import axios from 'axios';
 import { environment } from 'src/environments/environment';
@@ -28,6 +23,7 @@ import { RecipeService } from 'src/app/core/recipes/recipe.service';
 import { RecipesActions } from 'src/app/core/store/recipes/recipes.action';
 import { RecipesState } from 'src/app/core/store/recipes/recipes.state';
 import { RecipeType, recipeTypes } from 'src/app/core/recipes/models/recipe-type.enum';
+import { MealType, mealTypes } from 'src/app/core/recipes/models/meal-type.enum';
 
 
 @UntilDestroy()
@@ -163,6 +159,7 @@ export class RecipeEditComponent implements OnInit {
                  - id
                  - name
                  - mealType (0,1,2,3,4,5,6,7,8) where (0=Breakfast,1=Lunch,2=Dinner,3=Snacks,4=Supplements,5=Recommended,6=DeliciousSnack,7=SomethingSpicy,8=SomethingSweet)
+                 - RecipeTypeId (0,1,2,3,4,5,6) where (0=DairyFree,1=GlutenFree,2=LowFat,3=LowCarb,4=LowCalorie,5=SugarFree,6=Vegetarian)
                  - cookingTime (type min word instead minutes word after cookingTime and If "${nameToSearch}" is in Arabic, the result will be in Arabic and If "${nameToSearch}" is in English, the result will be in English)
                  - service (This recipe feeds how many people? Example: "one and 2 others" and If "${nameToSearch}" is in Arabic, the result will be in Arabic and If "${nameToSearch}" is in English, the result will be in English)
                  - preparingTime (If "${nameToSearch}" is in Arabic, the result will be in Arabic and If "${nameToSearch}" is in English, the result will be in English)
@@ -187,11 +184,13 @@ export class RecipeEditComponent implements OnInit {
       console.log(this.recipeData);
       this.recipeForm = this.formBuilder.group({
         name: this.formBuilder.control(this.recipeData?.name, [Validators.required]),
-        label: this.formBuilder.control(this.recipeData?.recipeType, [
+        label: this.formBuilder.control(this.recipeData?.mealType, [
           Validators.required,
         ]),
         prepTime: this.formBuilder.control(this.recipeData?.preparingTime, [
           this.nonSupplementValidator.bind(this),
+        ]),
+        recipeTypeId: this.formBuilder.control(this.recipeData?.recipeTypeId, [
         ]),
         cockingTime: this.formBuilder.control(this.recipeData?.cookingTime, [
           this.nonSupplementValidator.bind(this),
@@ -234,6 +233,21 @@ export class RecipeEditComponent implements OnInit {
     | RecipeType.SugarFree
     | RecipeType.Vegetarian
     | RecipeType;
+
+  // Enums
+  mealType = MealType;
+  mealTypeKeys = mealTypes;
+  selectedMealType:
+    | MealType.Breakfast
+    | MealType.Lunch
+    | MealType.Dinner
+    | MealType.Snacks
+    | MealType.Supplements
+    | MealType.Recommended
+    | MealType.DeliciousSnack
+    | MealType.SomethingSpicy
+    | MealType.SomethingSweet
+    | MealType;
 
   ingredientUnitType = IngredientUnitType;
   ingredientUnitTypeKeys = ingredientUnitTypeKeys;
@@ -291,11 +305,13 @@ export class RecipeEditComponent implements OnInit {
   initializeRicipeForm() {
     this.recipeForm = this.formBuilder.group({
       name: this.formBuilder.control(this.recipe?.name, [Validators.required]),
-      label: this.formBuilder.control(this.recipe?.recipeTypeId, [
+      label: this.formBuilder.control(this.recipe?.mealType, [
         Validators.required,
       ]),
       prepTime: this.formBuilder.control(this.recipe?.preparingTime, [
         this.nonSupplementValidator.bind(this),
+      ]),
+      recipeTypeId: this.formBuilder.control(this.recipe?.recipeTypeId, [
       ]),
       cockingTime: this.formBuilder.control(this.recipe?.cockingTime, [
         this.nonSupplementValidator.bind(this),
@@ -326,7 +342,7 @@ export class RecipeEditComponent implements OnInit {
       coverImage: this.recipeForm.value.coverImage,
     };
 
-    if (recipe.label != RecipeType.DairyFree) {
+    if (recipe.label != MealType.Breakfast) {
       recipe.prepTime = this.recipeForm.value.prepTime;
       recipe.cockingTime = this.recipeForm.value.cockingTime;
       recipe.service = this.recipeForm.value.service;
@@ -419,13 +435,18 @@ export class RecipeEditComponent implements OnInit {
   }
 
   nonSupplementValidator(control: AbstractControl) {
-    if (this.selectedRecipeType != RecipeType.DairyFree) {
+    if (this.selectedMealType != MealType.Breakfast) {
       return control.value != null || control.value != undefined
         ? null
         : {};
     }
 
     return null;
+  }
+
+  mealTypeChanged($event: any) {
+    this.selectedMealType = $event;
+    this.updateTreeValidity(this.recipeForm);
   }
 
   recipeTypeChanged($event: any) {

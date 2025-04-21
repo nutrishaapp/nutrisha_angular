@@ -234,17 +234,23 @@
     "OWNER_NAME_LABEL": "Owner Name"
   },
   "MEALS": {
+    "RECIPES": "Recipes",
+    "RECIPES_NAME": "Recipes Name",
     "NAV_TITLE": "Meals",
     "NAME": "Meal Name",
+    "NAME_RECIPE": "Recipe Name",
     "Generate_Meal": "Generate Meal",
+    "Generate_Recipe": "Generate Recipe",
     "STEPS": "Steps",
     "ALLERGIES": "Allergies",
     "LABEL": "Label",
+    "LABEL_RECIPE": "Recipe Type",
     "PREP_TIME": "Preparing Time",
     "COOK_TIME": "Cooking Time",
     "Service": "Service",
     "Serve": "Serve",
     "Nutraition_Per_Serving": "Nutraition Per Serving",
+    "Nutraition_Recipe_Per_Serving": "Nutraition Per Serving",
     "Calories": "Calories",
     "Carbs": "Carbs",
     "Protein": "Protein",
@@ -276,6 +282,15 @@
       "8": "Delicious Snack",
       "9": "Something Spicy",
       "10": "Something Sweet"
+    },
+    "RECIPE_TYPE_ENUM": {
+      "0": "DairyFree",
+      "1": "GlutenFree",
+      "2": "LowCalorie",
+      "3": "LowCarb",
+      "4": "LowFat",
+      "5": "SugarFree",
+      "6": "Vegetarian"
     },
     "MEAL_UNIT_TYPE": {
       "Liter": "Liter",
@@ -355,9 +370,12 @@
     "canEditMealPlans": "Edit his own meal plans",
     "canAccessMealsModule": "",
     "canViewMeals": "View meals",
-    "canCreateMeals": "Create meals",
+    "canCreateMeals": "Create Meals",
     "canEditMeals": "Edit Meals",
-    "canDeleteMeals": "Delete Meals"
+    "canDeleteMeals": "Delete Recipes",
+    "canCreateRecipes": "Create Recipes",
+    "canEditRecipes": "Edit Recipes",
+    "canDeleteRecipes": "Delete Recipes"
   },
   "PROFILE": {
     "MY_PROFILE": "My Profile",

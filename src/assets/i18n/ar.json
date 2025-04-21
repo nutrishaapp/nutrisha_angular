@@ -234,17 +234,23 @@
     "OWNER_NAME_LABEL": "اسم المالك"
   },
   "MEALS": {
+    "RECIPES": "الوصفات",
+    "RECIPES_NAME": "أسماء الوصفات",
     "NAV_TITLE": "الوجبات",
     "NAME": "إسم الوجبة",
+    "NAME_RECIPE": "إسم الوصفة",
     "Generate_Meal": "إنشاء الوجبة",
+    "Generate_Recipe": "إنشاء وصفة",
     "STEPS": "الخطوات",
     "ALLERGIES": "الحساسيات",
     "LABEL": "نوع الوجبة",
+    "LABEL_RECIPE": "نوع الوصفة",
     "PREP_TIME": "وقت الإعداد",
     "COOK_TIME": "وقت الطبخ",
     "Service": "الخدمة",
     "Serve": "يخدم",
     "Nutraition_Per_Serving": "القيمة الغذائية لكل وجبة",
+    "Nutraition_Recipe_Per_Serving": "القيمة الغذائية لكل وصفة",
     "Calories": "السعرات الحرارية",
     "Carbs": "الكربوهيدرات",
     "Protein": "البروتين",
@@ -276,6 +282,15 @@
       "8": "وجبة خفيفة لذيذة",
       "9": "شيء حار",
       "10": "شيء حلو"
+    },
+    "RECIPE_TYPE_ENUM": {
+      "0": "خالى من الألبان",
+      "1": "خالى من الغلوتين",
+      "2": "قليل الدسم",
+      "3": "قليل الكربوهيدرات",
+      "4": "قليل السعرات الحرارية",
+      "5": "خالى من السكر",
+      "6": "نباتى"
     },
     "MEAL_UNIT_TYPE": {
       "Liter": "لتر",
@@ -357,7 +372,10 @@
     "canViewMeals": "الإطلاع على الزجبات",
     "canCreateMeals": "انشاء الوجبات",
     "canEditMeals": "تعديل الوجبات",
-    "canDeleteMeals": "مسح الوجبات"
+    "canDeleteMeals": "مسح الوجبات",
+    "canCreateRecipes": "انشاء الوصفات",
+    "canEditRecipes": "تعديل الوصفات",
+    "canDeleteRecipes": "مسح الوصفات"
   },
   "PROFILE": {
     "MY_PROFILE": "ملفى الشخصى",

@@ -74,7 +74,7 @@ export class SideNavComponent implements OnInit {
       active: false,
     },
     {
-      title: 'Recipes',
+      title: 'MEALS.RECIPES',
       type: sideNavTypes.Link,
       permission: 'canAccessMealsModule',
       icon: 'fa-solid fa-utensils',

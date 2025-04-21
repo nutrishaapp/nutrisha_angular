@@ -32,14 +32,14 @@
         <div class="vertical-breaker"></div>
         <div class="mx-3 d-flex flex-column justify-content-center">
           <h2>{{ recipeDetails.service }}</h2>
-          <p>{{ "MEALS.Service" | translate }}</p>
+          <p>{{ "MEALS.Serve" | translate }}</p>
         </div>
       </ng-template>
       <div class="vertical-breaker"></div>
       <div class="mx-3 d-flex flex-column justify-content-center">
         <h2>
           {{
-            (mealType[recipeDetails.mealType] | uppercase)
+            (mealType[recipeDetails.mealType])
               | translate
           }}
         </h2>
@@ -49,11 +49,11 @@
       <div class="mx-3 d-flex flex-column justify-content-center">
         <h2>
           {{
-            (recipeType[recipeDetails.recipeTypeId] | uppercase)
+            (recipeType[recipeDetails.recipeTypeId])
               | translate
           }}
         </h2>
-        <p>{{ "Label" | translate }}</p>
+        <p>{{ "MEALS.LABEL_RECIPE" | translate }}</p>
       </div>
     </div>
     <div>
@@ -111,7 +111,7 @@
         {{ recipeDetails.allergies }}
       </p>
     </div><div class="meal-container margin-start-3">
-      <h2>{{ "MEALS.Nutraition_Per_Serving" | translate }}</h2>
+      <h2>{{ "MEALS.Nutraition_Recipe_Per_Serving" | translate }}</h2>
       <p class="text-break">
         {{ "MEALS.Calories" | translate }}: {{ recipeDetails.calories }}
       </p>

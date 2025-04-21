@@ -5,7 +5,7 @@
       [permissions]="'canCreateMeals'"
       [searchTerm]="search$"
       [withAddButton]="true"
-      headerTitle="{{ 'Recipes' | translate }}"
+      headerTitle="{{ 'MEALS.RECIPES' | translate }}"
     >
     </app-list-header>
 
@@ -22,7 +22,7 @@
 
         <ng-container matColumnDef="name">
           <th *matHeaderCellDef mat-header-cell>
-            {{ "Recipe Name" | translate }}
+            {{ "MEALS.RECIPES_NAME" | translate }}
           </th>
           <td *matCellDef="let element" mat-cell>
             {{ element.name }}
@@ -31,7 +31,7 @@
 
         <ng-container matColumnDef="label">
           <th *matHeaderCellDef mat-header-cell>
-            {{ "Label" | translate }}
+            {{ "MEALS.LABEL_RECIPE" | translate }}
           </th>
           <td *matCellDef="let element" mat-cell>
             {{
@@ -43,7 +43,7 @@
 
         <ng-container matColumnDef="preparingTime">
           <th *matHeaderCellDef mat-header-cell>
-            {{ "Preparing Time" | translate }}
+            {{ "MEALS.PREP_TIME" | translate }}
           </th>
           <td *matCellDef="let element" mat-cell>
             {{ element.preparingTime }}
@@ -52,7 +52,7 @@
 
         <ng-container matColumnDef="cookingTime">
           <th *matHeaderCellDef mat-header-cell>
-            {{ "Cooking Time" | translate }}
+            {{ "MEALS.COOK_TIME" | translate }}
           </th>
           <td *matCellDef="let element" mat-cell>
             {{ element.cookingTime }}
@@ -60,7 +60,7 @@
         </ng-container>
         <ng-container matColumnDef="service">
           <th *matHeaderCellDef mat-header-cell>
-            {{ "Serve" | translate }}
+            {{ "MEALS.Serve" | translate }}
           </th>
           <td *matCellDef="let element" mat-cell>
             {{ element.service }}
