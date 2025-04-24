@@ -162,7 +162,7 @@ export class MealEditComponent implements OnInit {
                  - service (This recipe feeds how many people? Example: "one and 2 others" and If "${nameToSearch}" is in Arabic, the result will be in Arabic and If "${nameToSearch}" is in English, the result will be in English)
                  - preparingTime (If "${nameToSearch}" is in Arabic, the result will be in Arabic and If "${nameToSearch}" is in English, the result will be in English)
                  - coverImage 
-                 - steps (It is written in the form of dots (1-2-3) and not in one block, and each element is on a separate line and Not on one line)
+                 - steps (each step on a separate line and next step in the next line and It is written in the form of dots (1-2-3) and not in one block)
                  - allergies (without Contains word only allergies )
                  - detailedIngredients (with quantity,unitType (0,1,2,3,4,5,6,7) where (0=Liter,1=Cup,2=Tbs,3=Tsp,4=kg,5=Gram,6=Slice,7=Piece),ingredientName(without unitType and quantity or word Cup of and Tsp of only name like oil or salt))`
             }
