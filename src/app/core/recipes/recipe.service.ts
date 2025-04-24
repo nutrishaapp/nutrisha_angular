@@ -111,7 +111,7 @@ export class RecipeService {
     const form = new FormData();
     form.append('Name', value.name);
     form.append('MealType', value.label);
-    form.append('RecipeType', value.label);
+    form.append('RecipeTypeId', value.label);
     if (value.cockingTime)
       form.append('CockingTime', value.cockingTime ?? null);
 

@@ -64,7 +64,7 @@
         <button mat-menu-item (click)="editRecipe()">
           {{ "SHARED.EDIT" | translate }}
         </button>
-        <button *ngIf="recipeDetails?.id && recipeDetails.canEdit" mat-menu-item class="text-danger" (click)="deleteRecipe()">
+        <button *ngIf="recipeDetails?.id" mat-menu-item class="text-danger" (click)="deleteRecipe()">
           {{ "SHARED.DELETE" | translate }}
         </button>
       </mat-menu>

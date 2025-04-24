@@ -81,7 +81,7 @@
         class="w-100"
         mat-flat-button
         color="primary"
-        [disabled]="recipe?.canEdit?!recipe?.canEdit:!recipeData"
+        [disabled]="!recipe?.id"
         (click)="submit()"
       >
         {{ (recipe?.id ? "SHARED.EDIT" : "SHARED.ADD") | translate }}

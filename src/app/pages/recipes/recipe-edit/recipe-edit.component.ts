@@ -338,6 +338,7 @@ export class RecipeEditComponent implements OnInit {
     const recipe: any = {
       name: this.recipeForm.value.name,
       label: this.recipeForm.value.label,
+      recipeTypeId: this.recipeForm.value.recipeTypeId,
       allergies: this.recipeForm.value.allergies,
       coverImage: this.recipeForm.value.coverImage,
     };
