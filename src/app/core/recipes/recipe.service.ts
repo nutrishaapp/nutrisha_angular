@@ -8,15 +8,16 @@ import {
 } from '../shared';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
-import { MealListModel } from './models/meal-list.model';
-import { MealDetailsModel } from './models/meal-details.model';
-import { MealLookupListModel } from './models/meal-lookup-list.model';
+import { RecipeListModel } from './models/recipe-list.model';
+import { RecipeDetailsModel } from './models/recipe-details.model';
+import { RecipeLookupListModel } from './models/recipe-lookup-list.model';
 
-const mealAPI = environment.baseAdminV1Url + 'Meal';
+
+const recipeAPI = environment.baseAdminV1Url + 'Recipe';
 // const downloadImage = environment.baseUrl + '/download'
 
 @Injectable()
-export class MealService {
+export class RecipeService {
   private API_KEY = 'AIzaSyAS6AZT8_dr68NAGMkyh5hOpsxpDczUzJ8';
   private SEARCH_ENGINE_ID = '7327671c84e4a46c8';
   imageName: string;
@@ -47,18 +48,18 @@ export class MealService {
 
   getPagedList(
     queryParams: PagedListQueryModel
-  ): Observable<BaseV1ResponseModel<MealListModel[]>> {
-    return this.httpClient.get<BaseV1ResponseModel<MealListModel[]>>(
-      mealAPI + '/getPagedList',
+  ): Observable<BaseV1ResponseModel<RecipeListModel[]>> {
+    return this.httpClient.get<BaseV1ResponseModel<RecipeListModel[]>>(
+      recipeAPI + '/getPagedList',
       {
         params: HttpUtilsService.prepareGetPagedListQueryParams(queryParams),
       }
     );
   }
 
-  getById(id: string): Observable<BaseV1ObjectResponseModel<MealDetailsModel>> {
-    return this.httpClient.get<BaseV1ObjectResponseModel<MealDetailsModel>>(
-      mealAPI + '/getById',
+  getById(id: string): Observable<BaseV1ObjectResponseModel<RecipeDetailsModel>> {
+    return this.httpClient.get<BaseV1ObjectResponseModel<RecipeDetailsModel>>(
+      recipeAPI + '/getById',
       {
         params: {
           id: id,
@@ -67,9 +68,9 @@ export class MealService {
     );
   }
 
-  getMealsLookUp(): Observable<BaseV1ObjectResponseModel<MealLookupListModel>> {
-    return this.httpClient.get<BaseV1ObjectResponseModel<MealLookupListModel>>(
-      mealAPI + '/getMealsLookup'
+  getRecipesLookUp(): Observable<BaseV1ObjectResponseModel<RecipeLookupListModel>> {
+    return this.httpClient.get<BaseV1ObjectResponseModel<RecipeLookupListModel>>(
+      recipeAPI + '/getRecipesLookup'
     );
   }
 
@@ -77,7 +78,7 @@ export class MealService {
     searchValue
   ): Observable<BaseV1ObjectResponseModel<string[]>> {
     return this.httpClient.get<BaseV1ObjectResponseModel<string[]>>(
-      mealAPI + '/GetIngredientLookup',
+      recipeAPI + '/GetIngredientLookup',
       {
         params: new HttpParams().append('searchWord', searchValue),
       }
@@ -87,13 +88,13 @@ export class MealService {
   post(value: any): Observable<BaseV1ObjectResponseModel<string>> {
     const form = this.prepareFormModel(value);
     return this.httpClient.post<BaseV1ObjectResponseModel<string>>(
-      mealAPI + '/post',
+      recipeAPI + '/post',
       form
     );
   }
 
   postIngredients(value: string): Observable<any> {
-    return this.httpClient.post(mealAPI + '/PostIngredient', { name: value });
+    return this.httpClient.post(recipeAPI + '/PostIngredient', { name: value });
   }
 
   put(id: string, value: any) {
@@ -101,7 +102,7 @@ export class MealService {
     form.append('id', id);
 
     return this.httpClient.put<BaseV1ObjectResponseModel<string>>(
-      mealAPI + '/put',
+      recipeAPI + '/put',
       form
     );
   }
@@ -110,6 +111,7 @@ export class MealService {
     const form = new FormData();
     form.append('Name', value.name);
     form.append('MealType', value.label);
+    form.append('RecipeTypeId', value.label);
     if (value.cockingTime)
       form.append('CockingTime', value.cockingTime ?? null);
 
@@ -122,7 +124,7 @@ export class MealService {
     if (coverImage) {
       form.append('CoverImage', coverImage as Blob, coverImage.name);
     }
-    if (value.steps) form.append('MealSteps', value.steps);
+    if (value.steps) form.append('RecipeSteps', value.steps);
 
     form.append('Allergies', value.allergies);
 
@@ -137,7 +139,7 @@ export class MealService {
     return form;
   }
   delete(id) {
-    return this.httpClient.delete(mealAPI + '/delete', {
+    return this.httpClient.delete(recipeAPI + '/delete', {
       params: { id },
     });
   }

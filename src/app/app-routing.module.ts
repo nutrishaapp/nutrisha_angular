@@ -115,6 +115,26 @@ const routes: Routes = [
           ),
       },
       {
+        path: 'recipes',
+        canActivate: [PermissionGuard],
+        data: {
+          permission: 'canAccessMealsModule',
+        },
+        loadChildren: () =>
+          import('./pages/recipes/recipes.module').then((m) => m.RecipesModule),
+      },
+      // {
+      //   path: 'plans',
+      //   canActivate: [PermissionGuard],
+      //   data: {
+      //     permission: 'canAccessMealPlansModule',
+      //   },
+      //   loadChildren: () =>
+      //     import('./pages/recipe-plan/recipe-plan.module').then(
+      //       (m) => m.MealPlanModule
+      //     ),
+      // },
+      {
         path: 'admin-users',
         canActivate: [PermissionGuard],
         data: {

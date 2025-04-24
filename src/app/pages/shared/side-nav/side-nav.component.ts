@@ -73,6 +73,14 @@ export class SideNavComponent implements OnInit {
       href: '/meals',
       active: false,
     },
+    {
+      title: 'MEALS.RECIPES',
+      type: sideNavTypes.Link,
+      permission: 'canAccessMealsModule',
+      icon: 'fa-solid fa-utensils',
+      href: '/recipes',
+      active: false,
+    },
     // {
     //   title: 'ADMIN_USERS.NAV_TITLE',
     //   type: sideNavTypes.Link,

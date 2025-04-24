@@ -6,43 +6,44 @@ import {
   FormGroup,
   Validators,
 } from '@angular/forms';
-import { MealType, mealTypes } from '../../../core/meals/models/meal-type.enum';
-import { MealService } from '../../../core/meals/meal.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 import {
   IngredientModel,
   IngredientUnitType,
   ingredientUnitTypeKeys,
-  MealDetailsModel,
 } from '../../../core/meals/models/meal-details.model';
 import { map, Observable, tap } from 'rxjs';
-import { MealsActions } from '../../../core/store/meals/meals.action';
 import { Store } from '@ngxs/store';
-import { MealsState } from '../../../core/store/meals/meals.state';
 import { Media } from '../../../core/shared';
 import axios from 'axios';
 import { environment } from 'src/environments/environment';
+import { RecipeDetailsModel } from 'src/app/core/recipes/models/recipe-details.model';
+import { RecipeService } from 'src/app/core/recipes/recipe.service';
+import { RecipesActions } from 'src/app/core/store/recipes/recipes.action';
+import { RecipesState } from 'src/app/core/store/recipes/recipes.state';
+import { RecipeType, recipeTypes } from 'src/app/core/recipes/models/recipe-type.enum';
+import { MealType, mealTypes } from 'src/app/core/recipes/models/meal-type.enum';
 
 
 @UntilDestroy()
 @Component({
-  selector: 'app-meal-details',
-  templateUrl: './meal-edit.component.html',
-  styleUrls: ['./meal-edit.component.scss'],
+  selector: 'app-recipe-details',
+  templateUrl: './recipe-edit.component.html',
+  styleUrls: ['./recipe-edit.component.scss'],
 })
-export class MealEditComponent implements OnInit {
-  meal: MealDetailsModel;
-  mealForm: FormGroup;
+export class RecipeEditComponent implements OnInit {
+  recipe: RecipeDetailsModel;
+  recipeForm: FormGroup;
 
   ingredientsForm: FormArray;
 
 
   // Start GPT
 
-  mealName: string = '';
-  mealSuggestions: string[] = [];
-  mealData: any = null;
+  recipeName: string = '';
+  recipeSuggestions: string[] = [];
+  recipeData: any = null;
   loading: boolean = false;
   error: string = '';
   openaiApiKey = environment.openaiApi
@@ -56,7 +57,7 @@ export class MealEditComponent implements OnInit {
 
 
   search() {
-    this.mealService.searchImages(this.mealName).subscribe(
+    this.recipeService.searchImages(this.recipeName).subscribe(
       (data: any) => {
         this.results = data.items.map((item: any, index: number) => ({
           id: index + 1,
@@ -74,7 +75,7 @@ export class MealEditComponent implements OnInit {
 
   downloadImage(imageUrl: string) {
     if (imageUrl) {
-      this.mealService.downloadImage(imageUrl);
+      this.recipeService.downloadImage(imageUrl);
     } else {
       alert('Please enter a valid image URL!');
     }
@@ -87,8 +88,8 @@ export class MealEditComponent implements OnInit {
   }
 
   async fetchSuggestions() {
-    if (!this.mealName.trim()) {
-      this.mealSuggestions = [];
+    if (!this.recipeName.trim()) {
+      this.recipeSuggestions = [];
       return;
     }
 
@@ -104,7 +105,7 @@ export class MealEditComponent implements OnInit {
             },
             {
               role: 'user',
-              content: `Suggest 5 meal names based on the input "${this.mealName}" and do not type Let me know if you need more suggestions! .`
+              content: `Suggest 5 meal names based on the input "${this.recipeName}" and do not type Let me know if you need more suggestions! .`
             }
           ],
           temperature: 0.7
@@ -118,29 +119,29 @@ export class MealEditComponent implements OnInit {
       );
 
       const rawResponse = response.data.choices[0].message.content.trim();
-      this.mealSuggestions = rawResponse.split('\n').map((item: string) => item.replace(/^\d+\.\s*/, '').trim());
+      this.recipeSuggestions = rawResponse.split('\n').map((item: string) => item.replace(/^\d+\.\s*/, '').trim());
     } catch (err) {
       console.error('Error fetching suggestions:', err);
     }
   }
 
   selectSuggestion(suggestion: string) {
-    this.mealName = suggestion; // Update the input field
-    this.mealSuggestions = []; // Clear the suggestions dropdown
+    this.recipeName = suggestion; // Update the input field
+    this.recipeSuggestions = []; // Clear the suggestions dropdown
     this.search();
   }
 
-  async searchMeal(mealName?: string) {
-    const nameToSearch = mealName || this.mealName;
+  async searchRecipe(recipeName?: string) {
+    const nameToSearch = recipeName || this.recipeName;
     this.search();
     if (!nameToSearch.trim()) {
-      this.error = 'Please enter a meal name';
+      this.error = 'Please enter a recipe name';
       return;
     }
 
     this.loading = true;
     this.error = '';
-    this.mealData = null;
+    this.recipeData = null;
 
     try {
       const response = await axios.post(
@@ -158,6 +159,7 @@ export class MealEditComponent implements OnInit {
                  - id
                  - name
                  - mealType (0,1,2,3,4,5,6,7,8) where (0=Breakfast,1=Lunch,2=Dinner,3=Snacks,4=Supplements,5=Recommended,6=DeliciousSnack,7=SomethingSpicy,8=SomethingSweet)
+                 - RecipeTypeId (0,1,2,3,4,5,6) where (0=DairyFree,1=GlutenFree,2=LowFat,3=LowCarb,4=LowCalorie,5=SugarFree,6=Vegetarian)
                  - cookingTime (type min word instead minutes word after cookingTime and If "${nameToSearch}" is in Arabic, the result will be in Arabic and If "${nameToSearch}" is in English, the result will be in English)
                  - service (This recipe feeds how many people? Example: "one and 2 others" and If "${nameToSearch}" is in Arabic, the result will be in Arabic and If "${nameToSearch}" is in English, the result will be in English)
                  - preparingTime (If "${nameToSearch}" is in Arabic, the result will be in Arabic and If "${nameToSearch}" is in English, the result will be in English)
@@ -178,56 +180,59 @@ export class MealEditComponent implements OnInit {
       );
 
       const rawResponse = response.data.choices[0].message.content.trim();
-      this.mealData = JSON.parse(rawResponse);
-      console.log(this.mealData);
-      this.mealForm = this.formBuilder.group({
-        name: this.formBuilder.control(this.mealData?.name, [Validators.required]),
-        label: this.formBuilder.control(this.mealData?.mealType, [
+      this.recipeData = JSON.parse(rawResponse);
+      console.log(this.recipeData);
+      this.recipeForm = this.formBuilder.group({
+        name: this.formBuilder.control(this.recipeData?.name, [Validators.required]),
+        label: this.formBuilder.control(this.recipeData?.mealType, [
           Validators.required,
         ]),
-        prepTime: this.formBuilder.control(this.mealData?.preparingTime, [
+        prepTime: this.formBuilder.control(this.recipeData?.preparingTime, [
           this.nonSupplementValidator.bind(this),
         ]),
-        cockingTime: this.formBuilder.control(this.mealData?.cookingTime, [
+        recipeTypeId: this.formBuilder.control(this.recipeData?.recipeTypeId, [
+        ]),
+        cockingTime: this.formBuilder.control(this.recipeData?.cookingTime, [
           this.nonSupplementValidator.bind(this),
         ]),
-        service: this.formBuilder.control(this.mealData?.service, [
+        service: this.formBuilder.control(this.recipeData?.service, [
           this.nonSupplementValidator.bind(this),
         ]),
-        // calories: this.formBuilder.control(this.mealData?.calories, [
-        //   this.nonSupplementValidator.bind(this),
-        // ]),
-        // carbs: this.formBuilder.control(this.mealData?.carbs, [
-        //   this.nonSupplementValidator.bind(this),
-        // ]),
-        // protein: this.formBuilder.control(this.mealData?.protein, [
-        //   this.nonSupplementValidator.bind(this),
-        // ]),
-        // fat: this.formBuilder.control(this.mealData?.fat, [
-        //   this.nonSupplementValidator.bind(this),
-        // ]),
-        steps: this.formBuilder.control(this.mealData?.steps, []),
-        allergies: this.formBuilder.control(this.mealData?.allergies, []),
+        steps: this.formBuilder.control(this.recipeData?.steps, []),
+        allergies: this.formBuilder.control(this.recipeData?.allergies, []),
         coverImage: this.formBuilder.control(
-          this.meal?.coverImage
+          this.recipe?.coverImage
             ? new Media({
-              url: this.meal.coverImage,
+              url: this.recipe.coverImage,
             })
             : null,
           []
         ),
       });
 
-      this.mealForm.setControl('ingredients', this.initializeIngredientFormGpt());
-      console.log(this.mealForm);
+      this.recipeForm.setControl('ingredients', this.initializeIngredientFormGpt());
+      console.log(this.recipeForm);
     } catch (err) {
-      this.error = 'Error fetching meal details. Please try again.';
+      this.error = 'Error fetching recipe details. Please try again.';
       console.error(err);
     } finally {
       this.loading = false;
     }
   }
   // end GPT
+
+  // Enums
+  recipeType = RecipeType;
+  recipeTypeKeys = recipeTypes;
+  selectedRecipeType:
+    | RecipeType.DairyFree
+    | RecipeType.GlutenFree
+    | RecipeType.LowCalorie
+    | RecipeType.LowCarb
+    | RecipeType.LowFat
+    | RecipeType.SugarFree
+    | RecipeType.Vegetarian
+    | RecipeType;
 
   // Enums
   mealType = MealType;
@@ -250,7 +255,7 @@ export class MealEditComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private mealService: MealService,
+    private recipeService: RecipeService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private store: Store,
@@ -261,142 +266,133 @@ export class MealEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.meal = new MealDetailsModel();
-    this.selectedMealType = MealType.Breakfast;
-    this.initializeMealForm();
+    this.recipe = new RecipeDetailsModel();
+    this.selectedRecipeType = RecipeType.DairyFree;
+    this.initializeRicipeForm();
 
     this.activatedRoute.params
       .pipe(
         untilDestroyed(this),
         map((p) => p['id']),
-        tap((mealId) => {
-          if (!mealId) {
+        tap((recipeId) => {
+          if (!recipeId) {
             return;
           }
 
-          this.loadMeal(mealId);
+          this.loadRecipe(recipeId);
         })
       )
       .subscribe();
   }
 
-  loadMeal(mealId) {
-    this.store.dispatch(new MealsActions.LoadMealDetails(mealId));
+  loadRecipe(recipeId) {
+    this.store.dispatch(new RecipesActions.LoadRecipeDetails(recipeId));
 
     this.store
-      .select(MealsState.lastLoadedMeal)
+      .select(RecipesState.lastLoadedRecipe)
       .pipe(untilDestroyed(this))
-      .subscribe((meal) => {
-        if (!meal?.id) {
+      .subscribe((recipe) => {
+        if (!recipe?.id) {
           return;
         }
 
-        this.selectedMealType = this.meal.mealType;
-        this.meal = meal;
-        this.initializeMealForm();
+        this.selectedRecipeType = this.recipe.recipeTypeId;
+        this.recipe = recipe;
+        this.initializeRicipeForm();
       });
   }
 
-  initializeMealForm() {
-    this.mealForm = this.formBuilder.group({
-      name: this.formBuilder.control(this.meal?.name, [Validators.required]),
-      label: this.formBuilder.control(this.meal?.mealType, [
+  initializeRicipeForm() {
+    this.recipeForm = this.formBuilder.group({
+      name: this.formBuilder.control(this.recipe?.name, [Validators.required]),
+      label: this.formBuilder.control(this.recipe?.mealType, [
         Validators.required,
       ]),
-      prepTime: this.formBuilder.control(this.meal?.preparingTime, [
+      prepTime: this.formBuilder.control(this.recipe?.preparingTime, [
         this.nonSupplementValidator.bind(this),
       ]),
-      cockingTime: this.formBuilder.control(this.meal?.cockingTime, [
+      recipeTypeId: this.formBuilder.control(this.recipe?.recipeTypeId, [
+      ]),
+      cockingTime: this.formBuilder.control(this.recipe?.cockingTime, [
         this.nonSupplementValidator.bind(this),
       ]),
-      service: this.formBuilder.control(this.meal?.service, [
+      service: this.formBuilder.control(this.recipe?.service, [
         this.nonSupplementValidator.bind(this),
       ]),
-      // calories: this.formBuilder.control(this.meal?.calories, [
-      //   this.nonSupplementValidator.bind(this),
-      // ]),
-      // carbs: this.formBuilder.control(this.meal?.carbs, [
-      //   this.nonSupplementValidator.bind(this),
-      // ]),
-      // protein: this.formBuilder.control(this.meal?.protein, [
-      //   this.nonSupplementValidator.bind(this),
-      // ]),
-      // fat: this.formBuilder.control(this.meal?.fat, [
-      //   this.nonSupplementValidator.bind(this),
-      // ]),
-      steps: this.formBuilder.control(this.meal?.mealSteps, []),
-      allergies: this.formBuilder.control(this.meal?.allergies, []),
+      steps: this.formBuilder.control(this.recipe?.recipeSteps, []),
+      allergies: this.formBuilder.control(this.recipe?.allergies, []),
       coverImage: this.formBuilder.control(
-        this.meal?.coverImage
+        this.recipe?.coverImage
           ? new Media({
-            url: this.meal.coverImage,
+            url: this.recipe.coverImage,
           })
           : null,
         []
       ),
     });
 
-    this.mealForm.setControl('ingredients', this.initializeIngredientForm());
+    this.recipeForm.setControl('ingredients', this.initializeIngredientForm());
   }
 
   submit() {
-    const meal: any = {
-      name: this.mealForm.value.name,
-      label: this.mealForm.value.label,
-      allergies: this.mealForm.value.allergies,
-      coverImage: this.mealForm.value.coverImage,
+    const recipe: any = {
+      name: this.recipeForm.value.name,
+      label: this.recipeForm.value.label,
+      recipeTypeId: this.recipeForm.value.recipeTypeId,
+      allergies: this.recipeForm.value.allergies,
+      coverImage: this.recipeForm.value.coverImage,
     };
 
-    if (meal.label != MealType.Supplements) {
-      meal.prepTime = this.mealForm.value.prepTime;
-      meal.cockingTime = this.mealForm.value.cockingTime;
-      meal.service = this.mealForm.value.service;
-      // meal.calories = this.mealForm.value.calories;
-      // meal.carbs = this.mealForm.value.carbs;
-      // meal.protein = this.mealForm.value.protein;
-      // meal.fat = this.mealForm.value.fat;
-      meal.steps = this.mealForm.value.steps;
-      meal.ingredients = [];
-      /*meal.ingredients = this.mealForm.value.ingredients;
-      if(this.mealForm.value.ingredients && this.mealForm.value.ingredients.length == 1 && this.mealForm.value.ingredients[0].quantity == null) {
-        meal.ingredients = null;
+    if (recipe.label != MealType.Breakfast) {
+      recipe.prepTime = this.recipeForm.value.prepTime;
+      recipe.cockingTime = this.recipeForm.value.cockingTime;
+      recipe.service = this.recipeForm.value.service;
+      // recipe.calories = this.recipeForm.value.calories;
+      // recipe.carbs = this.recipeForm.value.carbs;
+      // recipe.protein = this.recipeForm.value.protein;
+      // recipe.fat = this.recipeForm.value.fat;
+      recipe.steps = this.recipeForm.value.steps;
+      recipe.ingredients = [];
+      /*recipe.ingredients = this.recipeForm.value.ingredients;
+      if(this.recipeForm.value.ingredients && this.recipeForm.value.ingredients.length == 1 && this.recipeForm.value.ingredients[0].quantity == null) {
+        recipe.ingredients = null;
       }*/
-      if (this.mealForm.value.ingredients) {
-        for (let i = 0; i < this.mealForm.value.ingredients.length; i++) {
-          let ingredient = this.mealForm.value.ingredients[i];
+      if (this.recipeForm.value.ingredients) {
+        for (let i = 0; i < this.recipeForm.value.ingredients.length; i++) {
+          let ingredient = this.recipeForm.value.ingredients[i];
           if (ingredient.quantity != null && ingredient.unitType != null && ingredient.name != null) {
-            //meal.ingredients.splice(i,1);
-            meal.ingredients.push(ingredient);
+            //recipe.ingredients.splice(i,1);
+            recipe.ingredients.push(ingredient);
           }
         }
       }
     }
-    console.log(this.mealForm.value);
-    console.log(this.mealForm.value.ingredients);
-    console.log(meal.ingredients);
+    console.log(this.recipeForm.value);
+    console.log(this.recipeForm.value.ingredients);
+    console.log(recipe.ingredients);
 
-    if (this.meal.id) {
-      this.mealService
-        .put(this.meal.id, meal)
+    if (this.recipe.id) {
+      this.recipeService
+        .put(this.recipe.id, recipe)
         .pipe(untilDestroyed(this))
         .subscribe(async () => {
-          await this.router.navigateByUrl('meals/' + this.meal.id);
+          await this.router.navigateByUrl('recipes/' + this.recipe.id);
         });
       return;
     }
 
-    this.mealService
-      .post(meal)
+    this.recipeService
+      .post(recipe)
       .pipe(untilDestroyed(this))
       .subscribe(async (result) => {
-        await this.router.navigateByUrl('meals/' + result.data);
+        await this.router.navigateByUrl('recipes/' + result.data);
       });
   }
 
   initializeIngredientForm() {
     const controls =
-      this.meal?.ingredients && this.meal?.ingredients.length
-        ? this.meal.ingredients.map((value) =>
+      this.recipe?.ingredients && this.recipe?.ingredients.length
+        ? this.recipe.ingredients.map((value) =>
           this.createIngredientGroup(value)
         )
         : [this.createIngredientGroup()];
@@ -407,8 +403,8 @@ export class MealEditComponent implements OnInit {
 
   initializeIngredientFormGpt() {
     const controls =
-      this.mealData?.detailedIngredients && this.mealData?.detailedIngredients.length
-        ? this.mealData?.detailedIngredients.map((value) =>
+      this.recipeData?.detailedIngredients && this.recipeData?.detailedIngredients.length
+        ? this.recipeData?.detailedIngredients.map((value) =>
           this.createIngredientGroup(value)
         )
         : [this.createIngredientGroup()];
@@ -426,21 +422,21 @@ export class MealEditComponent implements OnInit {
   }
 
   searchIngredients(searchValue) {
-    this.ingredients$ = this.mealService.getIngredientsLookUp(searchValue).pipe(
+    this.ingredients$ = this.recipeService.getIngredientsLookUp(searchValue).pipe(
       untilDestroyed(this),
       map((result) => result.data)
     );
   }
 
   addIngredient(value: string) {
-    this.mealService
+    this.recipeService
       .postIngredients(value)
       .pipe(untilDestroyed(this))
       .subscribe();
   }
 
   nonSupplementValidator(control: AbstractControl) {
-    if (this.selectedMealType != MealType.Supplements) {
+    if (this.selectedMealType != MealType.Breakfast) {
       return control.value != null || control.value != undefined
         ? null
         : {};
@@ -451,7 +447,12 @@ export class MealEditComponent implements OnInit {
 
   mealTypeChanged($event: any) {
     this.selectedMealType = $event;
-    this.updateTreeValidity(this.mealForm);
+    this.updateTreeValidity(this.recipeForm);
+  }
+
+  recipeTypeChanged($event: any) {
+    this.selectedRecipeType = $event;
+    this.updateTreeValidity(this.recipeForm);
   }
 
   updateTreeValidity(group: FormGroup | FormArray): void {
