@@ -114,6 +114,8 @@ export class RecipeService {
     form.append('RecipeTypeId', value.label);
     if (value.cockingTime)
       form.append('CockingTime', value.cockingTime ?? null);
+    // console.log(value.isMealOfDay);
+    form.append('IsMealOfDay', value.isMealOfDay == true ? 'true' : 'false'); // here
 
     if (value.prepTime) form.append('PreparingTime', value.prepTime);
     const coverImage = value.coverImage?.file;
@@ -135,7 +137,7 @@ export class RecipeService {
       form.append(key + '.IngredientName', ingredient?.name);
       form.append(key + '.UnitType', ingredient?.unitType?.toString());
     });
-
+    // console.log(value.isMealOfDay);
     return form;
   }
   delete(id) {

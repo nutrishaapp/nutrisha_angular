@@ -20,11 +20,12 @@ import { RecipeDetailsComponent } from './recipe-details/recipe-details.componen
 import { RecipesListComponent } from './recipes-list/recipes-list.component';
 import { RecipeService } from 'src/app/core/recipes/recipe.service';
 import { RecipesState } from 'src/app/core/store/recipes/recipes.state';
-
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 @NgModule({
   declarations: [RecipeEditComponent, RecipesListComponent, RecipeDetailsComponent],
   exports: [],
   imports: [
+    MatSlideToggleModule,
     FormsModule,
     CommonModule,
     RecipesRoutingModule,

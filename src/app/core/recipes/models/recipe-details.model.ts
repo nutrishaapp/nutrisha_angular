@@ -10,6 +10,7 @@ export class RecipeDetailsModel {
   preparingTime: string;
   cockingTime: string;
   service: string;
+  isMealOfDay: boolean;
   ingredients: IngredientModel[];
   recipeSteps: string;
   allergies: string;

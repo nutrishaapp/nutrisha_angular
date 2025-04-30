@@ -235,6 +235,7 @@
   },
   "MEALS": {
     "RECIPES": "Recipes",
+    "Recipe_of_The_Day": "Recipe of The Day",
     "RECIPES_NAME": "Recipes Name",
     "NAV_TITLE": "Meals",
     "NAME": "Meal Name",
