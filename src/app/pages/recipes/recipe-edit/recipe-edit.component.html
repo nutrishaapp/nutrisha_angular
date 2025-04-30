@@ -20,6 +20,12 @@
   <button *ngIf="loading" class="btn btn-dark mx-3" (click)="searchRecipe()"><span class="spinner-border spinner-border-sm"></span>
     {{ "SHARED.LOADING" | translate }}...</button>
   <button *ngIf="!loading" class="btn btn-outline-danger" (click)="reloadCurrentRoute()">{{ "SHARED.CANCEL" | translate }}</button>
+
+  <mat-slide-toggle  class="recipe-switch" [checked]="isChecked" (change)="onToggle($event)">
+    <mat-label class="h5 text-dark">{{ "MEALS.Recipe_of_The_Day" | translate }}</mat-label>
+    <!-- {{ isChecked }} -->
+  </mat-slide-toggle>
+
   <div *ngIf="error" class="error">{{ "VALIDATION_ERRORS.INVALID_VALUE" | translate }}</div>
 </div>
 <h2 *ngIf="recipe?.id" class="mx-4 pt-4">{{ "PERMISSIONS.canEditRecipes" | translate }}</h2>
@@ -47,7 +53,7 @@
           "VALIDATION_ERRORS.INVALID_VALUE" | translate
         }}</mat-error>
       </mat-form-field>
-
+  
       <div class="w-100">
         <app-attachment-button
           formControlName="coverImage"

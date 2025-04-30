@@ -235,6 +235,7 @@
   },
   "MEALS": {
     "RECIPES": "الوصفات",
+    "Recipe_of_The_Day": "وصفة اليوم",
     "RECIPES_NAME": "أسماء الوصفات",
     "NAV_TITLE": "الوجبات",
     "NAME": "إسم الوجبة",

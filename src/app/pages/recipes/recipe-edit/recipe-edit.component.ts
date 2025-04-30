@@ -24,7 +24,7 @@ import { RecipesActions } from 'src/app/core/store/recipes/recipes.action';
 import { RecipesState } from 'src/app/core/store/recipes/recipes.state';
 import { RecipeType, recipeTypes } from 'src/app/core/recipes/models/recipe-type.enum';
 import { MealType, mealTypes } from 'src/app/core/recipes/models/meal-type.enum';
-
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 
 @UntilDestroy()
 @Component({
@@ -37,6 +37,20 @@ export class RecipeEditComponent implements OnInit {
   recipeForm: FormGroup;
 
   ingredientsForm: FormArray;
+
+  isChecked: boolean = false;
+
+  onToggle(event: MatSlideToggleChange) {
+    const isChecked = event.checked;
+
+    // Update label
+    this.isChecked = isChecked ? true : false;
+
+    // Send data to API
+    const payload = { status: isChecked };
+    this.isChecked = payload.status;
+    console.log(payload.status)
+  }
 
 
   // Start GPT
@@ -192,6 +206,8 @@ export class RecipeEditComponent implements OnInit {
         ]),
         recipeTypeId: this.formBuilder.control(this.recipeData?.recipeTypeId, [
         ]),
+        isMealOfDay: this.formBuilder.control(this.recipeData?.isMealOfDay, [
+        ]),
         cockingTime: this.formBuilder.control(this.recipeData?.cookingTime, [
           this.nonSupplementValidator.bind(this),
         ]),
@@ -261,6 +277,7 @@ export class RecipeEditComponent implements OnInit {
     private store: Store,
   ) { }
 
+
   reloadCurrentRoute(): void {
     window.location.reload();
   }
@@ -313,6 +330,8 @@ export class RecipeEditComponent implements OnInit {
       ]),
       recipeTypeId: this.formBuilder.control(this.recipe?.recipeTypeId, [
       ]),
+      isMealOfDay: this.formBuilder.control(this.recipe?.isMealOfDay, [
+      ]),
       cockingTime: this.formBuilder.control(this.recipe?.cockingTime, [
         this.nonSupplementValidator.bind(this),
       ]),
@@ -332,11 +351,13 @@ export class RecipeEditComponent implements OnInit {
     });
 
     this.recipeForm.setControl('ingredients', this.initializeIngredientForm());
+    this.isChecked = this.recipe?.isMealOfDay;
   }
 
   submit() {
     const recipe: any = {
       name: this.recipeForm.value.name,
+      isMealOfDay: this.isChecked,
       label: this.recipeForm.value.label,
       recipeTypeId: this.recipeForm.value.recipeTypeId,
       allergies: this.recipeForm.value.allergies,
