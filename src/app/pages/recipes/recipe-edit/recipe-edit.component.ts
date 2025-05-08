@@ -70,14 +70,36 @@ export class RecipeEditComponent implements OnInit {
 
 
 
+  // search() {
+  //   this.recipeService.searchImages(this.recipeName).subscribe(
+  //     (data: any) => {
+  //       this.results = data.items.map((item: any, index: number) => ({
+  //         id: index + 1,
+  //         title: item.title,
+  //         url: item.link,
+  //       }));
+  //       console.log(this.results);
+  //       this.selectedImageUrl = null; // إعادة تعيين الصورة المحددة عند إجراء بحث جديد
+  //     },
+  //     (error) => {
+  //       console.error('حدث خطأ أثناء البحث:', error);
+  //     }
+  //   );
+  // }
+
   search() {
     this.recipeService.searchImages(this.recipeName).subscribe(
       (data: any) => {
-        this.results = data.items.map((item: any, index: number) => ({
-          id: index + 1,
-          title: item.title,
-          url: item.link,
-        }));
+        this.results = data.items
+          .filter((item: any) =>
+            !item.link.toLowerCase().includes('lookaside') &&
+            /.(jpe?g|png)$/i.test(item.link)
+          )
+          .map((item: any, index: number) => ({
+            id: index + 1,
+            title: item.title,
+            url: item.link,
+          }));
         console.log(this.results);
         this.selectedImageUrl = null; // إعادة تعيين الصورة المحددة عند إجراء بحث جديد
       },
