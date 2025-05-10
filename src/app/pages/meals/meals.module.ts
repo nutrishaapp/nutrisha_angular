@@ -20,11 +20,15 @@ import { MealService } from '../../core/meals/meal.service';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatIconModule } from '@angular/material/icon';
+import { MatRadioModule } from '@angular/material/radio';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 
 @NgModule({
   declarations: [MealEditComponent, MealsListComponent, MealDetailsComponent],
   exports: [],
   imports: [
+    MatSlideToggleModule,
+    MatRadioModule,
     FormsModule,
     CommonModule,
     MealsRoutingModule,

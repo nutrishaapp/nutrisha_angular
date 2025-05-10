@@ -23,6 +23,7 @@ import { MealsState } from '../../../core/store/meals/meals.state';
 import { Media } from '../../../core/shared';
 import axios from 'axios';
 import { environment } from 'src/environments/environment';
+import { MatSlideToggleChange } from '@angular/material/slide-toggle';
 
 
 @UntilDestroy()
@@ -36,7 +37,19 @@ export class MealEditComponent implements OnInit {
   mealForm: FormGroup;
 
   ingredientsForm: FormArray;
+  isChecked: boolean = false;
 
+  onToggle(event: MatSlideToggleChange) {
+    const isChecked = event.checked;
+
+    // Update label
+    this.isChecked = isChecked ? true : false;
+
+    // Send data to API
+    const payload = { status: isChecked };
+    this.isChecked = payload.status;
+    console.log(payload.status)
+  }
 
   // Start GPT
 
@@ -53,24 +66,6 @@ export class MealEditComponent implements OnInit {
   results: any[] = [];
   selectedImageUrl: string | null = null;
 
-
-
-  // search() {
-  //   this.mealService.searchImages(this.mealName).subscribe(
-  //     (data: any) => {
-  //       this.results = data.items.map((item: any, index: number) => ({
-  //         id: index + 1,
-  //         title: item.title,
-  //         url: item.link,
-  //       }));
-  //       console.log(this.results);
-  //       this.selectedImageUrl = null; // إعادة تعيين الصورة المحددة عند إجراء بحث جديد
-  //     },
-  //     (error) => {
-  //       console.error('حدث خطأ أثناء البحث:', error);
-  //     }
-  //   );
-  // }
 
   search() {
     this.mealService.searchImages(this.mealName).subscribe(
@@ -186,6 +181,7 @@ export class MealEditComponent implements OnInit {
                  - coverImage 
                  - steps (each step on a separate line and next step in the next line and It is written in the form of dots (1-2-3) and not in one block)
                  - allergies (without Contains word only allergies )
+                 - isEnglish (If "${nameToSearch}" is in Arabic, the result will be "false" and If "${nameToSearch}" is in English, the result will be "true")
                  - detailedIngredients (with quantity,unitType (0,1,2,3,4,5,6,7) where (0=Liter,1=Cup,2=Tbs,3=Tsp,4=kg,5=Gram,6=Slice,7=Piece),ingredientName(without unitType and quantity or word Cup of and Tsp of only name like oil or salt))`
             }
           ],
@@ -202,10 +198,15 @@ export class MealEditComponent implements OnInit {
       const rawResponse = response.data.choices[0].message.content.trim();
       this.mealData = JSON.parse(rawResponse);
       console.log(this.mealData);
+      if (this.mealData) {
+        this.isChecked = this.mealData?.isEnglish;
+      }
       this.mealForm = this.formBuilder.group({
         name: this.formBuilder.control(this.mealData?.name, [Validators.required]),
         label: this.formBuilder.control(this.mealData?.mealType, [
           Validators.required,
+        ]),
+        isEnglish: this.formBuilder.control(this.mealData?.isEnglish, [
         ]),
         prepTime: this.formBuilder.control(this.mealData?.preparingTime, [
           this.nonSupplementValidator.bind(this),
@@ -216,18 +217,6 @@ export class MealEditComponent implements OnInit {
         service: this.formBuilder.control(this.mealData?.service, [
           this.nonSupplementValidator.bind(this),
         ]),
-        // calories: this.formBuilder.control(this.mealData?.calories, [
-        //   this.nonSupplementValidator.bind(this),
-        // ]),
-        // carbs: this.formBuilder.control(this.mealData?.carbs, [
-        //   this.nonSupplementValidator.bind(this),
-        // ]),
-        // protein: this.formBuilder.control(this.mealData?.protein, [
-        //   this.nonSupplementValidator.bind(this),
-        // ]),
-        // fat: this.formBuilder.control(this.mealData?.fat, [
-        //   this.nonSupplementValidator.bind(this),
-        // ]),
         steps: this.formBuilder.control(this.mealData?.steps, []),
         allergies: this.formBuilder.control(this.mealData?.allergies, []),
         coverImage: this.formBuilder.control(
@@ -325,6 +314,8 @@ export class MealEditComponent implements OnInit {
       label: this.formBuilder.control(this.meal?.mealType, [
         Validators.required,
       ]),
+      isEnglish: this.formBuilder.control(this.meal?.isEnglish, [
+      ]),
       prepTime: this.formBuilder.control(this.meal?.preparingTime, [
         this.nonSupplementValidator.bind(this),
       ]),
@@ -334,18 +325,6 @@ export class MealEditComponent implements OnInit {
       service: this.formBuilder.control(this.meal?.service, [
         this.nonSupplementValidator.bind(this),
       ]),
-      // calories: this.formBuilder.control(this.meal?.calories, [
-      //   this.nonSupplementValidator.bind(this),
-      // ]),
-      // carbs: this.formBuilder.control(this.meal?.carbs, [
-      //   this.nonSupplementValidator.bind(this),
-      // ]),
-      // protein: this.formBuilder.control(this.meal?.protein, [
-      //   this.nonSupplementValidator.bind(this),
-      // ]),
-      // fat: this.formBuilder.control(this.meal?.fat, [
-      //   this.nonSupplementValidator.bind(this),
-      // ]),
       steps: this.formBuilder.control(this.meal?.mealSteps, []),
       allergies: this.formBuilder.control(this.meal?.allergies, []),
       coverImage: this.formBuilder.control(
@@ -359,11 +338,13 @@ export class MealEditComponent implements OnInit {
     });
 
     this.mealForm.setControl('ingredients', this.initializeIngredientForm());
+    this.isChecked = this.meal?.isEnglish;
   }
 
   submit() {
     const meal: any = {
       name: this.mealForm.value.name,
+      isEnglish: this.isChecked,
       label: this.mealForm.value.label,
       allergies: this.mealForm.value.allergies,
       coverImage: this.mealForm.value.coverImage,
@@ -373,16 +354,8 @@ export class MealEditComponent implements OnInit {
       meal.prepTime = this.mealForm.value.prepTime;
       meal.cockingTime = this.mealForm.value.cockingTime;
       meal.service = this.mealForm.value.service;
-      // meal.calories = this.mealForm.value.calories;
-      // meal.carbs = this.mealForm.value.carbs;
-      // meal.protein = this.mealForm.value.protein;
-      // meal.fat = this.mealForm.value.fat;
       meal.steps = this.mealForm.value.steps;
       meal.ingredients = [];
-      /*meal.ingredients = this.mealForm.value.ingredients;
-      if(this.mealForm.value.ingredients && this.mealForm.value.ingredients.length == 1 && this.mealForm.value.ingredients[0].quantity == null) {
-        meal.ingredients = null;
-      }*/
       if (this.mealForm.value.ingredients) {
         for (let i = 0; i < this.mealForm.value.ingredients.length; i++) {
           let ingredient = this.mealForm.value.ingredients[i];

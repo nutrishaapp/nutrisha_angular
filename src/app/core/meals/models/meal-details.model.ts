@@ -9,6 +9,7 @@ export class MealDetailsModel {
   cockingTime: string;
   service: string;
   ingredients: IngredientModel[];
+  isEnglish: boolean;
   mealSteps: string;
   allergies: string;
   calories: string;
