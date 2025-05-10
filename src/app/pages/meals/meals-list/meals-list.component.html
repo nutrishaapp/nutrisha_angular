@@ -21,7 +21,7 @@
   [class.selected-filter]="selectedFilter == 'IsEnglish' && selectedFilterValue == 'true'"
   (click)="selectedFilter = 'IsEnglish'; selectedFilterValue = 'true'; loadArticles()"
 >
-  English
+   {{ "LANGUAGES.ENGLISH_CODE" | translate }}
 </span>
 
 <span
@@ -29,7 +29,7 @@
   [class.selected-filter]="selectedFilter == 'IsEnglish' && selectedFilterValue == 'false'"
   (click)="selectedFilter = 'IsEnglish'; selectedFilterValue = 'false'; loadArticles()"
 >
-  Arabic
+  {{ "LANGUAGES.ARABIC_CODE" | translate }}
 </span>
 
     </ng-container>

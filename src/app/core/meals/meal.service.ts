@@ -112,7 +112,8 @@ export class MealService {
     form.append('MealType', value.label);
     if (value.cockingTime)
       form.append('CockingTime', value.cockingTime ?? null);
-
+    // console.log(value.isEnglish);
+    form.append('IsEnglish', value.isEnglish == true ? 'true' : 'false'); // here
     if (value.prepTime) form.append('PreparingTime', value.prepTime);
     const coverImage = value.coverImage?.file;
 
