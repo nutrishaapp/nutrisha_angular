@@ -7,6 +7,32 @@
       [withAddButton]="true"
       headerTitle="{{ 'MEALS.RECIPES' | translate }}"
     >
+    <ng-container id="customFilter">
+      <span
+  class="custom-filter"
+  [class.selected-filter]="selectedFilter == null"
+  (click)="selectedFilter = null; loadArticles()"
+>
+  {{ "SHARED.ALL" | translate }}
+</span>
+
+<span
+  class="custom-filter"
+  [class.selected-filter]="selectedFilter == 'IsEnglish' && selectedFilterValue == 'true'"
+  (click)="selectedFilter = 'IsEnglish'; selectedFilterValue = 'true'; loadArticles()"
+>
+   {{ "LANGUAGES.ENGLISH_CODE" | translate }}
+</span>
+
+<span
+  class="custom-filter"
+  [class.selected-filter]="selectedFilter == 'IsEnglish' && selectedFilterValue == 'false'"
+  (click)="selectedFilter = 'IsEnglish'; selectedFilterValue = 'false'; loadArticles()"
+>
+  {{ "LANGUAGES.ARABIC_CODE" | translate }}
+</span>
+
+    </ng-container>
     </app-list-header>
 
     <div *ngIf="recipes$ | async; let recipes">

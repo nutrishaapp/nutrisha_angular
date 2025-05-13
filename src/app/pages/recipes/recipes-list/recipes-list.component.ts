@@ -28,9 +28,14 @@ export class RecipesListComponent implements OnInit {
 
   recipeType = RecipeType;
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  queryParams = new PagedListQueryModel({});
 
   search$ = new Subject<string>();
   searchWord: string;
+  isEnglish: string = 'false';
+
+  selectedFilter: string | null = null;
+  selectedFilterValue: string = '';
 
   // Store
   @Select(RecipesState.lastPage) recipes$: Observable<RecipeListModel[]>;
@@ -54,16 +59,19 @@ export class RecipesListComponent implements OnInit {
   }
 
   loadArticles() {
+    this.prepareQueryParams();
     this.store.dispatch(
-      new RecipesActions.LoadRecipesPage(this.prepareQueryParams())
+      new RecipesActions.LoadRecipesPage(this.queryParams)
     );
   }
 
   prepareQueryParams() {
-    return new PagedListQueryModel({
-      pageNumber: this.paginator.pageIndex,
-      pageSize: this.paginator.pageSize,
-      searchWord: this.searchWord,
-    });
+    this.queryParams.pageNumber = this.paginator.pageIndex;
+    this.queryParams.pageSize = this.paginator.pageSize;
+    this.queryParams.searchWord = this.searchWord;
+
+    this.queryParams.customFilters = this.selectedFilter
+      ? new Map<string, any>([[this.selectedFilter, this.selectedFilterValue]])
+      : null;
   }
 }
