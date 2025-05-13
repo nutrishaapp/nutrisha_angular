@@ -12,6 +12,7 @@ export class RecipeDetailsModel {
   service: string;
   isMealOfDay: boolean;
   ingredients: IngredientModel[];
+  isEnglish: boolean;
   recipeSteps: string;
   allergies: string;
   calories: string;

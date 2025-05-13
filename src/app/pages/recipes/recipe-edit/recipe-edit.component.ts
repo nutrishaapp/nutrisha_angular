@@ -39,6 +39,8 @@ export class RecipeEditComponent implements OnInit {
   ingredientsForm: FormArray;
 
   isChecked: boolean = false;
+  isCheckedRecipe: boolean = false;
+
 
   onToggle(event: MatSlideToggleChange) {
     const isChecked = event.checked;
@@ -49,6 +51,18 @@ export class RecipeEditComponent implements OnInit {
     // Send data to API
     const payload = { status: isChecked };
     this.isChecked = payload.status;
+    console.log(payload.status)
+  }
+
+  onToggleRecipe(event: MatSlideToggleChange) {
+    const isCheckedRecipe = event.checked;
+
+    // Update label
+    this.isCheckedRecipe = isCheckedRecipe ? true : false;
+
+    // Send data to API
+    const payload = { status: isCheckedRecipe };
+    this.isCheckedRecipe = payload.status;
     console.log(payload.status)
   }
 
@@ -68,24 +82,6 @@ export class RecipeEditComponent implements OnInit {
   results: any[] = [];
   selectedImageUrl: string | null = null;
 
-
-
-  // search() {
-  //   this.recipeService.searchImages(this.recipeName).subscribe(
-  //     (data: any) => {
-  //       this.results = data.items.map((item: any, index: number) => ({
-  //         id: index + 1,
-  //         title: item.title,
-  //         url: item.link,
-  //       }));
-  //       console.log(this.results);
-  //       this.selectedImageUrl = null; // إعادة تعيين الصورة المحددة عند إجراء بحث جديد
-  //     },
-  //     (error) => {
-  //       console.error('حدث خطأ أثناء البحث:', error);
-  //     }
-  //   );
-  // }
 
   search() {
     this.recipeService.searchImages(this.recipeName).subscribe(
@@ -202,6 +198,7 @@ export class RecipeEditComponent implements OnInit {
                  - coverImage 
                  - steps (each step on a separate line and next step in the next line and It is written in the form of dots (1-2-3) and not in one block)
                  - allergies (without Contains word only allergies )
+                 - isEnglish (If "${nameToSearch}" is in Arabic, the result will be "false" and If "${nameToSearch}" is in English, the result will be "true")
                  - detailedIngredients (with quantity,unitType (0,1,2,3,4,5,6,7) where (0=Liter,1=Cup,2=Tbs,3=Tsp,4=kg,5=Gram,6=Slice,7=Piece),ingredientName(without unitType and quantity or word Cup of and Tsp of only name like oil or salt))`
             }
           ],
@@ -218,10 +215,15 @@ export class RecipeEditComponent implements OnInit {
       const rawResponse = response.data.choices[0].message.content.trim();
       this.recipeData = JSON.parse(rawResponse);
       console.log(this.recipeData);
+      if (this.recipeData) {
+        this.isCheckedRecipe = this.recipeData?.isEnglish;
+      }
       this.recipeForm = this.formBuilder.group({
         name: this.formBuilder.control(this.recipeData?.name, [Validators.required]),
         label: this.formBuilder.control(this.recipeData?.mealType, [
           Validators.required,
+        ]),
+        isEnglish: this.formBuilder.control(this.recipeData?.isEnglish, [
         ]),
         prepTime: this.formBuilder.control(this.recipeData?.preparingTime, [
           this.nonSupplementValidator.bind(this),
@@ -347,6 +349,8 @@ export class RecipeEditComponent implements OnInit {
       label: this.formBuilder.control(this.recipe?.mealType, [
         Validators.required,
       ]),
+      isEnglish: this.formBuilder.control(this.recipe?.isEnglish, [
+      ]),
       prepTime: this.formBuilder.control(this.recipe?.preparingTime, [
         this.nonSupplementValidator.bind(this),
       ]),
@@ -374,11 +378,13 @@ export class RecipeEditComponent implements OnInit {
 
     this.recipeForm.setControl('ingredients', this.initializeIngredientForm());
     this.isChecked = this.recipe?.isMealOfDay;
+    this.isCheckedRecipe = this.recipe?.isEnglish;
   }
 
   submit() {
     const recipe: any = {
       name: this.recipeForm.value.name,
+      isEnglish: this.isCheckedRecipe,
       isMealOfDay: this.isChecked,
       label: this.recipeForm.value.label,
       recipeTypeId: this.recipeForm.value.recipeTypeId,
@@ -390,16 +396,8 @@ export class RecipeEditComponent implements OnInit {
       recipe.prepTime = this.recipeForm.value.prepTime;
       recipe.cockingTime = this.recipeForm.value.cockingTime;
       recipe.service = this.recipeForm.value.service;
-      // recipe.calories = this.recipeForm.value.calories;
-      // recipe.carbs = this.recipeForm.value.carbs;
-      // recipe.protein = this.recipeForm.value.protein;
-      // recipe.fat = this.recipeForm.value.fat;
       recipe.steps = this.recipeForm.value.steps;
       recipe.ingredients = [];
-      /*recipe.ingredients = this.recipeForm.value.ingredients;
-      if(this.recipeForm.value.ingredients && this.recipeForm.value.ingredients.length == 1 && this.recipeForm.value.ingredients[0].quantity == null) {
-        recipe.ingredients = null;
-      }*/
       if (this.recipeForm.value.ingredients) {
         for (let i = 0; i < this.recipeForm.value.ingredients.length; i++) {
           let ingredient = this.recipeForm.value.ingredients[i];

@@ -114,7 +114,8 @@ export class RecipeService {
     form.append('RecipeTypeId', value.label);
     if (value.cockingTime)
       form.append('CockingTime', value.cockingTime ?? null);
-    // console.log(value.isMealOfDay);
+    // console.log(value.isEnglish);
+    form.append('IsEnglish', value.isEnglish == true ? 'true' : 'false'); // here
     form.append('IsMealOfDay', value.isMealOfDay == true ? 'true' : 'false'); // here
 
     if (value.prepTime) form.append('PreparingTime', value.prepTime);
