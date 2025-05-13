@@ -21,7 +21,7 @@
     {{ "SHARED.LOADING" | translate }}...</button>
   <button *ngIf="!loading" class="btn btn-outline-danger" (click)="reloadCurrentRoute()">{{ "SHARED.CANCEL" | translate }}</button>
 
- <mat-slide-toggle  class="recipe-switch" [checked]="isCheckedRecipe" (change)="onToggle($event)">
+ <mat-slide-toggle  class="recipe-switch" [checked]="isCheckedRecipe" (change)="onToggleRecipe($event)">
     <mat-label class="h5 text-dark">{{ "LANGUAGES.ENGLISH_CODE" | translate }}</mat-label>
   </mat-slide-toggle>
 
