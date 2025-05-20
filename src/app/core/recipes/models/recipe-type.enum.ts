@@ -1,11 +1,11 @@
 export enum RecipeType {
-    DairyFree = 0,
-    GlutenFree = 1,
-    LowFat = 2,
-    LowCarb = 3,
-    LowCalorie = 4,
-    SugarFree = 5,
-    Vegetarian = 6,
+    DairyFree = 1,
+    GlutenFree = 2,
+    LowFat = 3,
+    LowCarb = 4,
+    LowCalorie = 5,
+    SugarFree = 6,
+    Vegetarian = 7,
 }
 
 export const getMealTypeByKey = (key: string) => {

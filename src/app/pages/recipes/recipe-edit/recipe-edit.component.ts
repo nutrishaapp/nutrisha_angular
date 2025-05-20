@@ -190,8 +190,8 @@ export class RecipeEditComponent implements OnInit {
               content: `Provide details about the meal "${nameToSearch}" in JSON format only without text after or before or json word and If "${nameToSearch}" is in Arabic, the result will be in Arabic and If "${nameToSearch}" is in English, the result will be in English , including:
                  - id
                  - name
-                 - mealType (0,1,2,3,4,5,6,7,8) where (0=Breakfast,1=Lunch,2=Dinner,3=Snacks,4=Supplements,5=Recommended,6=DeliciousSnack,7=SomethingSpicy,8=SomethingSweet)
-                 - RecipeTypeId (0,1,2,3,4,5,6) where (0=DairyFree,1=GlutenFree,2=LowFat,3=LowCarb,4=LowCalorie,5=SugarFree,6=Vegetarian)
+                 - label (0,1,2,3,4,5,6,7,8) where (0=Breakfast,1=Lunch,2=Dinner,3=Snacks,4=Supplements,5=Recommended,6=DeliciousSnack,7=SomethingSpicy,8=SomethingSweet)
+                 - labelRecipe (1,2,3,4,5,6,7) where (1=DairyFree,2=GlutenFree,3=LowFat,4=LowCarb,5=LowCalorie,6=SugarFree,7=Vegetarian)
                  - cookingTime (type min word instead minutes word after cookingTime and If "${nameToSearch}" is in Arabic, the result will be in Arabic and If "${nameToSearch}" is in English, the result will be in English)
                  - service (This recipe feeds how many people? Example: "one and 2 others" and If "${nameToSearch}" is in Arabic, the result will be in Arabic and If "${nameToSearch}" is in English, the result will be in English)
                  - preparingTime (If "${nameToSearch}" is in Arabic, the result will be in Arabic and If "${nameToSearch}" is in English, the result will be in English)
@@ -220,10 +220,10 @@ export class RecipeEditComponent implements OnInit {
       }
       this.recipeForm = this.formBuilder.group({
         name: this.formBuilder.control(this.recipeData?.name, [Validators.required]),
-        label: this.formBuilder.control(this.recipeData?.mealType, [
+        label: this.formBuilder.control(this.recipeData?.label, [
           Validators.required,
         ]),
-        labelRecipe: this.formBuilder.control(this.recipeData?.recipeTypeId, [
+        labelRecipe: this.formBuilder.control(this.recipeData?.labelRecipe, [
           Validators.required,
         ]),
         isEnglish: this.formBuilder.control(this.recipeData?.isEnglish, [
