@@ -225,7 +225,7 @@ export class RecipeEditComponent implements OnInit {
         ]),
         labelRecipe: this.formBuilder.control(this.recipeData?.labelRecipe, [
           Validators.required,
-        ]),
+        ]),// fixed
         isEnglish: this.formBuilder.control(this.recipeData?.isEnglish, [
         ]),
         prepTime: this.formBuilder.control(this.recipeData?.preparingTime, [
