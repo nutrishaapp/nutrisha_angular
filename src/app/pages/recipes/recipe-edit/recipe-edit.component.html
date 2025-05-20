@@ -104,7 +104,7 @@
           formControlName="label"
           (valueChange)="mealTypeChanged($event)"
         >
-          <mat-option *ngFor="let type of recipeTypeKeys" [value]="type">
+          <mat-option *ngFor="let type of mealTypeKeys" [value]="type">
             {{ "MEALS.MEAL_TYPE_ENUM." + type.toString() | translate }}
           </mat-option>
         </mat-select>
@@ -113,7 +113,7 @@
       <mat-form-field class="w-100">
         <mat-label>{{ "MEALS.LABEL_RECIPE" | translate }}</mat-label>
         <mat-select
-          formControlName="label"
+          formControlName="labelRecipe"
           (valueChange)="recipeTypeChanged($event)"
         >
           <mat-option *ngFor="let type of recipeTypeKeys" [value]="type">

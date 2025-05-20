@@ -223,13 +223,16 @@ export class RecipeEditComponent implements OnInit {
         label: this.formBuilder.control(this.recipeData?.mealType, [
           Validators.required,
         ]),
+        labelRecipe: this.formBuilder.control(this.recipeData?.recipeTypeId, [
+          Validators.required,
+        ]),
         isEnglish: this.formBuilder.control(this.recipeData?.isEnglish, [
         ]),
         prepTime: this.formBuilder.control(this.recipeData?.preparingTime, [
           this.nonSupplementValidator.bind(this),
         ]),
-        recipeTypeId: this.formBuilder.control(this.recipeData?.recipeTypeId, [
-        ]),
+        // recipeTypeId: this.formBuilder.control(this.recipeData?.recipeTypeId, [
+        // ]),
         isMealOfDay: this.formBuilder.control(this.recipeData?.isMealOfDay, [
         ]),
         cockingTime: this.formBuilder.control(this.recipeData?.cookingTime, [
@@ -349,13 +352,16 @@ export class RecipeEditComponent implements OnInit {
       label: this.formBuilder.control(this.recipe?.mealType, [
         Validators.required,
       ]),
+      labelRecipe: this.formBuilder.control(this.recipe?.recipeTypeId, [
+        Validators.required,
+      ]),
       isEnglish: this.formBuilder.control(this.recipe?.isEnglish, [
       ]),
       prepTime: this.formBuilder.control(this.recipe?.preparingTime, [
         this.nonSupplementValidator.bind(this),
       ]),
-      recipeTypeId: this.formBuilder.control(this.recipe?.recipeTypeId, [
-      ]),
+      // recipeTypeId: this.formBuilder.control(this.recipe?.recipeTypeId, [
+      // ]),
       isMealOfDay: this.formBuilder.control(this.recipe?.isMealOfDay, [
       ]),
       cockingTime: this.formBuilder.control(this.recipe?.cockingTime, [
@@ -387,7 +393,8 @@ export class RecipeEditComponent implements OnInit {
       isEnglish: this.isCheckedRecipe,
       isMealOfDay: this.isChecked,
       label: this.recipeForm.value.label,
-      recipeTypeId: this.recipeForm.value.recipeTypeId,
+      labelRecipe: this.recipeForm.value.labelRecipe,
+      // recipeTypeId: this.recipeForm.value.recipeTypeId,
       allergies: this.recipeForm.value.allergies,
       coverImage: this.recipeForm.value.coverImage,
     };
