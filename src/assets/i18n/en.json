@@ -287,9 +287,9 @@
     "RECIPE_TYPE_ENUM": {
       "1": "DairyFree",
       "2": "GlutenFree",
-      "3": "LowCalorie",
+      "3": "LowFat",
       "4": "LowCarb",
-      "5": "LowFat",
+      "5": "LowCalorie",
       "6": "SugarFree",
       "7": "Vegetarian"
     },
