@@ -61,7 +61,7 @@
           </th>
           <td *matCellDef="let element" mat-cell>
             {{
-              (recipeType[element.mealType] | uppercase)
+              (recipeType[element.recipeTypeId] | uppercase)
                 | translate
             }}
           </td>

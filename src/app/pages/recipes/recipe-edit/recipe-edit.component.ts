@@ -399,7 +399,7 @@ export class RecipeEditComponent implements OnInit {
       coverImage: this.recipeForm.value.coverImage,
     };
 
-    if (recipe.label != MealType.Breakfast) {
+    if (recipe.labelRecipe != MealType.Breakfast) {
       recipe.prepTime = this.recipeForm.value.prepTime;
       recipe.cockingTime = this.recipeForm.value.cockingTime;
       recipe.service = this.recipeForm.value.service;
