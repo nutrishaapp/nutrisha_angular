@@ -191,7 +191,7 @@ export class RecipeEditComponent implements OnInit {
                  - id
                  - name
                  - label (0,1,2,3,4,5,6,7,8) where (0=Breakfast,1=Lunch,2=Dinner,3=Snacks,4=Supplements,5=Recommended,6=DeliciousSnack,7=SomethingSpicy,8=SomethingSweet)
-                 - labelRecipe (1,2,3,4,5,6,7) where (1=DairyFree,2=GlutenFree,3=LowFat,4=LowCarb,5=LowCalorie,6=SugarFree,7=Vegetarian)
+                 - labelRecipe (1,2,3,4,5,6,7) where (1=DairyFree,2=GlutenFree,3=LowFat,4=LowCarb,5=LowCalorie,6=SugarFree,7=Vegetarian,8=HighProtein)
                  - cookingTime (type min word instead minutes word after cookingTime and If "${nameToSearch}" is in Arabic, the result will be in Arabic and If "${nameToSearch}" is in English, the result will be in English)
                  - service (This recipe feeds how many people? Example: "one and 2 others" and If "${nameToSearch}" is in Arabic, the result will be in Arabic and If "${nameToSearch}" is in English, the result will be in English)
                  - preparingTime (If "${nameToSearch}" is in Arabic, the result will be in Arabic and If "${nameToSearch}" is in English, the result will be in English)
@@ -275,6 +275,7 @@ export class RecipeEditComponent implements OnInit {
     | RecipeType.LowFat
     | RecipeType.SugarFree
     | RecipeType.Vegetarian
+    | RecipeType.HighProtein
     | RecipeType;
 
   // Enums

@@ -291,7 +291,8 @@
       "4": "LowCarb",
       "5": "LowCalorie",
       "6": "SugarFree",
-      "7": "Vegetarian"
+      "7": "Vegetarian",
+      "8": "HighProtein"
     },
     "MEAL_UNIT_TYPE": {
       "Liter": "Liter",

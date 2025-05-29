@@ -6,6 +6,7 @@ export enum RecipeType {
     LowCalorie = 5,
     SugarFree = 6,
     Vegetarian = 7,
+    HighProtein = 8
 }
 
 export const getMealTypeByKey = (key: string) => {
@@ -21,4 +22,5 @@ export const recipeTypes: RecipeType[] = [
     RecipeType.LowCalorie,
     RecipeType.SugarFree,
     RecipeType.Vegetarian,
+    RecipeType.HighProtein
 ];
